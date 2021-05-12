@@ -1,7 +1,7 @@
 {
   "name": "stockton_ems_member",
   "version": "1.0.0",
-  "description": "The private member website for Stockton EMS Members",
+  "description": "The public version of the private member website for Stockton EMS Members",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

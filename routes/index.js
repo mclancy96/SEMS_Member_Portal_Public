@@ -1,21 +1,21 @@
 var express = require("express");
 var router = express.Router();
 var middleware = require("../middleware");
-var passport = require("passport");
-var User = require("../models/user");
-const crypto = require("crypto");
-const Shift = require("../models/shift");
-var nodeoutlook = require('nodejs-nodemailer-outlook')
+// var passport = require("passport");
+// var User = require("../models/user");
+// const crypto = require("crypto");
+// const Shift = require("../models/shift");
+// var nodeoutlook = require('nodejs-nodemailer-outlook')
 
 
 
-const nodemailer = require('nodemailer');
+// const nodemailer = require('nodemailer');
 
 //Root Route, i.e., The Landing
 router.get("/", async function(req,res){
-	var foundShifts = await Shift.find({startDateMS: {$gte: Date.now()}}).sort({startDateMS: 1});
-	var officers = await User.find({accessLevel: "officer"});
-	res.render("./landing", {foundShifts:foundShifts, officers:officers});
+	// var foundShifts = await Shift.find({startDateMS: {$gte: Date.now()}}).sort({startDateMS: 1});
+	// var officers = await User.find({accessLevel: "officer"});
+	res.render("./landing", {});
 });
 
 
@@ -39,12 +39,12 @@ router.get("/login", function(req, res){
 
 //Officer Dashboard
 router.get("/officerDashboard", async function(req, res){
-	var officers = await User.find({accessLevel: "officer"});
-	var crewChiefs = await User.find({$or:[{accessLevel: "officer"}, {title: "Crew Chief"}, {title:"FTO"}]});
-	var allUsers = await User.find({onRoster: true});
-	var emts = await User.find({$or:[{accessLevel: "officer"}, {title: "Crew Chief"}, {title:"FTO"}, {title:"EMT"}]});
-	var nonEmts = await User.find({$or:[{title: "Secretary"}, {title:"Non-EMT"}]});
-	res.render("./officerDashboard", {officers:officers, allUsers:allUsers, crewChiefs:crewChiefs, emts:emts, nonEmts:nonEmts});
+	// var officers = await User.find({accessLevel: "officer"});
+	// var crewChiefs = await User.find({$or:[{accessLevel: "officer"}, {title: "Crew Chief"}, {title:"FTO"}]});
+	// var allUsers = await User.find({onRoster: true});
+	// var emts = await User.find({$or:[{accessLevel: "officer"}, {title: "Crew Chief"}, {title:"FTO"}, {title:"EMT"}]});
+	// var nonEmts = await User.find({$or:[{title: "Secretary"}, {title:"Non-EMT"}]});
+	res.render("./officerDashboard", {});
 })
 
 
@@ -173,11 +173,11 @@ router.get("/forgotPassword", function(req,res){
 // });
 
 router.get("/notifications", function(req, res){
-	Notification.find({"created": {$gte: new Date((new Date().getTime() - (2592000000)))}}).sort({created: -1}).exec(function(err, allNotifications){
-		res.render("notifications", {notifications: allNotifications});
+	//Notification.find({"created": {$gte: new Date((new Date().getTime() - (2592000000)))}}).sort({created: -1}).exec(function(err, allNotifications){
+		res.render("notifications", {});
 		
-	});
-	Notification.updateMany({"readBy" : {$not: { $in: [req.user.id] }}}, { $push: { "readBy" :  req.user.id} }, function(err){ if(err){console.log(err.message) }});
+	//});
+	//Notification.updateMany({"readBy" : {$not: { $in: [req.user.id] }}}, { $push: { "readBy" :  req.user.id} }, function(err){ if(err){console.log(err.message) }});
 });
 
 module.exports = router;

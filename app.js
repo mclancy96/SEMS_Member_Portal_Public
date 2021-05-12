@@ -3,16 +3,16 @@
 const express = require("express"),
 	  app = express(),
 	  bodyParser = require("body-parser"),
-	  mongoose = require("mongoose"),
+	//   mongoose = require("mongoose"),
 	  flash = require("connect-flash"),
       //seedDB = require("./seed"),
-	  passport = require("passport"),
-	  LocalStrategy = require("passport-local"),
-	  passportLocalMongoose = require("passport-local-mongoose"),
+	//   passport = require("passport"),
+	//   LocalStrategy = require("passport-local"),
+	//   passportLocalMongoose = require("passport-local-mongoose"),
 	  User = require("./models/user"),
 	  NewMember = require("./models/newMember"),
 	  Shift = require("./models/shift"),
-	  methodOverride = require("method-override"),
+	//   methodOverride = require("method-override"),
 	  crypto = require("crypto"),
 	  request = require('request'),
 	  nodemailer = require("nodemailer"), 
@@ -24,18 +24,18 @@ const indexRoutes = require("./routes/index"),
 	  guideRoutes = require("./routes/guide"),
 	  adminRoutes = require("./routes/admin"),
 	  documentRoutes = require("./routes/document");
-var nodeoutlook = require('nodejs-nodemailer-outlook')
+// var nodeoutlook = require('nodejs-nodemailer-outlook')
 
 
 //Add seed data
 //seedDB();
 
-mongoose.connect(process.env.DATABASEURL, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false });
+// mongoose.connect(process.env.DATABASEURL, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false });
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 // app.use(methodOverride("_method"));
-app.use(flash());
+// app.use(flash());
 
 // app.use(require("express-session")({
 // 	secret: process.env.SECRET,
