@@ -73,7 +73,7 @@ router.get("/user/add_new_member", function(req, res){
 			res.render("./user/add_new_member", {});
 // 		}
 // 	})
-// }
+}
 );
 
 // let transporter = nodemailer.createTransport({
@@ -212,7 +212,7 @@ router.get("/user",//
 			res.render("./user/roster", {}); 
 // 		}
 // 	})
-// }
+}
 );
 
 //Create Route
@@ -333,7 +333,7 @@ router.get('/user/:id', //middleware.idIsCurrentUserOrOfficer,
 		res.render("./user/show", {})
 // 	}
 // 	})
-// }
+ }
 );
 
 //Edit Route
