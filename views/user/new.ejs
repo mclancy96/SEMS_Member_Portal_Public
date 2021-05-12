@@ -3,7 +3,7 @@
 <h1 class="display-4 text-center">
 	Register New Member
 </h1>
-<%- include("../partials/alert") %>
+
 <div class="container">
 	<p>Welcome to Stockton EMS! Please use the form below to register as a new member. If you have any questions, please send us an email: <a href="mailto:stocktonems-club@go.stockton.edu">stocktonems-club@go.stockton.edu</a>.
 	</p>
@@ -26,7 +26,7 @@
 			<div class="col align-middle">
 				<label for="email" aria-describedby="emailHelp">Email Address</label>
 				<small id="emailHelp" class="form-text text-muted">Must be your @go.stockton.edu email account that you use to log into your Stockton accounts</small>
-				<input type="email" class="form-control" id="email"  value="<%=newMember.email%>" name="email" readonly>
+				<input type="email" class="form-control" id="email"  value="" name="email" readonly>
 			</div>
 			<div class="col">
 				<label for="password" aria-describedby="pwdHelp">Password</label>
