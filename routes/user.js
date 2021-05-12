@@ -22,7 +22,7 @@ router.get('/user/alumni', async function(req, res) {
 });
 
 router.get('/user/contact_list',
-	// function(req,res){
+	 function(req,res){
 	// 	User.find({onRoster: true}, function(err, allUsers){
 	// 	if(err){
 	// 		req.flash("error", err.message)
@@ -31,7 +31,7 @@ router.get('/user/contact_list',
 		res.render('./user/contact_list', {});
 	// 	}
 	// })
-	// }
+ }
 );
 
 router.get("/user/everyMember", function(req, res){ 
