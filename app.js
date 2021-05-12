@@ -13,10 +13,10 @@ const express = require("express"),
 	  NewMember = require("./models/newMember"),
 	  Shift = require("./models/shift"),
 	//   methodOverride = require("method-override"),
-	  crypto = require("crypto"),
-	  request = require('request'),
-	  nodemailer = require("nodemailer"), 
-	  schedule = require('node-schedule');
+	//   crypto = require("crypto"),
+	//   request = require('request'),
+	//   nodemailer = require("nodemailer"), 
+	//   schedule = require('node-schedule');
 
 const indexRoutes = require("./routes/index"), 
 	  userRoutes = require("./routes/user"),
@@ -33,7 +33,7 @@ const indexRoutes = require("./routes/index"),
 // mongoose.connect(process.env.DATABASEURL, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false });
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
-app.use(express.static(__dirname + "/public"));
+ app.use(express.static(__dirname + "/public"));
 // app.use(methodOverride("_method"));
 // app.use(flash());
 
