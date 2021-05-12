@@ -1,0 +1,23 @@
+<%- include("./partials/header") %>
+<h4 class="display-4">
+	New Member Email Verification
+</h4>
+<%- include("./partials/alert") %>
+<div class="container">
+	<p>
+		Please sign in with your Stockton email and the temporary password that was provided to you in the email. This will verify that you have the email that we've invited. 
+	</p>
+	<form action="#" method="POST">
+		<div class="col pl-0">
+			<label for="email" aria-describedby="emailHelp">Email Address</label>
+			<input type="email" class="form-control" id="email"  name="email" required placeholder="smithj@go.stockton.edu">
+		</div>
+		<div class="col pl-0 mt-2">
+			<label for="password" aria-describedby="pwdHelp">Temporary Password</label>
+			<small id="pwdHelp" class="form-text text-muted">Please enter the temporary password that was emailed to you</small>
+			<input type="password" class="form-control" id="tempPassword" name="tempPswd" placeholder="Temporary Password">
+		</div>
+		<input type="submit" class="btn btn-primary mt-2" value="Verify Email">
+	</form>
+</div>
+<%- include("./partials/footer") %>

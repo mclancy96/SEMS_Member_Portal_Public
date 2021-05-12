@@ -1,0 +1,14 @@
+<nav class="navbar navbar-dark sticky-top bg-dark p-0">
+	<a class="navbar-brand ml-2 align-items-center" href="/">
+		Stockton EMS Member Portal
+	</a>	
+	<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<ul class="navbar-nav ml-auto navbar-expand col-md-8 col-lg-9 justify-content-end " id="inline">
+		<a class="navbar-text text-white ml-2 mr-auto mx-md-2" href="/notifications">
+		Notifications <%//if(notiCount<=0){} else {%><span class="badge badge-pill badge-warning"><%=//notiCount%></span><%//}%>
+		</a>
+		<li class="nav-item ml-auto mr-2 mx-md-2"><a class="nav-link" href="#">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+	</ul>
+</nav>

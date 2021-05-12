@@ -1,0 +1,112 @@
+<%- include("./partials/completeHeader") %>
+<h1 class="display-4">
+	Notifications
+</h1>
+<div class="container">
+	<p>
+		The following are notifications from the past 30 days. <span class="text-danger">High importance notifications are shown in red</span>
+	</p>
+	
+	<div class="accordion" id="accordionNotification">
+		<div class="card">
+			<div class="card-header bg-transparent" id="headingUserSpecific">
+				<h2 class="mb-0">
+					<button class="btn text-primary btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseUserSpecific" aria-expanded="false" aria-controls="collapseUserSpecific">
+						<strong>User Specific Notifications:</strong>
+					</button>
+				</h2>
+			</div>
+			<div id="collapseUserSpecific" class="collapse" aria-labelledby="headingUserSpecific" data-parent="#accordionNotification">
+				<div class="card-body">
+					<ul>
+						<%if(notifications){%>
+							<%notifications.forEach(function(notification){%>
+								<%if (notification.effectedMember.id == false){%>
+								<li class="my-3">
+									<div class="<%=(notification.importance == "high")?'text-danger':''%>">
+										"<%=notification.message%>"  
+									</div> 
+									<div class="pl-3">
+										- <em class="text-secondary">User: <%=notification.createdBy.name%> (<%=notification.created.toLocaleString('en-US', { timeZone: "America/New_York"})%>) </em>
+									</div>
+								</li>
+						<%}})} else {%>
+							<li>
+								No notifications
+							</li>
+						<%}%>
+					</ul>
+				</div>
+			</div>
+		</div>
+			<div class="card">
+				<div class="card-header bg-transparent" id="headingOfficer">
+					<h2 class="mb-0">
+						<button class="btn text-primary btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseOfficer" aria-expanded="false" aria-controls="collapseOfficer">
+							<strong>Officer Notifications:</strong>
+						</button>
+					</h2>
+				</div>
+				<div id="collapseOfficer" class="collapse" aria-labelledby="headingOfficer" data-parent="#accordionNotification">
+					<div class="card-body">
+						<ul>
+							<%if(notifications){%>
+							<%notifications.forEach(function(notification){%>
+								<%if (notification.accessLevel == "officer"){%>
+								<li class="my-3">
+									<div class="<%=(notification.importance == "high")?'text-danger':''%>">
+										"<%=notification.message%>"  
+									</div>
+									<div class="pl-3">
+										- <em class="text-secondary">User: <%=notification.createdBy.name%> (<%=notification.created.toLocaleString('en-US', { timeZone: "America/New_York"})%>) </em>
+									</div>
+								</li>
+						<%}})} else {%>
+							<li>
+								No notifications
+							</li>
+						<%}%>
+						</ul>
+					</div>
+				</div>
+			</div>
+		<div class="card">
+			<div class="card-header bg-transparent" id="headingGenMem">
+				<h2 class="mb-0">
+					<button class="btn text-primary btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseGenMem" aria-expanded="false" aria-controls="collapseGenMem">
+						<strong>General Notifications:</strong>
+					</button>
+				</h2>
+			</div>
+			<div id="collapseGenMem" class="collapse" aria-labelledby="headingGenMem" data-parent="#accordionNotification">
+				<div class="card-body">
+					<ul>
+						<%if(notifications){%>
+						<%notifications.forEach(function(notification){%>
+							<%if (notification.accessLevel == "genMem"){%>
+							<li class="my-3">
+								<div class="<%=(notification.importance == "high")?'text-danger':''%>">
+									"<%=notification.message%>"  
+								</div>
+								<div class="pl-3">
+									- <em class="text-secondary">User: <%=notification.createdBy.name%> (<%=notification.created.toLocaleString('en-US', { timeZone: "America/New_York"})%>) </em>
+								</div>
+							</li>
+					<%}})} else {%>
+						<li>
+							No notifications
+						</li>
+					<%}%>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
+	
+</div>
+
+<%- include("./partials/footer") %>

@@ -1,0 +1,38 @@
+<%- include("./partials/header") %>
+
+<div class="container">
+        <h1 class="text-center pt-2">Stockton EMS Member Portal Login</h1>
+        <img src="./img/StocktonEMSlogovector.svg" alt="logo" class="mx-auto d-block py-lg-3 py-md-2 py-sm-1" id="logo">
+        <form action="#" method="POST">
+            <div class="form-row">
+                <div class="col-md-3 col-1"></div>
+                <div class="form-group col-md-6 col-10">
+                    <label for="email">Stockton Email Address</label>
+                    <input type="text" class="form-control required" name="username" aria-describedby="emailHelp" placeholder="smithj@go.stockon.edu" id="email">
+    				<small id="emailHelp" class="form-text text-muted">Your Stockton University Email</small>
+                </div>
+                <div class="col-md-3 col-1"></div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3 col-1"></div>
+                <div class="form-group col-md-6 col-10">
+                    <label for="memberPassword">Password</label>
+                    <input type="password" class="form-control required" name="password" placeholder="Password">
+                </div>
+                <div class="col-md-3 col-1"></div>
+            </div>
+            <div class="form-row ml-1 mr-1">
+                <div class="col-md-3 col-1"></div>
+                <button type="submit" class="btn btn-outline-success col-md-6 col-10 mt-2">Login</button>
+                <div class="col-md-3 col-1"></div>
+            </div>
+		</form>
+		<div class="mt-5 d-flex justify-content-center">
+			<a href="/forgotPassword">Forgot Password?</a>
+		</div>
+		<div class="m-1 d-flex justify-content-center">
+			<p><a href="mailto:stocktonems-club@go.stockton.edu">Questions? Send us an Email</a></p>
+		</div>
+    </div>
+
+<%- include("./partials/footer") %>

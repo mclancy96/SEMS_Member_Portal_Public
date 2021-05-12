@@ -1,0 +1,147 @@
+body{
+	font-family: 'Libre Baskerville', serif;
+	background-color: white;
+}
+
+iframe {
+	width: 100%;
+	height: 900px;
+	border:0;
+	/* margin-left:40%;
+	margin-right:auto; */
+}
+
+#logo {
+    width: 30%;
+    align-content: center;
+}
+
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100; /* Behind the navbar */
+  padding: 48px 0 0; /* Height of navbar */
+}
+
+@media (max-width: 767.98px) {
+  .sidebar {
+    top: 40px;
+  }
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh);
+  padding-top: .5rem;
+  overflow-x: wrap;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  /* margin-bottom: -200px; 
+  padding-bottom: 200px; */
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+  .sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+
+.sidebar .nav-link {
+  font-weight: 500;
+  color: #333;
+}
+
+.sidebar .nav-link .feather {
+  margin-right: 4px;
+  color: #999;
+}
+
+.sidebar .nav-link.active {
+  color: #007bff;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+  color: inherit;
+}
+
+.sidebar-heading {
+  font-size: .75rem;
+  text-transform: uppercase;
+}
+
+/*
+ * Navbar
+ */
+
+.navbar-brand {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  font-size: 1rem;
+}
+
+.navbar .navbar-toggler {
+  top: .25rem;
+  right: 1rem;
+}
+
+.accordion .chevron:after {
+    font-family: 'FontAwesome';  
+    content: "\f077";
+    float: right; 
+}
+
+.accordion .chevron.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\f078"; 
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.display-4 {
+	background-color: black;
+	size:4rem;
+	padding: 2%;
+	margin-bottom: 2%;
+	color: lightgray;
+	word-wrap:break-word!important;
+	text-align:center;
+}
+
+.display-4.spooky {
+	background-image: url("/img/spooky2.png"), url("/img/spookyright.png");
+	background-repeat: no-repeat;
+	background-attachment: relative;
+	background-position: left top, right top;
+	background-size: contain, contain;
+}
+
+* {
+  border-radius: 0 !important;
+}
+
+.big-table {
+	/* overflow-x:scroll; */
+	overflow-y:scroll;
+	height:100%;
+	width:100%;
+	display:block;
+	margin: auto;
+	width: 90% !important; 
+}
+
+table{
+	word-wrap: break-word;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}

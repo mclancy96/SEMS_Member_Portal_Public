@@ -1,0 +1,434 @@
+<%- include("../partials/completeHeader") %>
+<h1 class="display-4">
+	<%=user.name%>'s Profile
+</h1>
+<%- include("../partials/alert") %>
+<div class="container">
+	<div class="d-flex align-middle justify-content-between border-bottom">
+			<div class="mr-auto p-2" >
+				<a href="/user"><i class="fas fa-long-arrow-alt-left"></i> Go back to the roster</a>
+			</div>
+			<div class="mr-auto p-2" >
+				<a href="/user/contact_list"><i class="fas fa-long-arrow-alt-left"></i> Go back to the contact list</a>
+			</div>
+		<%if(user.status == "Active" || user.status == "Probation" || user.status == "Training"){%>
+			<div class="ml-auto p-2">
+				<a href="/user/<%=user._id%>/edit" class="text-right justify-content-end d-flex"><i class="fas fa-user-edit mr-2"></i>Edit User Infomation</a>
+			</div>
+		<%} else {%>
+			<div class="ml-auto p-2">
+				<p class="text-right justify-content-end d-flex">This user cannot be edited</p>
+			</div>
+		<%}%>
+	</div>
+	<p>
+		<strong>Name: </strong> <span class="text-primary"><%=user.name%>
+		<%if (user.emtCert.certified == true){%>
+			<span class="badge badge-pill badge-warning ml-1 px-1">EMT</span>
+		<%}%>
+		</span>
+	</p>
+	
+	<p>
+		<strong>Title: </strong> <span class="text-primary"><%=user.title%></span>
+	</p>
+	
+	<p>
+		<strong>Membership Status: </strong>
+		<%if(user.status == "Active" || user.status == "Training"){%>
+		<span class="text-primary"><%=user.status%></span>
+		<%}%>
+		<%if(user.status == "Probation" || user.status == "Terminated"){%>
+		<span class="text-danger"><%=user.status%></span>
+		<%}%>
+		<%if(user.status == "Graduated" || user.status == "Resigned"){%>
+		<span class="text-info"><%=user.status%></span>
+		<%}%>
+	</p>
+	
+	<p>
+		<strong>EMT Certified: </strong> 
+		<%if (user.emtCert.certified == true){%>
+			<span class="text-success">Yes</span>
+		<%} else {%>
+			<span class="text-primary">No</span>
+		<%}%>
+	</p>
+	
+	<p>
+		<strong>Sex: </strong> <span class="text-primary"><%=user.sex%></span>
+	</p>
+	
+	<p>
+		<strong>Class Status: </strong> <span class="text-primary"><%=user.currentClassStatus%></span>
+	</p> 
+	
+	<p>
+		<strong>Email: </strong> <span class="text-primary"><a href="mailto:<%=user.email%>"><%=user.email%></a></span>
+	</p>
+	
+	<p>
+		<strong>Cell Phone Number: </strong> <span class="text-primary"><%=user.phoneNum%></span>
+	</p>
+	
+	<p>
+		<strong>Z Number: </strong> <span class="text-primary"><%=user.zNum%></span>
+	</p>
+	
+	<div>
+		<p>
+			<strong>Address:</strong>
+		</p>
+		<ul class="list-unstyled pl-3">
+			<li><span class="text-primary"><%=user.address.street%></span></li>
+			<%if(user.address.line2){%>
+				<li><span class="text-primary"><%=user.address.line2%></span></li>
+			<%}%>
+				<li><span class="text-primary"><%=user.address.city + ", " + user.address.state + " " + user.address.zipCode%></span></li>
+		</ul>
+	</div>
+
+	<div>
+		<p>
+			<strong>Driver's License: </strong> 
+			<% if(user.driversLicense.licensed === false){ %>
+			<span class="text-primary">Not on File</span>
+			<%}%>
+		</p>
+		<% if(user.driversLicense.licensed === true){%>
+		<ul class="list-unstyled pl-3">
+			<li>License ID: <span class="text-primary"><%=user.driversLicense.dlID%></span></li>
+			<li>License State: <span class="text-primary"><%=user.driversLicense.dlState%></span></li>
+			<% if( user.driversLicense.dlExpDate.getTime()- todayRaw < 31556952000){ %>
+			<li>License Expiration Date: <span class="text-danger"><%=user.driversLicense.dlExpDateReadable%></span></li>
+			<%} else {%>
+			<li>License Expiration Date: <span class="text-primary"><%=user.driversLicense.dlExpDateReadable%></span></li>
+			<%}%>
+				
+		<%}%>
+		</ul>
+	</div>
+
+	<div>
+		<p>
+			<strong>CPR Certification: </strong> 
+			<% if(user.cprCert.certified === false){ %>
+			<span class="text-primary">Not on File</span>
+			<%}%>
+		</p>
+		<% if(user.cprCert.certified === true){%>
+		<ul class="list-unstyled pl-3">
+			<li>CPR Provider: <span class="text-primary"><%=user.cprCert.cprProvider%></span></li>
+			<% if( user.cprCert.cprExpDate.getTime() - todayRaw < 31556952000){ %>
+			<li>CPR Certification Expiration Date: <span class="text-danger"><%=user.cprCert.cprExpDateReadable%></span></li>
+			<%} else {%>
+			<li>CPR Certification Expiration Date: <span class="text-primary"><%=user.cprCert.cprExpDateReadable%></span></li>
+			<%}%>
+		</ul>
+		<%}%>
+	</div>
+	
+	<div>
+		<p>
+			<strong>EMT Certification: </strong> 
+			<% if(user.emtCert.certified === false){ %>
+			<span class="text-primary">Not on File</span>
+			<%}%>
+		</p>
+		<% if(user.emtCert.certified === true){%>
+		<ul class="list-unstyled pl-3">
+			<li>NREMT ID: <span class="text-primary"><%=user.emtCert.nremtId%></span></li>
+			<li>NJ EMS ID: <span class="text-primary"><%=user.emtCert.njEmsId%></span></li>
+			<% if( user.emtCert.emtExpDate.getTime() - todayRaw < 31556952000){ %>
+			<li>EMT Certification Expiration Date: <span class="text-danger"><%=user.emtCert.emtExpDateReadable%></span></li>
+			<%} else {%>
+			<li>EMT Certification Expiration Date: <span class="text-primary"><%=user.emtCert.emtExpDateReadable%></span></li>
+			<%}%>
+		</ul>
+		<%}%>
+	</div>
+
+	<div>
+		<p>
+			<strong>Emergency Contact: </strong> 
+		</p>
+		<ul class="list-unstyled pl-3">
+			<li>Contact Name: <span class="text-primary"><%=user.emergContact.contactName%></span></li>
+			<li>Contact Phone: <span class="text-primary"><%=user.emergContact.contactPhoneNum%></span></li>
+			<li>Contact Relationship: <span class="text-primary"><%=user.emergContact.contactRelationship%></span></li>
+		</ul>
+	</div>
+
+	<div>
+		<p>
+			<strong>Uniform Sizes: </strong> 
+		</p>
+		<ul class="list-unstyled pl-3">
+			<li>Shirt Size: <span class="text-primary"><%=user.uniform.sex + " " +user.uniform.shirtSize%></span></li>
+			<li>Jacket Size: <span class="text-primary"><%=user.uniform.sex + " " +user.uniform.jacketSize%></span></li>
+		</ul>
+	</div>
+	
+	<div>
+		<p>
+			<strong>Active Member Training Status: 
+			<% if(user.activeMemberTraining.amCleared == true){%>
+				<span class="text-success"> Cleared</span>
+			<% } else {%>
+				<span class="text-primary"> Training</span>
+			<% } %>
+			</strong> 
+		</p>
+		<ul class="list-unstyled pl-3">
+			<li>Active Member Training 1 Date: 
+					<span class="text-primary"><%=user.activeMemberTraining.amTraining1%></span>
+					<span class="text-primary"><%=user.activeMemberTraining.amTraining1%></span>
+						<span>
+							<form action="#" method="POST" class="form-inline d-inline">
+								<input class="form-control form-control-sm" id="amtd1" name="amtd1" type="date" required>
+								<button class="btn btn-sm btn-primary">
+									Update Date
+								</button>
+							</form>
+						</span>
+						<span>
+							<form action="#" method="POST" class="form-inline d-inline">
+								<input class="form-control form-control-sm" id="amtd1" name="amtd1" type="date" required value="<%=user.activeMemberTraining.amTraining1.slice(6,10)+"-"+user.activeMemberTraining.amTraining1.slice(0,2)+"-"+user.activeMemberTraining.amTraining1.slice(3,5)%>">
+								<button class="btn btn-sm btn-primary">
+									Update Date
+								</button>
+							</form>
+						</span>
+			</li>
+			<li>Active Member Training 2 Date: 
+					<span class="text-primary"><%=user.activeMemberTraining.amTraining2%></span>
+					<span class="text-primary"><%=user.activeMemberTraining.amTraining2%></span>
+						<span>
+							<form action="#" method="POST" class="form-inline d-inline">
+								<input class="form-control form-control-sm" id="amtd2" name="amtd2" type="date" required>
+								<button class="btn btn-sm btn-primary">
+									Update Date
+								</button>
+							</form>
+						</span>
+						<span>
+							<form action="#" method="POST" class="form-inline d-inline">
+								<input class="form-control form-control-sm" id="amtd2" name="amtd2" type="date" required value="<%=user.activeMemberTraining.amTraining2.slice(6,10)+"-"+user.activeMemberTraining.amTraining2.slice(0,2)+"-"+user.activeMemberTraining.amTraining2.slice(3,5)%>">
+								<button class="btn btn-sm btn-primary">
+									Update Date
+								</button>
+							</form>
+						</span>
+			</li>
+			<li>Active Member Clearing Date: 
+					<span class="text-primary"><%=user.activeMemberTraining.amClearing%></span>
+					<span class="text-primary"><%=user.activeMemberTraining.amClearing%></span>
+						<span>
+							<form action="#" method="POST" class="form-inline d-inline">
+								<input class="form-control form-control-sm" id="amcd" name="amcd" type="date" required>
+								<button class="btn btn-sm btn-primary">
+									Update Date
+								</button>
+							</form>
+						</span>
+						<span>
+							<form action="#" method="POST" class="form-inline d-inline">
+								<input class="form-control form-control-sm" id="amcd" name="amcd" type="date" required value="<%=user.activeMemberTraining.amClearing.slice(6,10)+"-"+user.activeMemberTraining.amClearing.slice(0,2)+"-"+user.activeMemberTraining.amClearing.slice(3,5)%>">
+								<button class="btn btn-sm btn-primary">
+									Update Date
+								</button>
+							</form>
+						</span>
+			</li>
+		</ul>
+	</div>
+	
+	<div>
+		<p>
+			<strong>Crew Chief Training Status: 
+				<span class="text-success"> Cleared</span>
+				<span class="text-primary"> Training</span>
+			</strong> 
+		</p>
+		<ul class="list-unstyled pl-3">
+			<li>Crew Chief Training Date: 
+					<span class="text-primary"><%=user.crewChiefTraining.ccTraining%></span>
+					<span class="text-primary"><%=user.crewChiefTraining.ccTraining%></span>
+						<span>
+							<form action="#" method="POST" class="form-inline d-inline">
+								<input class="form-control form-control-sm" id="cctd" name="cctd" type="date" required>
+								<button class="btn btn-sm btn-primary">
+									Update Date
+								</button>
+							</form>
+						</span>
+						<span>
+							<form action="#" method="POST" class="form-inline d-inline">
+								<input class="form-control form-control-sm" id="cctd" name="cctd" type="date" required value="<%=user.crewChiefTraining.ccTraining.slice(6,10)+"-"+user.crewChiefTraining.ccTraining.slice(0,2)+"-"+user.crewChiefTraining.ccTraining.slice(3,5)%>">
+								<button class="btn btn-sm btn-primary">
+									Update Date
+								</button>
+							</form>
+						</span>
+			</li>
+			<li>Crew Chief Clearing Date: 
+				
+					<span class="text-primary"><%=user.crewChiefTraining.ccClearing%></span>
+						<span class="text-primary"><%=user.crewChiefTraining.ccClearing%></span>	
+						<span>
+							<form action="#" method="POST" class="form-inline d-inline">
+								<input class="form-control form-control-sm" id="cccd" name="cccd" type="date" required>
+								<button class="btn btn-sm btn-primary">
+									Update Date
+								</button>
+							</form>
+						</span>
+						<span>
+							<form action="#" method="POST" class="form-inline d-inline">
+								<input class="form-control form-control-sm" id="cccd" name="cccd" type="date" required value="<%=user.crewChiefTraining.ccClearing.slice(6,10)+"-"+user.crewChiefTraining.ccClearing.slice(0,2)+"-"+user.crewChiefTraining.ccClearing.slice(3,5)%>">
+								<button class="btn btn-sm btn-primary">
+									Update Date
+								</button>
+							</form>
+						</span>
+					
+			</li>
+		</ul>
+	</div>
+	
+	<div>
+		<p>
+			<strong>Hours:</strong>
+		</p>
+		<div class="row">
+			<div class="col-3">
+				<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+					<a class="nav-link active" id="pills-currentMonth-tab" data-toggle="pill" href="#pills-currentMonth" role="tab" aria-controls="pills-currentMonth" aria-selected="true">Current Month</a>
+					<a class="nav-link" id="pills-currentSemester-tab" data-toggle="pill" href="#pills-currentSemester" role="tab" aria-controls="pills-currentSemester" aria-selected="false">Current Semester</a>
+					<a class="nav-link" id="pills-monthlyTotals-tab" data-toggle="pill" href="#pills-monthlyTotals" role="tab" aria-controls="pills-monthlyTotals" aria-selected="false">Totals by Month</a>
+					<a class="nav-link" id="pills-semesterTotals-tab" data-toggle="pill" href="#pills-semesterTotals" role="tab" aria-controls="pills-semesterTotals" aria-selected="false">Totals by Semester</a>
+					<a class="nav-link" id="pills-totalHours-tab" data-toggle="pill" href="#pills-totalHours" role="tab" aria-controls="pills-totalHours" aria-selected="false">Total Hours</a>
+				</div>
+			</div>
+			<div class="col-9">
+				<div class="tab-content" id="v-pills-tabContent">
+					<div class="tab-pane fade show active text-center" id="pills-currentMonth" role="tabpanel" aria-labelledby="pills-currentMonth-tab">&nbsp;<%=user.hours.currentMonth%> hours!</div>
+					<div class="tab-pane fade text-center" id="pills-currentSemester" role="tabpanel" aria-labelledby="pills-currentSemester-tab">&nbsp;<%=user.hours.currentSem%> hours!</div>
+					<div class="tab-pane fade" id="pills-monthlyTotals" role="tabpanel" aria-labelledby="pills-monthlyTotals-tab">
+						<table class="table table-sm table-hover">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">Month</th>
+									<th scope="col">Hours</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%user.monthlyTotals.forEach(function(month){%>
+									<tr>
+										<td><%=month.month%></td>
+										<td><%=month.hours%></td>
+									</tr>
+								<%})%>
+							</tbody>
+						</table>
+					</div>
+					<div class="tab-pane fade" id="pills-semesterTotals" role="tabpanel" aria-labelledby="pills-semesterTotals-tab">
+						<table class="table table-sm table-hover">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">Month</th>
+									<th scope="col">Hours</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%user.semesterTotals.forEach(function(sem){%>
+									<tr>
+										<td><%=sem.semName%></td>
+										<td><%=sem.hours%></td>
+									</tr>
+								<%})%>
+							</tbody>
+						</table>
+					</div>
+					<div class="tab-pane fade text-center" id="pills-totalHours" role="tabpanel" aria-labelledby="pills-totalHours-tab">
+						<span class="text-success display-2"><%=user.hours.totalHours%> hours!</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<%//if (currentUser.accessLevel == "officer"){%>
+<!-- Button trigger first modal -->
+<hr>
+<div class="text-center">
+	<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteMemberModal">
+	  Delete User
+	</button>
+</div>
+
+
+<!-- First Modal -->
+<div class="modal fade" id="deleteMemberModal" tabindex="-1" role="dialog" aria-labelledby="deleteMemberModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-content bg-danger text-white">
+			<div class="modal-header">
+				<h5 class="modal-title" id="deleteMemberModalLabel">Delete User:</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>
+					Deleting a user should <strong><em>ONLY</em></strong> be done because the user is <u>not actually</u> a member and was added <em>accidently</em> or <em>fraudulently</em>. 
+					<br> <br>
+					If the member has graduated or resigned or has been terminated, regardless of the amount of time he or she was a member, please click <a href="/user/<%=user._id%>/edit">edit user infomation</a> and update their status at the bottom of the edit form to reflect their new status <u>instead</u> of deleting them. 
+					<br> <br>
+					To reiterate, anyone that is or was a member for any amount of time should have their status changed to reflect how they left the organization. They should <em>NOT</em> be deleted even if they resign after one day or are terminated for severe offenses. This is to ensure that all member data is saved. Deleting a user is a permanent action that cannot be undone. Once more, it should <u>ONLY</u> be done on users that are not actually members.
+					<br> <br>
+					If you delete a user without proper authorization, you will be subject to severe disciplinary action up to and including termination.
+					<br> <br>
+					If you have the proper authorization to delete this user, <u>AND</u> this user is <em><strong><u>not actually</u></strong></em> a member, you may continue. 
+					<br> <br>
+					Before you will be permitted to delete the member, you must edit their profile, change their status to "delete", and then return to this screen. Only after their status is "delete" will you be able to delete the member. 
+				</p>
+			</div>
+			<div class="modal-footer text-center">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal" data-toggle="modal" data-target="#deleteMemberModal2" data-toggle="tooltip" data-placement="top" title="User status must be &ldquo;Disable&rdquo;"<%=(user.status != "Delete")?'disabled':''%>>Continue to Delete</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Second Modal -->
+<div class="modal fade" id="deleteMemberModal2" tabindex="-1" role="dialog" aria-labelledby="deleteMemberModalLabel2" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-content text-red">
+			<div class="modal-header">
+				<h5 class="modal-title" id="deleteMemberModalLabel2">Permanently Delete User:</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>
+					This is the final screen before permanently deleting this user. Clicking "Delete User" will remove this user's account and all data. 
+					<br> <br>
+					As a final reminder, this action should only be done if the user you are trying to delete is not actually a member of Stockton EMS. If this user is a member of Stockton EMS, please click <a href="/user/<%=user._id%>/edit">edit user infomation</a> and update their status instead of deleting them. Deleting is not meant for actual members - only fraudulent users. 
+					<br> <br>
+					To delete this user please click "Delete User". Otherwise, you can click away or click "Cancel" to not delete this user. 
+				</p>
+			</div>
+			<div class="modal-footer text-center">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				<form class="delete-form" action="#" method="POST">
+					<input type="submit" class="btn btn-danger" value="Delete User">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<%//}%>
+
+<%- include("../partials/footer") %>

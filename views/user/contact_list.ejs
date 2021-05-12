@@ -1,0 +1,38 @@
+<%- include("../partials/completeHeader") %>
+<h4 class="display-4">
+	Contact List
+</h4>
+<%- include("../partials/alert") %>
+<div class="container">
+	<p>
+		The following is the contact list for all current members. This list should only be used to get into contact with other members for business related to Stockton EMS. Misuse of this information will result in disciplinary action.
+	</p>
+	<div class="row justify-content-center">
+    	<div class="col-auto">
+			<table class="table table-responsive" id="contactList">
+				<thead class="bg-primary text-white">
+					<tr>
+						<th scope="col-auto">Last Name</th>
+						<th scope="col-auto">First Name</th>
+						<th scope="col-auto">Title</th>
+						<th scope="col-sm-4">Email Address</th>
+						<th scope="col-sm-3">Cell Phone Number</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%user.forEach(function(user){%>
+					<tr>
+						<td scope="row"><a href="/user/<%= user._id %>"><%=user.lastName%></a></td>
+						<td scope="row"><a href="/user/<%= user._id %>"><%=user.firstName%></a></td>
+						<td scope="row"><%=user.title%></td>
+						<td scope="row"><%=user.email%></td>
+						<td scope="row"><%=user.phoneNum%></td>
+					</tr>
+					<%});%>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<%- include("../partials/footer") %>

@@ -1,0 +1,210 @@
+<%- include("./partials/completeHeader") %>
+
+
+<h1 class="text-center display-4">
+	Dashboard
+</h1>
+<div class="container">
+	<div class="row">
+		<div class="col-sm border text-center border-dark p-2 m-1">
+			<h2>
+				currentUser.firstName's Hours
+			</h2>
+			<small>Your current month's hours are updated everyday at midnight. Your total hours and current semester's hours are updated on the first day of every month.</small>
+			<hr>
+			<ul class="list-unstyled">
+				<li>Current Month's Hours: <span class="text-primary p-2">currentUser.hours.currentMonth hrs</span></li>
+				<li>Current Semester's Hours: <span class="text-primary p-2">currentUser.hours.currentSem hrs</span></li>
+				<hr>
+				<li>Total Hours: <span class="text-primary p-2">currentUser.hours.totalHours hrs</span></li>
+			</ul>
+		</div>
+		<div class="col-sm border text-center border-dark p-2 m-1">
+			<h2>
+				Upcoming Shifts
+			</h2>
+			<small>These are any events, duty crews, tabling events, trainings, meetings, general meetings, or social events occurring within the next 7 days</small>
+			<table class="table table-responsive-md">
+				<thead>
+					<tr>
+						<th scope="col"><strong>Title</strong></th>
+						<th scope="col"><strong>Date</strong></th>
+						<th scope="col"><strong>Time</strong></th>
+					</tr>
+				</thead>
+				<tbody>
+					<%foundShifts.forEach(function(shift){%>
+							<tr>
+								<td><a href="/shift/<%=shift._id%>"><%=shift.shiftName%></a></td>
+								<td><%=shift.shiftStart.startDateReadable%></td>
+								<td><%=shift.shiftStart.startTime%> - <%=shift.shiftEnd.endTime%></td>
+							</tr>
+					<%})%>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm border text-center border-dark p-2 m-1">
+			<h2>
+				Upcoming General Meeting(s)
+				
+			</h2>
+			<small>These are <em><span class="text-danger">mandatory</span></em> for all members to attend if you can attend them. Please send us an email if you are not able to make it to one of the upcoming general meetings (<a href="mailto:stocktonems-club@go.stockton.edu?subject=Unable to Attend General Meeting">stocktonems-club@go.stockton.edu</a>).</small>
+			<table class="table table-responsive-md">
+				<thead>
+					<tr>
+						<th scope="col"><strong>Date</strong></th>
+						<th scope="col"><strong>Time</strong></th>
+						<th scope="col"><strong>Location</strong></th>
+					</tr>
+				</thead>
+				<tbody>
+					<%foundShifts.forEach(function(shift){%>
+						<%if(shift.type == "gm" ){%>
+							<tr>
+								<td><%=shift.shiftStart.startDateReadable%></td>
+								<td><%=shift.shiftStart.startTime%></td>
+								<td><%=shift.shiftLocation%></td>
+							</tr>
+						<%}%>
+					<%})%>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-sm border text-center border-dark p-2 m-1">
+			<h2>
+				<a href="/user/eboard">Executive Board</a>
+			</h2>
+			<small>Click the title above to go to the Executive Board page where you can learn more about the officers' roles and responsibilities</small>
+			<table class="table table-responsive">
+				<thead>
+					<tr>
+						<th scope="col"><strong>Title</strong></th>
+						<th scope="col"><strong>Name</strong></th>
+						<th scope="col"><strong>Email</strong></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><strong>S.U. Advisor</strong></td>
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Stockton Advisor"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%}%>
+						<%})%>
+					</tr>
+					<tr>
+						<td><strong>GTAS Advisor</strong></td>
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "GTAS Advisor"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%}%>
+						<%})%>
+					</tr>
+					<tr>
+						<td><strong>Captain</strong></td>
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Captain"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%}%>
+						<%})%>
+					</tr>
+					<tr>
+						<td><strong>Lieutenant</strong></td>
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Lieutenant"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%} %>
+						<%})%>
+					</tr>
+					<tr>
+						<td><strong>Training Sergeant</strong></td>
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Training Sergeant"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%}%>
+						<%})%>
+					</tr>
+					<tr>
+						<td><strong>Supply Sergeant</strong></td>
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Supply Sergeant"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%}%>
+						<%})%>
+					</tr>
+					<tr>
+						<td><strong>Secretary</strong></td>
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Secretary"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%}%>
+						<%})%>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm border border-dark p-2 m-1">
+			<h2 class="text-center">
+				How do I...?
+			</h2>
+			<small class="text-center">Use the following links to learn more about what you can do with this website</small>
+			<ul>
+				<li><a href="/shift/">See the schedule?</a></li>
+				<li><a role="button" href="#" class="btn-link" data-toggle="modal" data-target="#manageMembersModal">Edit my information?</a></li>
+				<li><a role="button" href="#" class="btn-link" data-toggle="modal" data-target="#crewRunFormModal">Fill out a Crew Run Form?</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!--============================================= Modals ========================================-->
+<!--Manage member's info modal-->
+<div class="modal fade" id="manageMembersModal" tabindex="-1" role="dialog" aria-labelledby="manageMembersModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="manageMembersModalLabel">Managing Member Information</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">	
+				To manage your information, you click on the link in the sidebar that says, "[your name]'s Information". This will take you to your profile. From there, click the link in the upper right corner that says, "Edit User Information". This will open the edit form. On that page, you can edit all of your information.
+			</div>
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	</div>
+</div>
+
+<!--Crew Run Form modal-->
+<div class="modal fade" id="crewRunFormModal" tabindex="-1" role="dialog" aria-labelledby="crewRunFormModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="crewRunFormModalLabel">Crew Run Form</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">	
+				The crew run form has been integrated into the shift profile page. Crew run forms are only for event standbys or duty crews. To fill out a crew run form, go to the schedule and click the title of the shift for which you are creating the crew run form. The crew run form will be at the bottom of the page. <br> <br>You have 48 hours from the shift's start date at midnight to fill out the crew run form. Ideally, you will be filling it out as you go. If your shift is cancelled, you can leave it blank.
+			</div>
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	</div>
+</div>
+
+
+
+<%- include("./partials/footer") %>

@@ -1,0 +1,41 @@
+<%- include("../partials/completeHeader") %>
+<h4 class="display-4">
+	Invite New Member
+</h4>
+<div class="container">
+	<p>
+		Once new members have been deemed ready to be able to create an account on the SEMS member portal, they have to be invited before they can create an account. 
+		<br> <br>
+		Please input the <em><strong>go.stockton.edu</strong></em> email of the new member that you would like to invite to create an account. An email will be sent to that address with a temporary password and a link to the new member email verification page. The new member will verify their email by inputting their account and the temporary password that was provided in the email. If inputted correctly, they will be taken to the new member account creation page.
+		<br> <br>
+		If you don't know the individual's Stockton email because they didn't provide it, please use <a href="https://intraweb.stockton.edu/eyos/page.cfm?siteID=25&pageID=1" target="_blank">this form</a> to search for the individual's Stockton email by his or her last name. You will have to first login with your Stockton credentials.
+	</p>
+	<form action="#" method="POST">
+		<div class="col align-middle">
+			<label for="email" aria-describedby="emailHelp">Email Address</label>
+			<small id="emailHelp" class="form-text text-muted">Must be the @go.stockton.edu email account</small>
+			<input type="email" class="form-control" id="email" placeholder="smithj@go.stockton.edu"  name="email" required >
+		</div>
+		<input type="submit" class="btn btn-primary mt-2 ml-3" value="Invite Member">
+	</form>
+	<hr>
+	<p aria-describedby="headingHelp" id="heading">
+		The following emails have been invited:
+	</p>
+	<small id="headingHelp" class="form-text text-muted">To uninvite an email that should not have been invited, click the trash can (<i class="fas fa-trash-alt"></i>) next to the email. <span class="text-danger">If the fraudulent member has already created an account, change their status to "Delete" and click "Delete User" on their profile.</span></small>
+	<ul class="mt-2">
+		<%if(newUser){%>
+			<% newUser.forEach(function(newUser){%>
+			<li>
+				<form action="#" method="POST">
+					newUser.email<button type="submit" class="btn btn-link"><i class="fas fa-trash-alt"></i></button>
+				</form>
+			</li>
+			<%})%>
+		<%} else {%>
+			<li>No one has been invited at this time</li>
+		<%}%>
+	</ul>
+
+</div>
+<%- include("../partials/footer") %>

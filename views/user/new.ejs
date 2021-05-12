@@ -1,0 +1,394 @@
+<%- include("../partials/header") %>
+
+<h1 class="display-4 text-center">
+	Register New Member
+</h1>
+<%- include("../partials/alert") %>
+<div class="container">
+	<p>Welcome to Stockton EMS! Please use the form below to register as a new member. If you have any questions, please send us an email: <a href="mailto:stocktonems-club@go.stockton.edu">stocktonems-club@go.stockton.edu</a>.
+	</p>
+
+	<form action="#" method="POST">
+		<h4 class="text-center">
+			<u>General Information</u>
+		</h4>
+		<div class="row form-group">
+			<div class="col">
+				<label for="firstName">First Name</label>
+				<input type="text" class="form-control" placeholder="First name" name="firstName" id="firstName" required>
+			</div>
+			<div class="col">
+				<label for="lastName">Last Name</label>
+				<input type="text" class="form-control" placeholder="Last name" name="lastName" id="lastName" required>
+			</div>
+		</div>
+		<div class="row form-group">
+			<div class="col align-middle">
+				<label for="email" aria-describedby="emailHelp">Email Address</label>
+				<small id="emailHelp" class="form-text text-muted">Must be your @go.stockton.edu email account that you use to log into your Stockton accounts</small>
+				<input type="email" class="form-control" id="email"  value="<%=newMember.email%>" name="email" readonly>
+			</div>
+			<div class="col">
+				<label for="password" aria-describedby="pwdHelp">Password</label>
+				<small id="pwdHelp" class="form-text text-muted">Must be at least 8 characters and include an uppercase letter, lowercase letter, number, and <a href="https://www.computerhope.com/jargon/s/specchar.htm">special character</a> ( !"#$%&amp;'()*+,-./:;&lt;&equals;&gt;?@[\]^_`{|}~).</small>
+				<input type="password" class="form-control" id="password" name="password" placeholder="Password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="inputAddress">Address</label>
+			<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="address1" required>
+		</div>
+		<div class="form-group">
+			<label for="inputAddress2">Address 2</label>
+			<input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor if applicable. Leave blank otherwise" name="address2">
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputCity">City</label>
+				<input type="text" class="form-control" id="inputCity" name="city" required>
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputState">State</label>
+				<select id="inputState" class="form-control" name="state" required>
+					<option value=""></option>
+					<option value="AL">AL</option>
+					<option value="AK">AK</option>
+					<option value="AR">AR</option>	
+					<option value="AZ">AZ</option>
+					<option value="CA">CA</option>
+					<option value="CO">CO</option>
+					<option value="CT">CT</option>
+					<option value="DC">DC</option>
+					<option value="DE">DE</option>
+					<option value="FL">FL</option>
+					<option value="GA">GA</option>
+					<option value="HI">HI</option>
+					<option value="IA">IA</option>	
+					<option value="ID">ID</option>
+					<option value="IL">IL</option>
+					<option value="IN">IN</option>
+					<option value="KS">KS</option>
+					<option value="KY">KY</option>
+					<option value="LA">LA</option>
+					<option value="MA">MA</option>
+					<option value="MD">MD</option>
+					<option value="ME">ME</option>
+					<option value="MI">MI</option>
+					<option value="MN">MN</option>
+					<option value="MO">MO</option>	
+					<option value="MS">MS</option>
+					<option value="MT">MT</option>
+					<option value="NC">NC</option>	
+					<option value="NE">NE</option>
+					<option value="NH">NH</option>
+					<option value="NJ">NJ</option>
+					<option value="NM">NM</option>
+					<option value="NV">NV</option>
+					<option value="NY">NY</option>
+					<option value="ND">ND</option>
+					<option value="OH">OH</option>
+					<option value="OK">OK</option>
+					<option value="OR">OR</option>
+					<option value="PA">PA</option>
+					<option value="RI">RI</option>
+					<option value="SC">SC</option>
+					<option value="SD">SD</option>
+					<option value="TN">TN</option>
+					<option value="TX">TX</option>
+					<option value="UT">UT</option>
+					<option value="VT">VT</option>
+					<option value="VA">VA</option>
+					<option value="WA">WA</option>
+					<option value="WI">WI</option>	
+					<option value="WV">WV</option>
+					<option value="WY">WY</option>
+				</select>
+			</div>
+			<div class="form-group col-md-2">
+			  <label for="zipCode">Zip</label>
+			  <input type="text" class="form-control" id="zipCode" name="zipCode" required>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-sm-4">
+				<label for="zNumber" aria-describedby="zHelp">Z Number</label>
+				<small id="zHelp" class="form-text text-muted">Must be in the Z00###### format</small>
+				<input type="text" class="form-control" id="zNumber" placeholder="Z00######" name="zNum" pattern="Z00[0-9]{6}" required>
+			</div>
+			<div class="form-group col-sm-4">
+				<label for="phoneNum" aria-describedby="phoneHelp">Phone Number</label>
+				<small id="phoneHelp" class="form-text text-muted">Must be in the ###-###-#### format</small>
+				<input type="text" class="form-control" id="phoneNum" name="phoneNum" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+			</div>
+			<div class="col-sm-4 form-group">
+				<label for="entryClassStatus" aria-describedby="classHelp">Class Status</label>
+				<small id="classHelp" class="form-text text-muted">As of the current semester</small>
+				<select class="form-control" id="entryClassStatus" name="entryClassStatus"required>
+				  <option value="Freshman">Freshman</option>
+				  <option value="Sophomore">Sophomore</option>
+				  <option value="Junior">Junior</option>
+				  <option value="Senior">Senior</option>
+				  <option value="Super Senior">Super Senior</option>
+				  <option value="Graduate Student">Graduate Student</option>
+				</select>
+			</div>
+		</div>
+		<hr>
+		<h4 class="text-center">
+			<u>Driver's License Information</u>
+		</h4>
+		<fieldset class="form-group row text-center">
+			<div class="col">
+				<legend class="col-form-label pt-0">Do you have a driver's license?</legend>
+			  <div class="col" required>
+				<div class="form-check form-check-inline">
+				  <input class="form-check-input" type="radio" name="dlRadios" id="dlRadios1" value="yes">
+				  <label class="form-check-label" for="dlRadios1">
+					Yes
+				  </label>
+				</div>
+				<div class="form-check form-check-inline">
+				  <input class="form-check-input" type="radio" name="dlRadios" id="dlRadios2" value="no">
+				  <label class="form-check-label" for="dlRadios2">
+					No
+				  </label>
+				</div>
+			  </div>
+			</div>
+		</fieldset>
+		<div class="row form-group" id="dlInfo">
+			<div class="col-sm-2 mr-0 d-inline">
+				<label for="dlState" class="d-inline">DL State:</label>
+				<select class="form-control d-inline col-sm-6 p-0" id="dlState" name="dlState">
+					<option value=""></option>
+					<option value="AL">AL</option>
+					<option value="AK">AK</option>
+					<option value="AR">AR</option>	
+					<option value="AZ">AZ</option>
+					<option value="CA">CA</option>
+					<option value="CO">CO</option>
+					<option value="CT">CT</option>
+					<option value="DC">DC</option>
+					<option value="DE">DE</option>
+					<option value="FL">FL</option>
+					<option value="GA">GA</option>
+					<option value="HI">HI</option>
+					<option value="IA">IA</option>	
+					<option value="ID">ID</option>
+					<option value="IL">IL</option>
+					<option value="IN">IN</option>
+					<option value="KS">KS</option>
+					<option value="KY">KY</option>
+					<option value="LA">LA</option>
+					<option value="MA">MA</option>
+					<option value="MD">MD</option>
+					<option value="ME">ME</option>
+					<option value="MI">MI</option>
+					<option value="MN">MN</option>
+					<option value="MO">MO</option>	
+					<option value="MS">MS</option>
+					<option value="MT">MT</option>
+					<option value="NC">NC</option>	
+					<option value="NE">NE</option>
+					<option value="NH">NH</option>
+					<option value="NJ">NJ</option>
+					<option value="NM">NM</option>	
+					<option value="NV">NV</option>
+					<option value="NY">NY</option>
+					<option value="ND">ND</option>
+					<option value="OH">OH</option>
+					<option value="OK">OK</option>
+					<option value="OR">OR</option>
+					<option value="PA">PA</option>
+					<option value="RI">RI</option>
+					<option value="SC">SC</option>
+					<option value="SD">SD</option>
+					<option value="TN">TN</option>
+					<option value="TX">TX</option>
+					<option value="UT">UT</option>
+					<option value="VT">VT</option>
+					<option value="VA">VA</option>
+					<option value="WA">WA</option>
+					<option value="WI">WI</option>	
+					<option value="WV">WV</option>
+					<option value="WY">WY</option>
+				</select>
+			</div>
+			<div class="col-sm-5">
+				<label for="dlID" class="d-inline">DL ID:</label>
+				<input type="text"  class="pl-0 d-inline col-sm-8" name="dlID" id="dlID">
+			</div>
+			<div class="col-sm-5">
+				<label for="dlExpDate">DL Expiration Date:</label>
+				<input type="date" id="dlExpDate" name="dlExpDate" class="col-sm-7 p-0" pattern="\d{4}-\d{2}-\d{2}">
+				<!-- <small id="dlDateHelp" class="form-text text-muted">Please enter in the "YYYY-MM-DD" format</small> -->
+			</div>
+			
+		</div>
+		<hr>
+		<h4 class="text-center">
+			<u>CPR Certification Information</u>
+		</h4>
+		<fieldset class="form-group row text-center">
+			<div class="col">
+				<legend class="col-form-label pt-0" aria-describedby="cprHelp">Do you have a <em>Healthcare/BLS Provider</em> CPR certification?</legend>
+				<small id="cprHelp" class="form-text text-muted">If you have a basic level certification, don't click yes. Learn more about the levels <a href="https://startcpr1st.com/blog/bls-vs-cpr-whats-the-difference/">here</a></small>
+			  <div class="col" required>
+				<div class="form-check form-check-inline">
+				  <input class="form-check-input" type="radio" name="cprRadios" id="cprRadios1" value="yes">
+				  <label class="form-check-label" for="cprRadios1">
+					Yes
+				  </label>
+				</div>
+				<div class="form-check form-check-inline">
+				  <input class="form-check-input" type="radio" name="cprRadios" id="cprRadios2" value="no">
+				  <label class="form-check-label" for="cprRadios2">
+					No
+				  </label>
+				</div>
+			  </div>
+			</div>
+		</fieldset>
+		<div class="row form-group" id="cprCertInfo">
+			<div class="col">
+				<label for="cprProviderFormControlSelect">CPR Provider</label>
+				<select class="form-control d-inline col-sm-8" id="cprProvider" name="cprProvider">
+					<option value=""></option>
+					<option value="AHA">American Heart Association (AHA)</option>
+					<option value="Red Cross">American Red Cross</option>
+					<option value="Other">Other</option>
+				</select>
+			</div>
+			<div class="col">
+				<label for="cprExpDate">CPR Expiration Date:</label>
+				<input type="date" id="cprExpDate" name="cprExpDate" pattern="\d{4}-\d{2}-\d{2}">
+				<!-- <small id="cprDateHelp" class="form-text text-muted">Please enter in the "YYYY-MM-DD" format</small> -->
+			</div>
+		</div>
+		<hr>
+		<h4 class="text-center">
+			<u>EMT Certification Information</u>
+		</h4>
+		<fieldset class="form-group row text-center">
+			<div class="col">
+				<legend class="col-form-label pt-0">Do you have an EMT certification?</legend>
+				<div class="col" required>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="emtRadios" id="emtRadios1" value="yes">
+						<label class="form-check-label" for="emtRadios1">
+							Yes
+						</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="emtRadios" id="emtRadios2" value="no">
+						<label class="form-check-label" for="emtRadios2">
+							No
+						</label>
+					</div>
+			  </div>
+			</div>
+		</fieldset>
+		<div class="row form-group" id="emtCertInfo">
+			<div class="col-sm-3">
+				<label for="nremtID">NREMT ID:</label>
+				<input type="text"  class="col-sm-5 pl-0" placeholder="E1234567" name="nremtID" id="nremtID">
+			</div>
+			<div class="col-sm-3">
+				<label for="njEmtID">NJ EMT ID:</label>
+				<input type="text"  class="col-sm-5 pl-0" placeholder="123456" name="njEmtID" id="njEmtID">
+			</div>
+			<div class="col-sm-6">
+				<label for="emtExpDate">EMT Expiration Date:</label>
+				<input type="date" id="emtExpDate" name="emtExpDate" class="col-sm-4 p-0" pattern="\d{4}-\d{2}-\d{2}">
+				<!-- <small id="emtDateHelp" class="form-text text-muted">Please enter in the "YYYY-MM-DD" format</small> -->
+			</div>
+		</div>
+		<hr>
+		<h4 class="text-center" aria-describedby="ecHelp">
+			<u>Emergency Contact Information</u>
+		</h4>
+		<small id="ecHelp" class="form-text text-muted text-center mb-2 mt-1">Please use a parent or guardian if possible</small>
+		<div class="row form-group align-items-end">
+			<div class="col-auto">
+				<label for="contactName">Full Name</label>
+				<input type="text" class="" placeholder="John Smith" name="contactName" id="contactName" required>
+			</div>
+			<div class="col-auto">
+				<label for="contactPhoneNum">Phone Number</label>
+				<input type="text" class="" placeholder="123-456-7890" name="contactPhoneNum" id="contactPhoneNum" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+			</div>
+			<div class="col-auto">
+				<label for="contactRelationship">Relationship</label>
+				<select class="form-control d-inline col-sm-6" id="contactRelationship" name="contactRelationship" required>
+				  <option value="Mother">Mother</option>
+				  <option value="Father">Father</option>
+				  <option value="Brother">Brother</option>
+				  <option value="Sister">Sister</option>
+				  <option value="Roommate">Roommate</option>
+				  <option value="Significant Other">Significant Other</option>
+				  <option value="Grandparent">Grandparent</option>
+				  <option value="Aunt">Aunt</option>
+				  <option value="Uncle">Uncle</option>
+				  <option value="Neighbor">Neighbor</option>
+				  <option value="Other">Other</option>
+				</select>
+			</div>
+		</div>
+		<hr>
+		<h4 class="text-center" aria-describedby="ecHelp">
+			<u>Uniform Sizes</u>
+		</h4>
+		<div class="form-group row">
+			<fieldset class="col-sm-4 d-inline">
+				<div class="d-inline">
+					<legend class="col-form-label pt-0">Uniform </legend>
+					<div class="d-inline">
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="uniformRadios" id="uniformRadios1" value="men" >
+							<label class="form-check-label" for="uniformRadios1">
+								Men's
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="uniformRadios" id="uniformRadios2" value="women" >
+							<label class="form-check-label" for="uniformRadios2">
+								Women's
+							</label>
+						</div>
+				  </div>
+				</div>
+			</fieldset>
+			<div class="col-sm-4 d-inline">
+				<label for="shirtSize">T-Shirt Size</label>
+				<select class="form-control col-sm-6" id="shirtSize" name="shirtSize" required>
+				  <option value="XS">XS</option>
+				  <option value="S">S</option>
+				  <option value="M">M</option>
+				  <option value="L">L</option>
+				  <option value="XL">XL</option>
+				  <option value="2XL">2XL</option>
+				  <option value="3XL">3XL</option>
+				  <option value="4XL">4XL</option>
+				</select>
+			</div>
+				<div class="col-sm-4 d-inline">
+					<label for="jacketSize">Jacket Size</label>
+					<select class="form-control col-sm-6" id="jacketSize" name="jacketSize" required>
+						<option value="XS">XS</option>
+						<option value="S">S</option>
+						<option value="M">M</option>
+						<option value="L">L</option>
+						<option value="XL">XL</option>
+						<option value="2XL">2XL</option>
+						<option value="3XL">3XL</option>
+						<option value="4XL">4XL</option>
+					</select>
+				</div>
+			</div>
+		<hr>
+		<button type="submit" class="btn btn-success btn-lg btn-block mt-3">Register!</button>
+	</form>
+</div>
+
+<%- include("../partials/footer") %>

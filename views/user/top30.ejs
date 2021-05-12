@@ -1,0 +1,40 @@
+<%- include("../partials/completeHeader") %>
+<h1 class="text-center display-4">
+		Top 30
+</h1>
+<div class="container text-center">
+	<p>
+		The following is a ranking of the top 30 highest total hours of every SEMS member. 
+	</p>
+	<div class="row justify-content-center">
+    	<div class="col-auto">
+			<table class="table table-hover table-responsive" id="top30Table">
+				<thead class="bg-primary text-white">
+					<tr>
+						<th scope="col-auto">Last Name</th>
+						<th scope="col-auto">First Name</th>
+						<th scope="col-auto">Status</th>
+						<th scope="col-auto">Total Hours</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%topMembers.forEach(function(user){%>
+					<tr>
+						<td scope="row"><%=user.lastName%></td>
+						<td scope="row"><%=user.firstName%></td>
+						<td scope="row">
+							<%if(user.status == "Active" || user.status == "Training" || user.status == "Probation"){%>
+								Current
+							<%} else {%>
+								Inactive
+							<%}%>
+						</td>
+						<td scope="row"><%=user.hours.totalHours%></td>
+					</tr>
+					<%})%>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<%- include("../partials/footer") %>

@@ -1,0 +1,80 @@
+<%- include("../partials/completeHeader") %>
+<h1 class="text-center display-4">
+		Roster
+</h1>
+<div class="px-5">
+	<div class="mx-2">
+		<p>
+			The following is the complete list of our current members. Current members include those that are training, active, and on probation. If members are terminated, resigned, or graduated, they are not listed here. They will be included in the <a href="/user/everyMember">complete list of all members</a>
+		</p>
+		<p>
+			This view is meant to be for a quick overview of every member. If you are looking for the specifics of each member, it's recommended to go to their individual profiles as this information is easier to follow. By clicking on the member's first or last name, you will be taken to his or her profile.
+		</p>
+		<p>
+			If you are looking for other information, please refer to the <a href="./officerDashboard">officer dashboard</a> for further direction.
+		</p>
+		<table class="table big-table d-block" id="rosterTable">
+			<thead class="bg-primary text-white">
+				<tr>
+					<th scope="col-auto">Last Name</th>
+					<th scope="col-auto">First Name</th>
+					<th scope="col-auto">Title</th>
+					<th scope="col-auto">Status</th>
+					<th scope="col-auto">Sex</th>
+					<th scope="col-auto">Email Address</th>
+					<th scope="col-auto">Cell Phone Number</th>
+					<th scope="col-auto">Z Number</th>
+					<th scope="col-auto">Entry Semester</th>
+					<th scope="col-auto">Current Class</th>
+					<th scope="col-auto">Street Address</th>
+					<th scope="col-auto">City</th>
+					<th scope="col-auto">State</th>
+					<th scope="col-auto">Zip Code</th>
+					<th scope="col-auto">Driver's License ID</th>
+					<th scope="col-auto">DL State</th>
+					<th scope="col-auto">DL Exp Date</th>
+					<th scope="col-auto">CPR Provider</th>
+					<th scope="col-auto">CPR Exp Date</th>
+					<th scope="col-auto">NJ EMT ID</th>
+					<th scope="col-auto">NREMT ID</th>
+					<th scope="col-auto">EMT Exp Date</th>
+					<th scope="col-auto">Emergency Contact</th>
+					<th scope="col-auto">EC Phone Number</th>
+					<th scope="col-auto">EC Relationship</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%user.forEach(function(user){%>
+				<tr>
+					<td scope="row"><a href="/user/<%= user._id %>"><%=user.lastName%></a></td>
+					<td scope="row"><a href="/user/<%= user._id %>"><%=user.firstName%></a></td>
+					<td scope="row"><%=user.title%></td>	
+					<td scope="row"><%=user.status%></td>
+					<td scope="row"><%=user.sex%></td>
+					<td scope="row"><%=user.email%></td>
+					<td scope="row"><%=user.phoneNum%></td>
+					<td scope="row"><%=user.zNum%></td>
+					<td scope="row"><%=user.entrySem%></td>
+					<td scope="row"><%=user.currentClassStatus%></td>
+					<td scope="row"><%=user.address.street + " " + user.address.line2%></td>
+					<td scope="row"><%=user.address.city%></td>
+					<td scope="row"><%=user.address.state%></td>
+					<td scope="row"><%=user.address.zipCode%></td>
+					<td scope="row"><%=user.driversLicense.dlId%></td>
+					<td scope="row"><%=user.driversLicense.dlState%></td>
+					<td scope="row"><%=user.driversLicense.dlExpDateReadable%></td>
+					<td scope="row"><%=user.cprCert.cprProvider%></td>
+					<td scope="row"><%=user.cprCert.cprExpDateReadable%></td>
+					<td scope="row"><%=user.emtCert.njEmsId%></td>
+					<td scope="row"><%=user.emtCert.nremtId%></td>
+					<td scope="row"><%=user.emtCert.emtExpDateReadable%></td>
+					<td scope="row"><%=user.emergContact.contactName%></td>
+					<td scope="row"><%=user.emergContact.contactPhoneNum%></td>
+					<td scope="row"><%=user.emergContact.contactRelationship%></td>
+				</tr>
+				<%})%>
+			</tbody>
+		</table>
+	</div>
+</div>	
+<%- include("../partials/footer") %>

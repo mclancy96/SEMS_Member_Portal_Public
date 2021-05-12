@@ -1,0 +1,180 @@
+<%- include("../partials/completeHeader") %>
+	<h4 class="display-4">
+		Executive Board
+	</h4>
+	<%- include("../partials/alert") %>
+	<div class="container">
+		<p class="text-center">
+			The following are the current executive board officers and their responsibilities and contact information. To contact the Stockton EMS executive board in general, send an email to
+			<a href="mailto:stocktonems-club@go.stockton.edu">StocktonEMS-club@go.stockton.edu</a>
+		</p>
+
+		<ul class="list-unstyled">
+			<li>
+				<ul class="list-unstyled mb-2">
+					<h5>
+						Advisor and Associate Director of Campus Public Safety
+					</h5>
+					<div class="pl-5">
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Stockton Advisor"){%>
+								<li><%=user.name%></li>
+								<li><a href="mailto:<%=user.email%>"><%=user.email%></a></li>
+						<%}})%>
+						<li>Responsibilities:
+							<ul>
+								<li>Handling all logical tasks with the PD and other departments</li>
+								<li>Providing general guidance to the executive board</li>
+							</ul>
+						</li>
+					</div>
+				</ul>
+			</li>
+			<li>
+				<ul class="list-unstyled mb-2">
+					<h5>
+						Advisor and Chief of GTAS
+					</h5>
+					<div class="pl-5">
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "GTAS Advisor"){%>
+								<li><%=user.name%></li>
+								<li><a href="mailto:<%=user.email%>"><%=user.email%></a></li>
+						<%}})%>
+						<li>Responsibilities:
+							<ul>
+								<li>Coordinating SEMS and GTAS joint activities</li>
+								<li>Providing guidance to the executive board</li>
+							</ul>
+						</li>
+					</div>
+				</ul>
+			</li>
+			<li>
+				<ul class="list-unstyled mb-2">
+					<h5>
+						Captain/President
+					</h5>
+					<div class="pl-5">
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Captain"){%>
+								<li><%=user.name%></li>
+								<li><a href="mailto:<%=user.email%>"><%=user.email%></a></li>
+								<li><%=user.phoneNum%></li>
+						<%}})%>
+						<li>Responsibilities:
+							<ul>
+								<li>Point of contact with Stockton PD</li>
+								<li>Point of contact/liaison with Galloway Township Ambulance Squad</li>
+								<li>Oversees all administrative functions (reserving vehicles, handling paperwork, etc.)</li>
+								<li>As a Line Officer, acts as commanding officer at all functions of the Squad</li>
+								<li>Presides over all meetings</li>
+								<li>Supervises and serves as EMS command of all incidents involving SEMS</li>
+								<li>Directs any disciplinary or corrective actions for any violations of the bylaws and SOPs.</li>
+							</ul>
+						</li>
+					</div>
+				</ul>
+			</li>
+			<li>
+				<ul class="list-unstyled mb-2">
+					<h5>
+						Lieutenant/Vice President
+					</h5>
+					<div class="pl-5">
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Lieutenant"){%>
+								<li><%=user.name%></li>
+								<li><a href="mailto:<%=user.email%>"><%=user.email%></a></li>
+								<li><%=user.phoneNum%></li>
+						<%}})%>
+						<li>Responsibilities:
+							<ul>
+								<li>Reports to the Captain</li>
+								<li>Acts as the presiding officer in the absence of the Captain</li>
+								<li>Assists Captain with administrative functions</li>
+								<li>Serves as the scheduling officer for all SEMS functions</li>
+								<li>Decides which events are to be put on the schedule and what the minimum staffing for a crew should be</li>
+								<li>Keeps track of all members’ participation and informs the Captain of any delinquencies</li>
+								<li>Oversees new member recruitment process</li>
+							</ul>
+						</li>
+					</div>
+				</ul>
+			</li>
+			<li>
+				<ul class="list-unstyled mb-2">
+					<h5>
+						Training Sergeant
+					</h5>
+					<div class="pl-5">
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Training Sergeant"){%>
+								<li><%=user.name%></li>
+								<li><a href="mailto:<%=user.email%>"><%=user.email%></a></li>
+								<li><%=user.phoneNum%></li>
+						<%}})%>
+						<li>Responsibilities:
+							<ul>
+								<li>Reports to the Lieutenant</li>
+								<li>Monitors and oversees the training of members and ensures all certifications are valid</li>
+								<li>Directs FTOs</li>
+								<li>Coordinates training for the organization</li>
+								<li>Develops training programs for SEMS</li>
+							</ul>
+						</li>
+					</div>
+				</ul>
+			</li>
+			<li>
+				<ul class="list-unstyled mb-2">
+					<h5>
+						Supply Sergeant
+					</h5>
+					<div class="pl-5">
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Supply Sergeant"){%>
+								<li><%=user.name%></li>
+								<li><a href="mailto:<%=user.email%>"><%=user.email%></a></li>
+								<li><%=user.phoneNum%></li>
+						<%}})%>
+						<li>Responsibilities:
+							<ul>
+								<li>Reports to the Lieutenant</li>
+								<li>Manages the use, distribution, and collection of uniforms</li>
+								<li>Acts as the treasurer of the organization</li>
+								<li>Develops annual budget and recommends the most effective way to utilize funds</li>
+								<li>Leads any fundraising efforts</li>
+							</ul>
+						</li>
+					</div>
+				</ul>
+			</li>
+			<li>
+				<ul class="list-unstyled mb-2">
+					<h5>
+						Secretary
+					</h5>
+					<div class="pl-5">
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Secretary"){%>
+								<li><%=user.name%></li>
+								<li><a href="mailto:<%=user.email%>"><%=user.email%></a></li>
+								<li><%=user.phoneNum%></li>
+						<%}})%>
+						<li>Responsibilities:
+							<ul>
+								<li>Monitors and sends emails</li>
+								<li>Compiles and records meeting minutes</li>
+								<li>Confirms requested events</li>
+								<li>Maintains updated membership lists</li>
+								<li>Digitizes all paper forms</li>
+							</ul>
+						</li>
+					</div>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+	<%- include("../partials/footer") %>
