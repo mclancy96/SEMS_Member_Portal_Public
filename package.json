@@ -1,14 +1,8 @@
 {
-  "name": "stockton_ems_member",
+  "name": "sems_member_portal-master",
   "version": "1.0.0",
-  "description": "The public version of the private member website for Stockton EMS Members",
+  "description": "This is a public copy of Stockton EMS's portal which is available for the purpose of making it easier for other collegiate EMS organizations to see and get ideas for their own websites/portals",
   "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
-  },
-  "author": "Mike Clancy",
-  "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
     "ejs": "^3.1.3",
@@ -16,5 +10,19 @@
     "express-session": "^1.17.1",
     "nodemon": "^2.0.4",
     "request": "^2.88.2"
-  }
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mclancy96/SEMS_Member_Portal_Public.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mclancy96/SEMS_Member_Portal_Public/issues"
+  },
+  "homepage": "https://github.com/mclancy96/SEMS_Member_Portal_Public#readme"
 }

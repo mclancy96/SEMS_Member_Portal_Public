@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var passport = require('passport');
+// var passport = require('passport');
 var User = require('../models/user');
 const NewMember = require('../models/newMember');
 var middleware = require('../middleware');
-const nodemailer = require('nodemailer');
-const crypto = require("crypto");
-var nodeoutlook = require('nodejs-nodemailer-outlook')
+// const nodemailer = require('nodemailer');
+// const crypto = require("crypto");
+// var nodeoutlook = require('nodejs-nodemailer-outlook')
 
 
 

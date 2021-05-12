@@ -3,9 +3,9 @@ var router = express.Router();
 var User = require("../models/user");
 var Shift = require("../models/shift");
 var middleware = require('../middleware');
-const nodemailer = require('nodemailer');
-var schedule = require('node-schedule');
-var nodeoutlook = require('nodejs-nodemailer-outlook')
+// const nodemailer = require('nodemailer');
+// var schedule = require('node-schedule');
+// var nodeoutlook = require('nodejs-nodemailer-outlook')
 
 
 // //Nodemailer Setup
