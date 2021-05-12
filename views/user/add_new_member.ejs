@@ -24,17 +24,15 @@
 	</p>
 	<small id="headingHelp" class="form-text text-muted">To uninvite an email that should not have been invited, click the trash can (<i class="fas fa-trash-alt"></i>) next to the email. <span class="text-danger">If the fraudulent member has already created an account, change their status to "Delete" and click "Delete User" on their profile.</span></small>
 	<ul class="mt-2">
-		<%if(newUser){%>
-			<% newUser.forEach(function(newUser){%>
+		
 			<li>
 				<form action="#" method="POST">
 					newUser.email<button type="submit" class="btn btn-link"><i class="fas fa-trash-alt"></i></button>
 				</form>
 			</li>
-			<%})%>
-		<%} else {%>
+			
 			<li>No one has been invited at this time</li>
-		<%}%>
+		
 	</ul>
 
 </div>
