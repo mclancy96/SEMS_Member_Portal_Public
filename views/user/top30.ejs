@@ -18,20 +18,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<%topMembers.forEach(function(user){%>
-					<tr>
-						<td scope="row"><%=user.lastName%></td>
-						<td scope="row"><%=user.firstName%></td>
-						<td scope="row">
-							<%if(user.status == "Active" || user.status == "Training" || user.status == "Probation"){%>
-								Current
-							<%} else {%>
-								Inactive
-							<%}%>
-						</td>
-						<td scope="row"><%=user.hours.totalHours%></td>
-					</tr>
-					<%})%>
+					
 				</tbody>
 			</table>
 		</div>
