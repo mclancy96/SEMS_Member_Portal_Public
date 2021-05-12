@@ -2,7 +2,7 @@
 <h4 class="display-4">
 	Contact List
 </h4>
-<%- include("../partials/alert") %>
+
 <div class="container">
 	<p>
 		The following is the contact list for all current members. This list should only be used to get into contact with other members for business related to Stockton EMS. Misuse of this information will result in disciplinary action.
@@ -20,15 +20,15 @@
 					</tr>
 				</thead>
 				<tbody>
-					<%user.forEach(function(user){%>
+					
 					<tr>
-						<td scope="row"><a href="/user/<%= user._id %>"><%=user.lastName%></a></td>
-						<td scope="row"><a href="/user/<%= user._id %>"><%=user.firstName%></a></td>
-						<td scope="row"><%=user.title%></td>
-						<td scope="row"><%=user.email%></td>
-						<td scope="row"><%=user.phoneNum%></td>
+						<td scope="row"><a href="#"></a></td>
+						<td scope="row"><a href="#"></a></td>
+						<td scope="row"></td>
+						<td scope="row"></td>
+						<td scope="row"></td>
 					</tr>
-					<%});%>
+					
 				</tbody>
 			</table>
 		</div>
