@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
-var User = require("../models/user");
-var middleware = require("../middleware");
+// var User = require("../models/user");
+// var middleware = require("../middleware");
 
 router.get("/guide/new_member_cheat_sheet",  function(req,res){
 	res.render("./guide/new_member_cheat_sheet", {});

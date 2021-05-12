@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 // var passport = require('passport');
-var User = require('../models/user');
-const NewMember = require('../models/newMember');
-var middleware = require('../middleware');
+// var User = require('../models/user');
+// const NewMember = require('../models/newMember');
+// var middleware = require('../middleware');
 // const nodemailer = require('nodemailer');
 // const crypto = require("crypto");
 // var nodeoutlook = require('nodejs-nodemailer-outlook')
@@ -12,46 +12,48 @@ var middleware = require('../middleware');
 
 
 router.get('/user/eboard', async function(req, res) {
-	var officers = await User.find({accessLevel: "officer"});
-	res.render('./user/eboard', { officers:officers});
+	// var officers = await User.find({accessLevel: "officer"});
+	res.render('./user/eboard', {});
 });
 
 router.get('/user/alumni', async function(req, res) {
-	var alumni = await User.find({status:"Alumni"});
-	res.render('./user/alumni',{ alumni:alumni});
+	// var alumni = await User.find({status:"Alumni"});
+	res.render('./user/alumni',{ });
 });
 
 router.get('/user/contact_list',
-	function(req,res){
-		User.find({onRoster: true}, function(err, allUsers){
-		if(err){
-			req.flash("error", err.message)
-			res.redirect("back");
-		} else {
-		res.render('./user/contact_list', {user:allUsers});
-		}
-	})
-});
+	// function(req,res){
+	// 	User.find({onRoster: true}, function(err, allUsers){
+	// 	if(err){
+	// 		req.flash("error", err.message)
+	// 		res.redirect("back");
+	// 	} else {
+		res.render('./user/contact_list', {});
+	// 	}
+	// })
+	// }
+);
 
 router.get("/user/everyMember", function(req, res){ 
-	User.find({}, function(err, allUsers){
-		if(err){
-			req.flash("error", err.message)
-			res.redirect("back");
-		} else {
-			res.render("./user/everyMember", {user:allUsers})
+	// User.find({}, function(err, allUsers){
+	// 	if(err){
+	// 		req.flash("error", err.message)
+	// 		res.redirect("back");
+	// 	} else {
+			res.render("./user/everyMember", {})
 		}
-	});
-});
+	// });
+	// }
+);
 
 router.get("/user/top30", async function(req,res){
-	var topMembers = await User.find({}).sort({"hours.totalHours": -1}).limit(30);
-	res.render("./user/top30", {topMembers:topMembers});
+	// var topMembers = await User.find({}).sort({"hours.totalHours": -1}).limit(30);
+	res.render("./user/top30", {});
 });
 
 router.get("/user/hours", async function(req,res){
-	var allMembers = await User.find({onRoster: true}).sort({lastName:-1});
-		res.render("./user/hours", { allMembers:allMembers});
+	// var allMembers = await User.find({onRoster: true}).sort({lastName:-1});
+		res.render("./user/hours", {});
 });
 
 router.get('/user/alumni',
@@ -63,15 +65,16 @@ router.get('/user/alumni',
 //==============================================================New Member Temporary Account Routes:==========================================================
 
 router.get("/user/add_new_member", function(req, res){
-	NewMember.find({}, function(err, allNewUsers){
-		if(err){
-			req.flash("error", err.message)
-			res.redirect("back");
-		} else {
-			res.render("./user/add_new_member", {newUser:allNewUsers});
-		}
-	})
-});
+	// NewMember.find({}, function(err, allNewUsers){
+	// 	if(err){
+	// 		req.flash("error", err.message)
+	// 		res.redirect("back");
+	// 	} else {
+			res.render("./user/add_new_member", {});
+// 		}
+// 	})
+// }
+);
 
 // let transporter = nodemailer.createTransport({
 // 	host: 'smtp.gmail.com',
@@ -201,15 +204,16 @@ router.get("/user/verify", function(req, res){
 //Index Route (this is the roster)
 router.get("/user",// 
 	function(req,res){
-		User.find({onRoster: true}, function(err, allUsers){
-		if(err){
-			req.flash("error", err.message)
-			res.redirect("back");
-		} else {
-			res.render("./user/roster", {user:allUsers}); 
-		}
-	})
-});
+		// User.find({onRoster: true}, function(err, allUsers){
+		// if(err){
+		// 	req.flash("error", err.message)
+		// 	res.redirect("back");
+		// } else {
+			res.render("./user/roster", {}); 
+// 		}
+// 	})
+// }
+);
 
 //Create Route
 // router.post('/user', middleware.setMemberVariables, function(req, res) {
@@ -314,60 +318,61 @@ router.get("/user",//
 router.get('/user/:id', //middleware.idIsCurrentUserOrOfficer,
 	function(req, res) {
 	
-	var todayRaw = Date.now()
-	var today = new Date();
-	var dd = String(today.getDate()).padStart(2, '0');
-	var mm = String(today.getMonth() + 1).padStart(2, '0');
-	var yyyy = today.getFullYear();
+	// var todayRaw = Date.now()
+	// var today = new Date();
+	// var dd = String(today.getDate()).padStart(2, '0');
+	// var mm = String(today.getMonth() + 1).padStart(2, '0');
+	// var yyyy = today.getFullYear();
 
-	today = yyyy + '-' + mm + '-' + dd;
-	User.findById(req.params.id).exec( function(err, foundUser){
-	if (err){
-		req.flash("error", err.message)
-		res.redirect("back")
-	} else {
-		res.render("./user/show", {today: today, user: foundUser, todayRaw: todayRaw,  })
-	}
-	})
-});
+	// today = yyyy + '-' + mm + '-' + dd;
+	// User.findById(req.params.id).exec( function(err, foundUser){
+	// if (err){
+	// 	req.flash("error", err.message)
+	// 	res.redirect("back")
+	// } else {
+		res.render("./user/show", {})
+// 	}
+// 	})
+// }
+);
 
 //Edit Route
-router.get('/user/:id/edit', //middleware.idIsCurrentUserOrOfficer,
-	function(req, res) {
-		if(req.isAuthenticated()){
-		User.findById(req.params.id, function(err, foundUser){
-	if (err){
-		req.flash("error", err.message);
-		res.redirect("./noPage");
-	} else {
-		if(!foundUser.cprCert.cprExpDate){
-			res.locals.cprExpDateSet = null;
-		} else {
-			var cprExpDate = new Date(foundUser.cprCert.cprExpDate);
-			var cED= cprExpDate.toISOString();
-			var cprExpDateSet = cED.slice(0,4) + "-" + cED.slice(5,7) + "-" + cED.slice(8,10);
-		}
+// router.get('/user/:id/edit', //middleware.idIsCurrentUserOrOfficer,
+// 	function(req, res) {
+// 		if(req.isAuthenticated()){
+// 		User.findById(req.params.id, function(err, foundUser){
+// 	if (err){
+// 		req.flash("error", err.message);
+// 		res.redirect("./noPage");
+// 	} else {
+// 		if(!foundUser.cprCert.cprExpDate){
+// 			res.locals.cprExpDateSet = null;
+// 		} else {
+// 			var cprExpDate = new Date(foundUser.cprCert.cprExpDate);
+// 			var cED= cprExpDate.toISOString();
+// 			var cprExpDateSet = cED.slice(0,4) + "-" + cED.slice(5,7) + "-" + cED.slice(8,10);
+// 		}
 		
-		if(!foundUser.emtCert.emtExpDate){
-			res.locals.emtExpDateSet = null;
-		} else {
-			var emtExpDate = new Date(foundUser.emtCert.emtExpDate);
-			var eED= emtExpDate.toISOString();
-			var emtExpDateSet = eED.slice(0,4) + "-" + eED.slice(5,7) + "-" + eED.slice(8,10);
-		}
+// 		if(!foundUser.emtCert.emtExpDate){
+// 			res.locals.emtExpDateSet = null;
+// 		} else {
+// 			var emtExpDate = new Date(foundUser.emtCert.emtExpDate);
+// 			var eED= emtExpDate.toISOString();
+// 			var emtExpDateSet = eED.slice(0,4) + "-" + eED.slice(5,7) + "-" + eED.slice(8,10);
+// 		}
 		
-		if(!foundUser.driversLicense.dlExpDate){
-			res.locals.dlExpDateSet = null;
-		} else {
-			var dlExpDate = new Date(foundUser.driversLicense.dlExpDate);
-			var lED= dlExpDate.toISOString();
-			var dlExpDateSet = lED.slice(0,4) + "-" + lED.slice(5,7) + "-" + lED.slice(8,10);
-		}
-		res.locals.formType = "edit"
-		res.render("./user/edit", {user:foundUser,  cprExpDateSet:cprExpDateSet, emtExpDateSet:emtExpDateSet, dlExpDateSet:dlExpDateSet, formType:res.locals.formType})
-	}});
-}
-});
+// 		if(!foundUser.driversLicense.dlExpDate){
+// 			res.locals.dlExpDateSet = null;
+// 		} else {
+// 			var dlExpDate = new Date(foundUser.driversLicense.dlExpDate);
+// 			var lED= dlExpDate.toISOString();
+// 			var dlExpDateSet = lED.slice(0,4) + "-" + lED.slice(5,7) + "-" + lED.slice(8,10);
+// 		}
+// 		res.locals.formType = "edit"
+// 		res.render("./user/edit", {user:foundUser,  cprExpDateSet:cprExpDateSet, emtExpDateSet:emtExpDateSet, dlExpDateSet:dlExpDateSet, formType:res.locals.formType})
+// 	}});
+// }
+// });
 
 //Update Route
 // router.put("/user/:id", middleware.isLoggedIn, middleware.setMemberVariables, function(req, res){

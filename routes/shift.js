@@ -1,8 +1,8 @@
 var express = require("express");
 var router = express.Router();
-var User = require("../models/user");
-var Shift = require("../models/shift");
-var middleware = require('../middleware');
+// var User = require("../models/user");
+// var Shift = require("../models/shift");
+// var middleware = require('../middleware');
 // const nodemailer = require('nodemailer');
 // var schedule = require('node-schedule');
 // var nodeoutlook = require('nodejs-nodemailer-outlook')
@@ -119,8 +119,8 @@ var middleware = require('../middleware');
 // })
 
 router.get("/shift/graveyard", async function(req,res){
-	var allShifts = await Shift.find().sort({"startDateMS": -1});
-	res.render("./shift/graveyard",{ allShifts:allShifts})
+	// var allShifts = await Shift.find().sort({"startDateMS": -1});
+	res.render("./shift/graveyard",{ })
 });
 
 //============================================================================Shift CRUD===================================================================================
@@ -130,93 +130,92 @@ router.get("/shift/new", function(req,res){
 });
 
 // //Index Route (The Full Schedule)
-router.get("/shift", middleware.initializeSchedule, function(req,res){
+router.get("/shift", function(req,res){
 	var todayDate = new Date();
 	var todayMS = Date.now();
-	res.locals.formType = "new"
-	res.render("./shift/schedule", {allShifts:res.locals.allShifts,  events: res.locals.events, dutyCrews: res.locals.dc, tablings: res.locals.tablings, meetings: res.locals.meetings, socialGatherings: res.locals.socialGatherings, trainings: res.locals.trainings, today: todayDate, todayMS:todayMS, formType:res.locals.formType});
+	res.render("./shift/schedule", {});
 });
 
 // //Create Route
-router.post("/shift", middleware.setShiftVariables, function(req,res){
-	var shiftName = res.locals.shiftName,
-		shiftStart = {
-			startDateRaw: req.body.startDate,
-			startDateReadable: res.locals.startDateSet,
-			reportTime: req.body.reportTime,
-			startTime: req.body.startTime,	
-			startTimeAndDate: res.locals.startTimeAndDate,
-			startTimeAndDateMS: res.locals.startTimeAndDateMS,
-		},
-		startDateMS= res.locals.startDateMS,
-		shiftEnd = {
-			endDateRaw: req.body.endDate,
-			endDateReadable: res.locals.endDateSet,
-			reportTime: req.body.reportTime,
-			endTime: req.body.endTime,	
-			endTimeAndDate: res.locals.endTimeAndDate,
-			endTimeAndDateMS: res.locals.endTimeAndDateMS
-		},
-		endDateMS= res.locals.endDateMS,
-		duration = (shiftEnd.endTimeAndDateMS-shiftStart.startTimeAndDateMS),
-		durationReadable = (duration/3600000).toFixed(2) + "hrs",
-		type = req.body.shiftTypeSelectorRadios, //Event standby, Duty crew, Tabling, Gen meeting, Meeting, Training, Social Gathering
-		shiftHost = req.body.eventHost,
-		reportLocation = res.locals.reportLocation,
-		shiftLocation = req.body.shiftLocation,
-		vehicle = res.locals.vehicle,
-		crewMax = res.locals.crewMax,
-		notes = res.locals.notes,
-		isMandatory = res.locals.isMandatory,
-		creator = {
-			id: req.user.id,
-			name: req.user.name
-		};
+// router.post("/shift", function(req,res){
+// 	var shiftName = res.locals.shiftName,
+// 		shiftStart = {
+// 			startDateRaw: req.body.startDate,
+// 			startDateReadable: res.locals.startDateSet,
+// 			reportTime: req.body.reportTime,
+// 			startTime: req.body.startTime,	
+// 			startTimeAndDate: res.locals.startTimeAndDate,
+// 			startTimeAndDateMS: res.locals.startTimeAndDateMS,
+// 		},
+// 		startDateMS= res.locals.startDateMS,
+// 		shiftEnd = {
+// 			endDateRaw: req.body.endDate,
+// 			endDateReadable: res.locals.endDateSet,
+// 			reportTime: req.body.reportTime,
+// 			endTime: req.body.endTime,	
+// 			endTimeAndDate: res.locals.endTimeAndDate,
+// 			endTimeAndDateMS: res.locals.endTimeAndDateMS
+// 		},
+// 		endDateMS= res.locals.endDateMS,
+// 		duration = (shiftEnd.endTimeAndDateMS-shiftStart.startTimeAndDateMS),
+// 		durationReadable = (duration/3600000).toFixed(2) + "hrs",
+// 		type = req.body.shiftTypeSelectorRadios, //Event standby, Duty crew, Tabling, Gen meeting, Meeting, Training, Social Gathering
+// 		shiftHost = req.body.eventHost,
+// 		reportLocation = res.locals.reportLocation,
+// 		shiftLocation = req.body.shiftLocation,
+// 		vehicle = res.locals.vehicle,
+// 		crewMax = res.locals.crewMax,
+// 		notes = res.locals.notes,
+// 		isMandatory = res.locals.isMandatory,
+// 		creator = {
+// 			id: req.user.id,
+// 			name: req.user.name
+// 		};
 
-	var newShift = {
-		shiftName: shiftName,
-		shiftStart: shiftStart,
-		startDateMS: startDateMS,
-		shiftEnd: shiftEnd,
-		endDateMS: endDateMS,
-		duration: duration,
-		durationReadable: durationReadable,
-		type: type,
-		shiftHost: shiftHost,
-		reportLocation: reportLocation,
-		shiftLocation: shiftLocation,
-		vehicle: vehicle,
-		crewMax: crewMax,
-		notes: notes, 
-		isMandatory: isMandatory,
-		creator: creator
-	}
+// 	var newShift = {
+// 		shiftName: shiftName,
+// 		shiftStart: shiftStart,
+// 		startDateMS: startDateMS,
+// 		shiftEnd: shiftEnd,
+// 		endDateMS: endDateMS,
+// 		duration: duration,
+// 		durationReadable: durationReadable,
+// 		type: type,
+// 		shiftHost: shiftHost,
+// 		reportLocation: reportLocation,
+// 		shiftLocation: shiftLocation,
+// 		vehicle: vehicle,
+// 		crewMax: crewMax,
+// 		notes: notes, 
+// 		isMandatory: isMandatory,
+// 		creator: creator
+// 	}
 	
-	Shift.create(newShift, function(err, newlyCreatedShift){
-		if (err){
-			req.flash("error", "Unable to create new shift:" + err.message);
-			res.redirect("back");
-		} else{
-			const notiData = new Notification({createdBy: {id: req.user.id, name: req.user.name}, created: Date.now(), accessLevel: "genMem", message: newlyCreatedShift.shiftName+" has been added to the schedule."});
-			notiData.save(function(err, newNoti){});
-			req.flash("success", newlyCreatedShift.shiftName+" created successfully!")
-			res.redirect("/shift");
-		}
-	})
+// 	Shift.create(newShift, function(err, newlyCreatedShift){
+// 		if (err){
+// 			req.flash("error", "Unable to create new shift:" + err.message);
+// 			res.redirect("back");
+// 		} else{
+// 			const notiData = new Notification({createdBy: {id: req.user.id, name: req.user.name}, created: Date.now(), accessLevel: "genMem", message: newlyCreatedShift.shiftName+" has been added to the schedule."});
+// 			notiData.save(function(err, newNoti){});
+// 			req.flash("success", newlyCreatedShift.shiftName+" created successfully!")
+// 			res.redirect("/shift");
+// 		}
+// 	})
 
-});
+// });
 
 // //Show Route (Detailed Event Information)
 router.get("/shift/:id", function(req,res){
 	var todayMS = Date.now();	
-	Shift.findById(req.params.id).exec( async function(err, foundShift){
-		if (err){
-			console.log(err)	
-		} else {
-			var allMembers = await User.find({$or:[{status: "Active"},{status: "Probation"},{status: "Training"}]}).sort({"lastName": 1})
-			res.render("shift/show", {shift: foundShift,  todayMS:todayMS, allMembers:allMembers});
-		}
-	});
+	// Shift.findById(req.params.id).exec( async function(err, foundShift){
+	// 	if (err){
+	// 		console.log(err)	
+	// 	} else {
+	// 		var allMembers = await User.find({$or:[{status: "Active"},{status: "Probation"},{status: "Training"}]}).sort({"lastName": 1})
+			res.render("shift/show", {});
+		// }
+	// });
 });
 
 //Edit Route
@@ -671,29 +670,29 @@ router.get("/shift/:id", function(req,res){
 // })
 
 //Add to attendedArray
-router.put('/shift/:id/update/attendance/add', async function(req,res){
-	if(typeof req.body.attendanceEditCheckBoxes == "object"){
-		await req.body.attendanceEditCheckBoxes.forEach(function(userId){
-			User.findById(userId).then(async function(user){
-				var attendance = {
-					_id: userId,
-					name: user.name
-				}
-				await Shift.updateOne({_id: req.params.id}, {$push:{"attendedArray": attendance}});
-			})
-		});
-	} else if (typeof req.body.attendanceEditCheckBoxes == "string"){
-		User.findById(req.body.attendanceEditCheckBoxes).then(async function(user){
-			var attendance = {
-				_id: req.body.attendanceEditCheckBoxes,
-				name: user.name
-			}
-			await Shift.updateOne({_id: req.params.id}, {$push:{"attendedArray": attendance}});
-		})
-	} 
-	req.flash("success", "Selected users have been added")
-	res.redirect("back");
-})
+// router.put('/shift/:id/update/attendance/add', async function(req,res){
+// 	if(typeof req.body.attendanceEditCheckBoxes == "object"){
+// 		await req.body.attendanceEditCheckBoxes.forEach(function(userId){
+// 			User.findById(userId).then(async function(user){
+// 				var attendance = {
+// 					_id: userId,
+// 					name: user.name
+// 				}
+// 				await Shift.updateOne({_id: req.params.id}, {$push:{"attendedArray": attendance}});
+// 			})
+// 		});
+// 	} else if (typeof req.body.attendanceEditCheckBoxes == "string"){
+// 		User.findById(req.body.attendanceEditCheckBoxes).then(async function(user){
+// 			var attendance = {
+// 				_id: req.body.attendanceEditCheckBoxes,
+// 				name: user.name
+// 			}
+// 			await Shift.updateOne({_id: req.params.id}, {$push:{"attendedArray": attendance}});
+// 		})
+// 	} 
+// 	req.flash("success", "Selected users have been added")
+// 	res.redirect("back");
+// })
 
 //Pull from attendedArray
 // router.put('/shift/:id/update/attendance/remove', function(req,res){
