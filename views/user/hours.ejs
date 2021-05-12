@@ -4,7 +4,7 @@
 </h1>
 
 <div class="container">
-	<%- include("../partials/alert") %>
+	
 
 	<p class="text-center">
 		The following are the hours for each current member of SEMS. For more detail, click a member's name to go to their profile and scroll to the bottom of the profile to see all of their hours.
@@ -21,16 +21,16 @@
 			</tr>
 		</thead>
 		<tbody>
-			<%allMembers.forEach(function(user){%>
+			
 			<tr>
-				<td scope="row"><%=user.title%></td>
-				<td scope="row"><a href="/user/<%= user._id %>"><%=user.lastName%></a></td>
-				<td scope="row"><a href="/user/<%= user._id %>"><%=user.firstName%></a></td>
-				<td scope="row"><%=user.status%></td>
-				<td scope="row" class="text-center"><%=user.hours.currentMonth%></td>
-				<td scope="row" class="text-center"><%=user.hours.currentSem%></td>
+				<td scope="row"></td>
+				<td scope="row"><a href="#"></a></td>
+				<td scope="row"><a href="#"></a></td>
+				<td scope="row"></td>
+				<td scope="row" class="text-center"></td>
+				<td scope="row" class="text-center"></td>
 			</tr>
-			<%})%>
+			
 		</tbody>
 	</table>
 </div>
