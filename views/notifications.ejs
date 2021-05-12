@@ -19,22 +19,11 @@
 			<div id="collapseUserSpecific" class="collapse" aria-labelledby="headingUserSpecific" data-parent="#accordionNotification">
 				<div class="card-body">
 					<ul>
-						<%if(notifications){%>
-							<%notifications.forEach(function(notification){%>
-								<%if (notification.effectedMember.id == false){%>
-								<li class="my-3">
-									<div class="<%=(notification.importance == "high")?'text-danger':''%>">
-										"<%=notification.message%>"  
-									</div> 
-									<div class="pl-3">
-										- <em class="text-secondary">User: <%=notification.createdBy.name%> (<%=notification.created.toLocaleString('en-US', { timeZone: "America/New_York"})%>) </em>
-									</div>
-								</li>
-						<%}})} else {%>
+						
 							<li>
 								No notifications
 							</li>
-						<%}%>
+						
 					</ul>
 				</div>
 			</div>
@@ -50,22 +39,11 @@
 				<div id="collapseOfficer" class="collapse" aria-labelledby="headingOfficer" data-parent="#accordionNotification">
 					<div class="card-body">
 						<ul>
-							<%if(notifications){%>
-							<%notifications.forEach(function(notification){%>
-								<%if (notification.accessLevel == "officer"){%>
-								<li class="my-3">
-									<div class="<%=(notification.importance == "high")?'text-danger':''%>">
-										"<%=notification.message%>"  
-									</div>
-									<div class="pl-3">
-										- <em class="text-secondary">User: <%=notification.createdBy.name%> (<%=notification.created.toLocaleString('en-US', { timeZone: "America/New_York"})%>) </em>
-									</div>
-								</li>
-						<%}})} else {%>
+							
 							<li>
 								No notifications
 							</li>
-						<%}%>
+						
 						</ul>
 					</div>
 				</div>
@@ -81,22 +59,11 @@
 			<div id="collapseGenMem" class="collapse" aria-labelledby="headingGenMem" data-parent="#accordionNotification">
 				<div class="card-body">
 					<ul>
-						<%if(notifications){%>
-						<%notifications.forEach(function(notification){%>
-							<%if (notification.accessLevel == "genMem"){%>
-							<li class="my-3">
-								<div class="<%=(notification.importance == "high")?'text-danger':''%>">
-									"<%=notification.message%>"  
-								</div>
-								<div class="pl-3">
-									- <em class="text-secondary">User: <%=notification.createdBy.name%> (<%=notification.created.toLocaleString('en-US', { timeZone: "America/New_York"})%>) </em>
-								</div>
-							</li>
-					<%}})} else {%>
+						
 						<li>
 							No notifications
 						</li>
-					<%}%>
+					
 					</ul>
 				</div>
 			</div>
