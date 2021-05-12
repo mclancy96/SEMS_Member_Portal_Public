@@ -33,13 +33,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<%foundShifts.forEach(function(shift){%>
-							<tr>
-								<td><a href="/shift/<%=shift._id%>"><%=shift.shiftName%></a></td>
-								<td><%=shift.shiftStart.startDateReadable%></td>
-								<td><%=shift.shiftStart.startTime%> - <%=shift.shiftEnd.endTime%></td>
-							</tr>
-					<%})%>
+					
 				</tbody>
 			</table>
 		</div>
@@ -60,15 +54,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<%foundShifts.forEach(function(shift){%>
-						<%if(shift.type == "gm" ){%>
-							<tr>
-								<td><%=shift.shiftStart.startDateReadable%></td>
-								<td><%=shift.shiftStart.startTime%></td>
-								<td><%=shift.shiftLocation%></td>
-							</tr>
-						<%}%>
-					<%})%>
+					
 				</tbody>
 			</table>
 		</div>
@@ -88,66 +74,31 @@
 				<tbody>
 					<tr>
 						<td><strong>S.U. Advisor</strong></td>
-						<%officers.forEach(function(user){%>
-							<%if(user.title == "Stockton Advisor"){%>
-								<td><%=user.name%></td>
-								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
-							<%}%>
-						<%})%>
+						
 					</tr>
 					<tr>
 						<td><strong>GTAS Advisor</strong></td>
-						<%officers.forEach(function(user){%>
-							<%if(user.title == "GTAS Advisor"){%>
-								<td><%=user.name%></td>
-								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
-							<%}%>
-						<%})%>
+						
 					</tr>
 					<tr>
 						<td><strong>Captain</strong></td>
-						<%officers.forEach(function(user){%>
-							<%if(user.title == "Captain"){%>
-								<td><%=user.name%></td>
-								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
-							<%}%>
-						<%})%>
+						
 					</tr>
 					<tr>
 						<td><strong>Lieutenant</strong></td>
-						<%officers.forEach(function(user){%>
-							<%if(user.title == "Lieutenant"){%>
-								<td><%=user.name%></td>
-								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
-							<%} %>
-						<%})%>
+						
 					</tr>
 					<tr>
 						<td><strong>Training Sergeant</strong></td>
-						<%officers.forEach(function(user){%>
-							<%if(user.title == "Training Sergeant"){%>
-								<td><%=user.name%></td>
-								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
-							<%}%>
-						<%})%>
+						
 					</tr>
 					<tr>
 						<td><strong>Supply Sergeant</strong></td>
-						<%officers.forEach(function(user){%>
-							<%if(user.title == "Supply Sergeant"){%>
-								<td><%=user.name%></td>
-								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
-							<%}%>
-						<%})%>
+						
 					</tr>
 					<tr>
 						<td><strong>Secretary</strong></td>
-						<%officers.forEach(function(user){%>
-							<%if(user.title == "Secretary"){%>
-								<td><%=user.name%></td>
-								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
-							<%}%>
-						<%})%>
+						
 					</tr>
 				</tbody>
 			</table>
