@@ -7,8 +7,8 @@
 	</button>
 	<ul class="navbar-nav ml-auto navbar-expand col-md-8 col-lg-9 justify-content-end " id="inline">
 		<a class="navbar-text text-white ml-2 mr-auto mx-md-2" href="/notifications">
-		Notifications <%//if(notiCount<=0){} else {%><span class="badge badge-pill badge-warning"><%=//notiCount%></span><%//}%>
+		Notifications <%if(notiCount<=0){} else {%><span class="badge badge-pill badge-warning"><%=notiCount%></span><%}%>
 		</a>
-		<li class="nav-item ml-auto mr-2 mx-md-2"><a class="nav-link" href="#">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+		<li class="nav-item ml-auto mr-2 mx-md-2"><a class="nav-link" href="/logout">Logout <i class="fas fa-sign-out-alt"></i></a></li>
 	</ul>
 </nav>

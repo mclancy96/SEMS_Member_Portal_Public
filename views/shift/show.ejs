@@ -1,109 +1,159 @@
 <%- include("../partials/completeHeader") %>
 <h1 class="display-4">
-	Name
+	<%=shift.shiftName%>
 	<br>
-	<span><small>startDate</small></span> 
+	<span><small><%=shift.shiftStart.startDateReadable%></small></span> 
 </h1>
+<%- include("../partials/alert") %>
 <div class="container">
 	<div class="d-flex align-middle justify-content-between">
 		<div class="mr-auto p-2" >
 			<a href="/shift"><i class="fas fa-long-arrow-alt-left"></i> Go back to the schedule</a>
 		</div>
-			<a href="/shift/0/edit" class="text-right justify-content-end d-flex"><i class="fas fa-edit mr-1"></i>Edit Shift Infomation</a>
+		<% if(currentUser.accessLevel = "officer"){%>
+			<a href="/shift/<%=shift._id%>/edit" class="text-right justify-content-end d-flex"><i class="fas fa-edit mr-1"></i>Edit Shift Infomation</a>
+		<%}%>
 	</div>
 	<p>
-		<strong>Name: </strong> <span class="text-primary"></span>
+		<strong>Name: </strong> <span class="text-primary"><%=shift.shiftName%></span>
 	</p>
 	
-	
+	<%if(shift.type == "es"){%>
 		<p>
-			<strong>Event Host: </strong> <span class="text-primary"></span>
+			<strong>Event Host: </strong> <span class="text-primary"><%=shift.shiftHost%></span>
 		</p>
-	
+	<%}%>
 	
 	<div class="mb-3">
 		<strong>Status: </strong> 
+		<%if(currentUser.accessLevel != "officer"){%>
+			<%if(shift.status == "scheduled"){%>
+			<span class="text-primary capitalize"><%=shift.status%></span>
+			<%}%>
+			<%if(shift.status == "cancelled"){%>
+			<span class="text-warning capitalize"><%=shift.status%></span>
+			<%}%>
+			<%if(shift.status == "unstaffed"){%>
+			<span class="text-danger capitalize"><%=shift.status%></span>
+			<%}%>
+			<%if(shift.status == "staffed"){%>
+			<span class="text-success capitalize"><%=shift.status%></span>
+			<%}%>
+		<%}else if(currentUser.accessLevel == "officer"){%>
 		<span>
-			<form action="#" method="POST" class="form-inline d-inline">
+			<form action="/shift/<%=shift.id%>/status?_method=PUT" method="POST" class="form-inline d-inline">
 				<select class="form-control form-control-sm" id="status" name="status" required>
-					<option value="scheduled" >Scheduled</option>
-					<option value="staffed" >Staffed</option>
-					<option value="cancelled" >Cancelled</option>
-					<option value="unstaffed" >Unstaffed</option>
+					<option value="scheduled" <%= (shift.status == "scheduled")?'selected':''%>>Scheduled</option>
+					<option value="staffed" <%= (shift.status == "staffed")?'selected':''%>>Staffed</option>
+					<option value="cancelled" <%= (shift.status == "cancelled")?'selected':''%>>Cancelled</option>
+					<option value="unstaffed" <%= (shift.status == "unstaffed")?'selected':''%>>Unstaffed</option>
 				</select>
 				<button class="btn btn-sm btn-primary">
 					Update Status
 				</button>
 			</form>
 		</span>
+		<%}%>
 	</div>
 	
 	<p>
 		<strong>Shift Type: </strong> 
+		<%if(shift.type == "es"){%>
+		<span class="text-primary">Event Standby</span>
+		<%}%>
+		<%if(shift.type == "dc"){%>
+		<span class="text-primary">Duty Crew</span>
+		<%}%>
+		<%if(shift.type == "gm"){%>
+		<span class="text-primary">General Meeting</span>
+		<%}%>
+		<%if(shift.type == "ta"){%>
+		<span class="text-primary">Tabling</span>
+		<%}%>
+		<%if(shift.type == "tr"){%>
+		<span class="text-primary">Training</span>
+		<%}%>
+		<%if(shift.type == "m"){%>
+		<span class="text-primary">Meeting</span>
+		<%}%>
+		<%if(shift.type == "sg"){%>
+		<span class="text-primary">Social Event</span>
+		<%}%>
 	</p>
 	
 	<p>
-		<strong>Date and Time: </strong> <span class="text-primary"></span>
+		<strong>Date and Time: </strong> <span class="text-primary"><%=shift.shiftStart.startDateReadable%> <%=shift.shiftStart.startTime%> - <%=shift.shiftEnd.endDateReadable%> <%=shift.shiftEnd.endTime%></span>
 	</p>
 	
 	<p>
-		<strong>Duration: </strong> <span class="text-primary"></span>
+		<strong>Duration: </strong> <span class="text-primary"><%=shift.durationReadable%></span>
 	</p>
 	
 	<p aria-describedby="rlHelp">
-		<strong>Report Time and Location: </strong> <span class="text-primary"><span class="text-primary"> at </span></span>
+		<strong>Report Time and Location: </strong> <span class="text-primary"><span class="text-primary"><%=shift.shiftStart.reportTime%> at </span><%=shift.reportLocation%></span>
 		<small id="rlHelp" class="form-text text-muted pt-0 mt-0">This is where everyone will meet at the report time. If there's no report location and this is a duty crew or event standby, talk to the crew chief or lieutenant. Otherwise, you will likely be meeting directly at the shift location</small>
 	</p>
 	
 	<p aria-describedby="slHelp">
-		<strong>Shift Location: </strong> <span class="text-primary"></span>
+		<strong>Shift Location: </strong> <span class="text-primary"><%=shift.shiftLocation%></span>
 		<small id="slHelp" class="form-text text-muted pt-0 mt-0">This is where the shift will be taking place</small>
 	</p>
 	
-
+<%if(shift.type == "es" || shift.type == "ta" || shift.type == "dc"){%>	
 	<p>
-		<strong>Vehicle: </strong> <span class="text-primary"></span>
+		<strong>Vehicle: </strong> <span class="text-primary"><%=shift.vehicle%></span>
 	</p>
 
 	<p>
 		<strong>Crew: </strong>
 	</p>
 	<ul>
-		<li><strong>Officer-In-Charge: </strong><span class="text-primary"></span>
+		<li><strong>Officer-In-Charge: </strong><span class="text-primary"><%=shift.officerInCharge.title%> <%=shift.officerInCharge.name%></span>
+			<%if(currentUser.accessLevel === "officer" && shift.officerInCharge.name){%>
+				<%if(shift.startDateMS >= (Date.now()-172800000)){%>
 					<span class="d-inline-block">
-						<form class="form-inline" action="#" method="POST">
+						<form class="form-inline" action="/shift/<%=shift._id%>/remove/<%=shift.officerInCharge._id%>?_method=PUT" method="POST">
 							<button class="btn text-danger btn-link"> <small>[Remove]</small> </button> 	
 						</form>
 					</span>
+				<%}%>
+			<%}%>
 		</li>
-		<li><strong>Crew Chief: </strong><span class="text-primary"></span>
+		<li><strong>Crew Chief: </strong><span class="text-primary"><%=shift.crewChief.name%></span>
+			<%if(currentUser.accessLevel == "officer" && shift.crewChief.name && shift.startDateMS >= (Date.now()-172800000)){%>
 				<span class="d-inline-block">
-					<form class="form-inline" action="#" method="POST">
+					<form class="form-inline" action="/shift/<%=shift._id%>/remove/<%=shift.crewChief._id%>?_method=PUT" method="POST">
 						<button class="btn text-danger btn-link"> <small>[Remove]</small> </button> 	
 					</form>
 				</span>
+			<%}%>
 		</li>
-		
-		<li><strong>Crew Member: </strong><span class="text-primary"></span>
+		<%shift.crewArray.forEach(function(cm){%>
+		<li><strong>Crew Member: </strong><span class="text-primary"><%=cm.name%></span>
+			<%if(shift.startDateMS >= (Date.now()-172800000)){%>
+				<%if(currentUser.accessLevel == "officer"){%>
 					<span class="d-inline-block">
-						<form class="form-inline" action="#" method="POST">
+						<form class="form-inline" action="/shift/<%=shift._id%>/remove/<%=cm._id%>?_method=PUT" method="POST">
 							<button class="btn text-danger btn-link"> <small>[Remove]</small> </button> 	
 						</form>
 					</span>
+				<%}%>
+			<%}%>
 		</li>
-		
+		<%})%>
 	</ul>
-	
+	<%}%>
 	<p>
-		<strong>Notes: </strong> <span class="text-primary"></span>
+		<strong>Notes: </strong> <span class="text-primary"><%=shift.notes%></span>
 	</p>
 	
 	<p class="text-right text-secondary">
-		<em><strong>Created By: </strong><span></span></em>
+		<em><strong>Created By: </strong><span><%=shift.creator.name%></span></em>
 	</p>
 	
 	<!-- View Crew Run Form -->
-	
+	<%if(todayMS >= shift.startDateMS){%> 
+	<%if(shift.type == "es" || shift.type == "dc"){%>
 		<hr>
 		<div class="accordion" id="accordionRunForm">
 			<div class="card bg-transparent border-0">
@@ -119,86 +169,105 @@
 						<div>
 							<div>
 								<strong>Transportation to Event: </strong>
-								
+								<%if(shift.crewRunForm != undefined){%>
+								<%if(shift.startDateMS >= (Date.now()-172800000)){%>
 								<span>
-									<form action="#" method="POST" class="form-inline d-inline">
-										<input class="form-control form-control-sm" id="transportation" name="transportation" type="text" required value="">
+									<form action="/shift/<%=shift.id%>/update/transportation?_method=PUT" method="POST" class="form-inline d-inline">
+										<input class="form-control form-control-sm" id="transportation" name="transportation" type="text" required value="<%=shift.crewRunForm.transportation%>">
 										<button class="btn btn-sm btn-primary">
 											Update
 										</button>
 									</form>
 								</span>
-								
+								<%} else{%>
+									<span class="text-primary"><%=shift.crewRunForm.transportation%></span>
+								<%}}%>
 							</div>
 							<ul class="list-unstyled">
 								<strong>Times:</strong>
 								<li class="ml-4"><strong>At Stockton PD: </strong>
-									
+									<%if(shift.crewRunForm != undefined){%>
+									<%if(shift.startDateMS >= (Date.now()-172800000)){%>
 									<span>
-										<form action="#" method="POST" class="form-inline d-inline">
-											<input class="form-control form-control-sm" id="atPD" name="atPD" type="time" required value="">
+										<form action="/shift/<%=shift.id%>/update/atPD?_method=PUT" method="POST" class="form-inline d-inline">
+											<input class="form-control form-control-sm" id="atPD" name="atPD" type="time" required value="<%=shift.crewRunForm.timeAtPD%>">
 											<button class="btn btn-sm btn-primary">
 												Update
 											</button>
 										</form>
 									</span>
-									
+									<%} else{%>
+										<span class="text-primary"><%=shift.crewRunForm.timeAtPD%></span>
+									<%}}%>
 								</li>
 								<li class="ml-4"><strong>On Location: </strong>
-									
+									<%if(shift.crewRunForm != undefined){%>
+									<%if(shift.startDateMS >= (Date.now()-172800000)){%>
 									<span>
-										<form action="#" method="POST" class="form-inline d-inline">
-											<input class="form-control form-control-sm" id="onLocation" name="onLocation" type="time" required value="">
+										<form action="/shift/<%=shift.id%>/update/onLocation?_method=PUT" method="POST" class="form-inline d-inline">
+											<input class="form-control form-control-sm" id="onLocation" name="onLocation" type="time" required value="<%=shift.crewRunForm.onLocation%>">
 											<button class="btn btn-sm btn-primary">
 												Update
 											</button>
 										</form>
 									</span>
-									
+									<%} else{%>
+										<span class="text-primary"><%=shift.crewRunForm.onLocation%></span>
+									<%}}%>
 								</li>
 								<li class="ml-4"><strong>Leave Scene: </strong>
-									
+									<%if(shift.crewRunForm != undefined){%>
+									<%if(shift.startDateMS >= (Date.now()-172800000)){%>
 									<span>
-										<form action="#" method="POST" class="form-inline d-inline">
-											<input class="form-control form-control-sm" id="leave" name="leave" type="time" required value="">
+										<form action="/shift/<%=shift.id%>/update/leaveScene?_method=PUT" method="POST" class="form-inline d-inline">
+											<input class="form-control form-control-sm" id="leave" name="leave" type="time" required value="<%=shift.crewRunForm.timeLeaveScene%>">
 											<button class="btn btn-sm btn-primary">
 												Update
 											</button>
 										</form>
 									</span>
-									
+									<%} else{%>
+										<span class="text-primary"><%=shift.crewRunForm.timeLeaveScene%></span>
+									<%}}%>
 								</li>
 								<li class="ml-4"><strong>Leave PD: </strong>
-									
+									<%if(shift.crewRunForm != undefined){%>
+										<%if(shift.startDateMS >= (Date.now()-172800000)){%>
 										<span>
-											<form action="#" method="POST" class="form-inline d-inline">
-												<input class="form-control" rows="3" id="leavePD" name="leavePD" type="time" required value="">
+											<form action="/shift/<%=shift.id%>/update/leavePD?_method=PUT" method="POST" class="form-inline d-inline">
+												<input class="form-control" rows="3" id="leavePD" name="leavePD" type="time" required value="<%=shift.crewRunForm.timeLeavePD%>">
 												<button class="btn btn-sm btn-primary">
 													Update
 												</button>
 											</form>
 										</span>
-										
+										<%} else{%>
+										<span class="text-primary"><%=shift.crewRunForm.timeLeavePD%></span>
+									<%}}%>
 								</li>
 							</ul>
 							<ul class="list-unstyled">
 								<li><strong>Number of Patients: </strong>
-									
+									<%if(shift.crewRunForm != undefined){%>
+										<%if(shift.startDateMS >= (Date.now()-172800000)){%>
 										<span>
-											<form action="#" method="POST" class="form-inline d-inline">
-												<input class="form-control" rows="3" id="numPts" name="numPts" type="number" required value="">
+											<form action="/shift/<%=shift.id%>/update/numPts?_method=PUT" method="POST" class="form-inline d-inline">
+												<input class="form-control" rows="3" id="numPts" name="numPts" type="number" required value="<%=shift.numPts%>">
 												<button class="btn btn-sm btn-primary">
 													Update
 												</button>
 											</form>
 										</span>
-										
+										<%} else{%>
+										<span class="text-primary"><%=shift.numPts%></span>
+									<%}}%>
 								</li>
 								<li class="mt-2"><strong>Number of Public Assists: </strong>
-									
+									<%if(shift.crewRunForm != undefined){%>
+										<%if(shift.startDateMS >= (Date.now()-172800000)){%>
 										<span>
-											<form action="#" method="POST" class="form-inline d-inline">
-												<input class="form-control" rows="3" id="numPAs" name="numPAs" type="number" required value="">
+											<form action="/shift/<%=shift.id%>/update/numPAs?_method=PUT" method="POST" class="form-inline d-inline">
+												<input class="form-control" rows="3" id="numPAs" name="numPAs" type="number" required value="<%=shift.numPAs%>">
 												<button class="btn btn-sm btn-primary">
 													Update
 												</button>
@@ -207,43 +276,51 @@
 												</small>
 											</form>
 										</span>
-										
+										<%} else{%>
+										<span class="text-primary"><%=shift.numPAs%></span>
+									<%}}%>
 								</li>
 							</ul>
 							<div>
 								<div class="form-group">
-									<form action="#" method="POST">
+									<%if(shift.startDateMS >= (Date.now()-172800000)){%>
+									<form action="/shift/<%=shift.id%>/update/narrative?_method=PUT" method="POST">
 										<label for="narrative" aria-describedby="narrativeHelp"><strong>Narrative: </strong></label>
 										<small id="narrativeHelp" class="form-text text-muted">
 											Write a summary of what was done during this shift. Note the location(s) where the crew was stationed and briefly mention any public assists, patients, and other significant events that occurred. This isn't a PCR. Don't go into details about patients. We're specifically looking for details about the shift itself.
 										</small>
-										<textarea class="form-control p-0 text-left" id="narrative" name="narrative" required></textarea>
+										<textarea class="form-control p-0 text-left" id="narrative" name="narrative" required><%if(shift.crewRunForm == undefined || shift.crewRunForm.narrative == null){%><%} else {%><%=shift.crewRunForm.narrative%><%}%></textarea>
 										<button class="btn btn-sm btn-primary">
 											Submit Narrative
 										</button>
 									</form>
+									<%} else{%>
 										<strong>Narrative: </strong>
 										<span class="text-primary">
-											
+											<%=shift.crewRunForm.narrative%>
 										</span>
+									<%}%>
 								</div>	
 							</div>
 							<div>
 								<div class="form-group">
-									<form action="#" method="POST">
+									<%if(shift.startDateMS >= (Date.now()-172800000)){%>
+									<form action="/shift/<%=shift.id%>/update/equipmentUsed?_method=PUT" method="POST">
 										<label for="equipmentUsed" aria-describedby="equipmentUsedHelp"><strong>Equipment User: </strong></label>
 										<small id="equipmentUsedHelp" class="form-text text-muted">
 											In the space below, list the equipment you used during this shift and the quantity that you used.
 										</small>
-										<textarea class="form-control p-0 text-left" id="equipmentUsed" name="equipmentUsed" required></textarea>
+										<textarea class="form-control p-0 text-left" id="equipmentUsed" name="equipmentUsed" required><%if(shift.crewRunForm == undefined || shift.crewRunForm.equipmentUsed == null){%><%} else {%><%=shift.crewRunForm.equipmentUsed%><%}%></textarea>
 										<button class="btn btn-sm btn-primary">
 											Submit Equipment
 										</button>
 									</form>
+									<%} else{%>
 										<strong>Equipment Used: </strong>
 										<span class="text-primary">
-											
+											<%=shift.crewRunForm.equipmentUsed%>
 										</span>
+									<%}%>
 								</div>	
 							</div>
 						</div>
@@ -251,10 +328,11 @@
 				</div>
 			</div>
 		</div>
-	
+	<%}}%>
 	
 <!-- View attendance and minutes -->
-	
+	<%if(todayMS >= shift.startDateMS){%> 
+	<%if(shift.type == "gm"){%>
 		<hr>
 		<div class="accordion" id="accordionMeeting">
 			<div class="card bg-transparent border-0">
@@ -267,29 +345,34 @@
 				</div>
 				<div id="collapseMeeting" class="collapse" aria-labelledby="headingOneMeeting" data-parent="#accordionMeeting">
 					<div class="card-body">
-								<form action="#" method="POST">
+						<%if(currentUser.accessLevel == "officer"){%>
+							<%if(shift.attendedArray == undefined){%>
+								<form action="/shift/<%=shift.id%>/update/attendance?_method=PUT" method="POST">
 									<p>
 										Check off all of the members that are/were in attendance:
 									</p>
+									<%allMembers.forEach(function(user){%>
 									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="" name="attendanceCheckBoxes" id="defaultCheck">
-										<label class="form-check-label" for="defaultCheck">
-											
+										<input class="form-check-input" type="checkbox" value="<%=user.id%>" name="attendanceCheckBoxes" id="defaultCheck<%=user.id%>">
+										<label class="form-check-label" for="defaultCheck<%=user.id%>">
+											<%=user.name%>
 										</label>
 									</div>
-									
+									<%})%>
 									<input type="submit" class='button'>
 								</form>
+							<%} else {%>
 								<p>
-									The following members were in attendance at the meeting: (You must submit attendance within 24 hours of the meeting)
+									The following members were in attendance at the meeting: <%if(currentUser.accessLevel == "officer"){%>(You must submit attendance within 24 hours of the meeting)<%}%>
 								</p>
 								<ul>
-									
+									<%shift.attendedArray.forEach(function(user){%>
 										<li>
-											
+											<%=user.name%>
 										</li>
-									
+									<%})%>
 								</ul>
+								<%if(shift.startDateMS >= (Date.now()-172800000)){%>
 									<p>
 										<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit">
 											Add Members to Attended List
@@ -300,40 +383,43 @@
 									</p>
 									<div class="collapse" id="collapseEdit">
 										<div class="card card-body">
-											<form action="#" method="POST">
+											<form action="/shift/<%=shift.id%>/update/attendance/add?_method=PUT" method="POST">
 												<p>
 													<strong><em>ONLY</em></strong> select the members that you want to <em>add</em> to the list. Anyone you select will be added to the attended list even if they're already on the list, and you'll have to delete and re-add the duplicate member.
 												</p>
-												
+												<%allMembers.forEach(function(user){%>
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value="" name="attendanceEditCheckBoxes" id="editCheck">
-													<label class="form-check-label" for="editCheck">
-														
+													<input class="form-check-input" type="checkbox" value="<%=user.id%>" name="attendanceEditCheckBoxes" id="editCheck<%=user.id%>">
+													<label class="form-check-label" for="editCheck<%=user.id%>">
+														<%=user.name%>
 													</label>
 												</div>
-												
+												<%})%>
 												<input type="submit" class='button'>
 											</form>
 										</div>
 									</div>
 									<div class="collapse" id="collapseRemove">
 										<div class="card card-body">
-											<form action="#" method="POST">
+											<form action="/shift/<%=shift.id%>/update/attendance/remove?_method=PUT" method="POST">
 												<p>
 													<strong><em>ONLY</em></strong> select the members that you want to <em>remove</em> from the list. Anyone you select will be removed from the attended list.
 												</p>
-												
+												<%allMembers.forEach(function(user){%>
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value="" name="attendancePullCheckBoxes" id="removeCheck">
-													<label class="form-check-label" for="removeCheck">
-														
+													<input class="form-check-input" type="checkbox" value="<%=user.id%>" name="attendancePullCheckBoxes" id="removeCheck<%=user.id%>">
+													<label class="form-check-label" for="removeCheck<%=user.id%>">
+														<%=user.name%>
 													</label>
 												</div>
-												
+												<%})%>
 												<input type="submit" class='button'>
 											</form>
 										</div>
 									</div>
+								<%}%>
+							<%}%>
+						<%}%> 
 					</div>
 				</div>
 				<!-- Minutes -->
@@ -350,126 +436,145 @@
 							<!-- 	Cpt Topics	 -->
 							<div>
 								<div class="form-group">
-									<form action="#" method="POST">
+									<%if(shift.startDateMS >= (Date.now()-172800000)){%>
+									<form action="/shift/<%=shift.id%>/update/cptTopics?_method=PUT" method="POST">
 										<label for="cptTopics" aria-describedby="cptTopicsHelp"><strong>Captain's Topics: </strong></label>
 										<small id="cptTopicsHelp" class="form-text text-muted">
 											Record the topics discussed by the Captain at the meeting
 										</small>
-										<textarea class="form-control text-left" id="cptTopics" name="cptTopics" required></textarea>
+										<textarea class="form-control text-left" id="cptTopics" name="cptTopics" required><%if(shift.meetingMinutes == undefined || shift.meetingMinutes.cptTopics == null){%><%} else {%><%=shift.meetingMinutes.cptTopics%><%}%></textarea>
 										<button class="btn btn-sm btn-primary">
 											Submit Topics
 										</button>
 									</form>
+									<%} else{%>
 										<strong>Captain Topics: </strong>
 										<span class="text-primary">
-											
+											<%=shift.meetingMinutes.cptTopics%>
 										</span>
+									<%}%>
 								</div>	
 							</div>
 							<hr>
 							<!-- 	lt Topics	 -->
 							<div>
 								<div class="form-group">
-									<form action="#" method="POST">
+									<%if(shift.startDateMS >= (Date.now()-172800000)){%>
+									<form action="/shift/<%=shift.id%>/update/ltTopics?_method=PUT" method="POST">
 										<label for="ltTopics" aria-describedby="ltTopicsHelp"><strong>Lieutenant's Topics: </strong></label>
 										<small id="ltTopicsHelp" class="form-text text-muted">
 											Record the topics discussed by the Lieutenant at the meeting
 										</small>
-										<textarea class="form-control text-left" id="ltTopics" name="ltTopics" required></textarea>
+										<textarea class="form-control text-left" id="ltTopics" name="ltTopics" required><%if(shift.meetingMinutes == undefined || shift.meetingMinutes.ltTopics == null){%><%} else {%><%=shift.meetingMinutes.ltTopics%><%}%></textarea>
 										<button class="btn btn-sm btn-primary">
 											Submit Topics
 										</button>
 									</form>
+									<%} else{%>
 										<strong>Lieutenant's Topics: </strong>
 										<span class="text-primary">
-											
+											<%=shift.meetingMinutes.ltTopics%>
 										</span>
+									<%}%>
 								</div>	
 							</div>
 							<hr>
 							<!-- 	tSgt Topics	 -->
 							<div>
 								<div class="form-group">
-									<form action="#" method="POST">
+									<%if(shift.startDateMS >= (Date.now()-172800000)){%>
+									<form action="/shift/<%=shift.id%>/update/tSgtTopics?_method=PUT" method="POST">
 										<label for="tSgtTopics" aria-describedby="tSgtTopicsHelp"><strong>Training Sergeant's Topics: </strong></label>
 										<small id="tSgtTopicsHelp" class="form-text text-muted">
 											Record the topics discussed by the Training Sergeant at the meeting
 										</small>
-										<textarea class="form-control text-left" id="tSgtTopics" name="tSgtTopics" required></textarea>
+										<textarea class="form-control text-left" id="tSgtTopics" name="tSgtTopics" required><%if(shift.meetingMinutes == undefined || shift.meetingMinutes.tSgtTopics == null){%><%} else {%><%=shift.meetingMinutes.tSgtTopics%><%}%></textarea>
 										<button class="btn btn-sm btn-primary">
 											Submit Topics
 										</button>
 									</form>
+									<%} else{%>
 										<strong>Training Sergeant Topics: </strong>
 										<span class="text-primary">
-											
+											<%=shift.meetingMinutes.tSgtTopics%>
 										</span>
+									<%}%>
 								</div>	
 							</div>
 							<hr>
 							<!-- 	sSgt Topics	 -->
 							<div>
 								<div class="form-group">
-									<form action="#" method="POST">
+									<%if(shift.startDateMS >= (Date.now()-172800000)){%>
+									<form action="/shift/<%=shift.id%>/update/sSgtTopics?_method=PUT" method="POST">
 										<label for="sSgtTopics" aria-describedby="sSgtTopicsHelp"><strong>Supply Sergeant's Topics: </strong></label>
 										<small id="sSgtTopicsHelp" class="form-text text-muted">
 											Record the topics discussed by the Supply Sergeant at the meeting
 										</small>
-										<textarea class="form-control text-left" id="sSgtTopics" name="sSgtTopics" required></textarea>
+										<textarea class="form-control text-left" id="sSgtTopics" name="sSgtTopics" required><%if(shift.meetingMinutes == undefined || shift.meetingMinutes.sSgtTopics == null){%><%} else {%><%=shift.meetingMinutes.sSgtTopics%><%}%></textarea>
 										<button class="btn btn-sm btn-primary">
 											Submit Topics
 										</button>
 									</form>
+									<%} else{%>
 										<strong>Supply Sergeant Topics: </strong>
 										<span class="text-primary">
-											
+											<%=shift.meetingMinutes.sSgtTopics%>
 										</span>
+									<%}%>
 								</div>	
 							</div>
 							<hr>
 							<!-- 	advisor Topics	 -->
 							<div>
 								<div class="form-group">
-									<form action="" method="POST">
+									<%if(shift.startDateMS >= (Date.now()-172800000)){%>
+									<form action="/shift/<%=shift.id%>/update/advisorTopics?_method=PUT" method="POST">
 										<label for="advisorTopics" aria-describedby="advisorTopicsHelp"><strong>Advisors' Topics: </strong></label>
 										<small id="advisorTopicsHelp" class="form-text text-muted">
 											Record the topics discussed by the Advisor at the meeting
 										</small>
-										<textarea class="form-control text-left" id="advisorTopics" name="advisorTopics" required></textarea>
+										<textarea class="form-control text-left" id="advisorTopics" name="advisorTopics" required><%if(shift.meetingMinutes == undefined || shift.meetingMinutes.advisorTopics == null){%><%} else {%><%=shift.meetingMinutes.advisorTopics%><%}%></textarea>
 										<button class="btn btn-sm btn-primary">
 											Submit Topics
 										</button>
 									</form>
+									<%} else{%>
 										<strong>Advisor Topics: </strong>
 										<span class="text-primary">
-											
+											<%=shift.meetingMinutes.advisorTopics%>
 										</span>
+									<%}%>
 								</div>	
 							</div>
 							<hr>
 							<!-- 	member Topics	 -->
 							<div>
 								<div class="form-group">
-									<form action="#" method="POST">
+									<%if(shift.startDateMS >= (Date.now()-172800000)){%>
+									<form action="/shift/<%=shift.id%>/update/memberTopics?_method=PUT" method="POST">
 										<label for="memberTopics" aria-describedby="memberTopicsHelp"><strong>Members' Topics: </strong></label>
 										<small id="memberTopicsHelp" class="form-text text-muted">
 											Record the topics discussed by Members at the meeting
 										</small>
-										<textarea class="form-control text-left" id="memberTopics" name="memberTopics" required></textarea>
+										<textarea class="form-control text-left" id="memberTopics" name="memberTopics" required><%if(shift.meetingMinutes == undefined || shift.meetingMinutes.memberTopics == null){%><%} else {%><%=shift.meetingMinutes.memberTopics%><%}%></textarea>
 										<button class="btn btn-sm btn-primary">
 											Submit Topics
 										</button>
 									</form>
+									<%} else{%>
 										<strong>Members' Topics: </strong>
 										<span class="text-primary">
-											
+											<%=shift.meetingMinutes.memberTopics%>
 										</span>
+									<%}%>
 								</div>	
 							</div>
 						</div>
 					</div>
 					<!-- Email Minutes to Members -->
-						<form class="text-center" action="#">
+					<%if(shift.startDateMS >= (Date.now()-172800000)){%>
+						<form class="text-center" action="/shift/<%=shift.id%>/emailMinutes" method="POST">
 							<p>
 								<span class="text-danger">Please make sure you've clicked submit topics for each of the fields above!</span> Once the above is complete, click the button below to send out the minutes to all members:
 							</p>
@@ -477,25 +582,34 @@
 								Email Minutes to All Members
 							</button>
 						</form>
+					<%}%>
 				</div>
 			</div>
 		</div>
-	
+	<%}}%>
 </div>
 
 <!-- Add/Remove Member from Shift -- Self -->
-	
+<%if(todayMS <= shift.endDateMS){%>
+	<%if(shift.type == "es" || shift.type == "dc" || shift.type == "ta"){%>
 		<hr>
 		<div class="text-center mb-5">
-			<form action="#" method="POST">
+		<%if(shift.crewArray.some(arr => arr.name == currentUser.name) || shift.crewChief.name == currentUser.name || shift.officerInCharge.name == currentUser.name){%>
+			<form action="/shift/<%=shift._id%>/crewRemove?_method=PUT" method="POST">
 				<button class="btn btn-warning"> Remove me from this shift </button> 	
 			</form>	
-			 <form action="" method="POST">
+		<%} else if(shift.crewArray.length < shift.crewMax){%>
+			 <form action="/shift/<%=shift._id%>/crewAdd?_method=PUT" method="POST">
 				<button class="btn btn-success"> Sign Me Up! </button> 	
 			</form>	
+		<%}%>
 		</div>
-	
+	<%}%>
+<%}%>
 
+
+
+<%if (currentUser.accessLevel == "officer"){%>
 <!-- Button trigger first modal -->
 <hr>
 <div class="text-center">
@@ -503,6 +617,7 @@
 	  Delete shift
 	</button>
 </div>
+
 
 <!-- First Modal -->
 <div class="modal fade" id="deleteShiftModal" tabindex="-1" role="dialog" aria-labelledby="deleteShiftModalLabel" aria-hidden="true">
@@ -518,7 +633,7 @@
 				<p>
 					Deleting a shift should <strong><em>ONLY</em></strong> be done because the shift was added <em>accidently</em> or <em>fraudulently</em>. 
 					<br> <br>
-					If the event was cancelled, please click <a href="#">edit shift infomation</a> and update the status to "cancelled" <u>instead</u> of deleting them. 
+					If the event was cancelled, please click <a href="/shift/<%=shift._id%>/edit">edit shift infomation</a> and update the status to "cancelled" <u>instead</u> of deleting them. 
 					<br> <br>
 					If you delete a shift without proper authorization, you will be subject to disciplinary action.
 					<br> <br>
@@ -547,19 +662,20 @@
 				<p>
 					This is the final screen before permanently deleting this shift. Clicking "Delete shift" will remove this shift's data. 
 					<br> <br>
-					As a final reminder, this action should only be done if the shift you are trying to delete was added accidently. If this shift was added accidently, please click <a href="#">edit shift infomation</a> and update the status instead of deleting it. Deleting is not meant for actual shifts - only fraudulent shifts. 
+					As a final reminder, this action should only be done if the shift you are trying to delete was added accidently. If this shift was added accidently, please click <a href="/shift/<%=shift._id%>/edit">edit shift infomation</a> and update the status instead of deleting it. Deleting is not meant for actual shifts - only fraudulent shifts. 
 					<br> <br>
 					To delete this shift please click "Delete Shift". Otherwise, you can click away or click "Cancel" to not delete this shift. 
 				</p>
 			</div>
 			<div class="modal-footer text-center">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-				<form class="delete-form" action="#" method="POST">
+				<form class="delete-form" action="/shift/<%=shift._id%>?_method=DELETE" method="POST">
 					<input type="submit" class="btn btn-danger" value="Delete Shift">
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
+<%}%>
 
 <%- include("../partials/footer") %>

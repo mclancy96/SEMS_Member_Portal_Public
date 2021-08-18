@@ -2,6 +2,7 @@
 <h1 class="display-4">
 	Notifications
 </h1>
+<%- include("./partials/alert") %>
 <div class="container">
 	<p>
 		The following are notifications from the past 30 days. <span class="text-danger">High importance notifications are shown in red</span>
@@ -19,15 +20,27 @@
 			<div id="collapseUserSpecific" class="collapse" aria-labelledby="headingUserSpecific" data-parent="#accordionNotification">
 				<div class="card-body">
 					<ul>
-						
+						<%if(notifications){%>
+							<%notifications.forEach(function(notification){%>
+								<%if (notification.effectedMember.id == currentUser.id){%>
+								<li class="my-3">
+									<div class="<%=(notification.importance == "high")?'text-danger':''%>">
+										"<%=notification.message%>"  
+									</div> 
+									<div class="pl-3">
+										- <em class="text-secondary">User: <%=notification.createdBy.name%> (<%=notification.created.toLocaleString('en-US', { timeZone: "America/New_York"})%>) </em>
+									</div>
+								</li>
+						<%}})} else {%>
 							<li>
 								No notifications
 							</li>
-						
+						<%}%>
 					</ul>
 				</div>
 			</div>
 		</div>
+		<%if(currentUser.accessLevel == "officer"){%>
 			<div class="card">
 				<div class="card-header bg-transparent" id="headingOfficer">
 					<h2 class="mb-0">
@@ -39,15 +52,27 @@
 				<div id="collapseOfficer" class="collapse" aria-labelledby="headingOfficer" data-parent="#accordionNotification">
 					<div class="card-body">
 						<ul>
-							
+							<%if(notifications){%>
+							<%notifications.forEach(function(notification){%>
+								<%if (notification.accessLevel == "officer"){%>
+								<li class="my-3">
+									<div class="<%=(notification.importance == "high")?'text-danger':''%>">
+										"<%=notification.message%>"  
+									</div>
+									<div class="pl-3">
+										- <em class="text-secondary">User: <%=notification.createdBy.name%> (<%=notification.created.toLocaleString('en-US', { timeZone: "America/New_York"})%>) </em>
+									</div>
+								</li>
+						<%}})} else {%>
 							<li>
 								No notifications
 							</li>
-						
+						<%}%>
 						</ul>
 					</div>
 				</div>
 			</div>
+		<%}%>
 		<div class="card">
 			<div class="card-header bg-transparent" id="headingGenMem">
 				<h2 class="mb-0">
@@ -59,11 +84,22 @@
 			<div id="collapseGenMem" class="collapse" aria-labelledby="headingGenMem" data-parent="#accordionNotification">
 				<div class="card-body">
 					<ul>
-						
+						<%if(notifications){%>
+						<%notifications.forEach(function(notification){%>
+							<%if (notification.accessLevel == "genMem"){%>
+							<li class="my-3">
+								<div class="<%=(notification.importance == "high")?'text-danger':''%>">
+									"<%=notification.message%>"  
+								</div>
+								<div class="pl-3">
+									- <em class="text-secondary">User: <%=notification.createdBy.name%> (<%=notification.created.toLocaleString('en-US', { timeZone: "America/New_York"})%>) </em>
+								</div>
+							</li>
+					<%}})} else {%>
 						<li>
 							No notifications
 						</li>
-					
+					<%}%>
 					</ul>
 				</div>
 			</div>

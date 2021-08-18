@@ -4,6 +4,7 @@
 <h1 class="text-center display-4">
 	Officer Dashboard
 </h1>
+<%- include("./partials/alert") %>
 <div class="container">
 	<div class="row">
 		<div class="col-sm border text-center border-dark p-2 m-1">
@@ -22,53 +23,66 @@
 				<tbody>
 					<tr>
 						<td><strong>S.U. Advisor</strong></td>
-						
-						
-								<td></td>
-								<td><a href="mailto:"></a></td>
-							
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Stockton Advisor"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%}%>
+						<%})%>
 					</tr>
 					<tr>
 						<td><strong>GTAS Advisor</strong></td>
-						
-								<td></td>
-								<td><a href="mailto:"></a></td>
-							
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "GTAS Advisor"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%}%>
+						<%})%>
 					</tr>
 					<tr>
 						<td><strong>Captain</strong></td>
-						
-								<td></td>
-								<td><a href="mailto:"></a></td>
-							
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Captain"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%}%>
+						<%})%>
 					</tr>
 					<tr>
 						<td><strong>Lieutenant</strong></td>
-						
-								<td></td>
-								<td><a href="mailto:"></a></td>
-							
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Lieutenant"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%} %>
+						<%})%>
 					</tr>
 					<tr>
 						<td><strong>Training Sergeant</strong></td>
-						
-								<td></td>
-								<td><a href="mailto:"></a></td>
-							
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Training Sergeant"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%}%>
+						<%})%>
 					</tr>
 					<tr>
 						<td><strong>Supply Sergeant</strong></td>
-						
-								<td></td>
-								<td><a href="mailto:"></a></td>
-							
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Supply Sergeant"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%}%>
+						<%})%>
 					</tr>
 					<tr>
 						<td><strong>Secretary</strong></td>
-						
-								<td></td>
-								<td><a href="mailto:"></a></td>
-							
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Secretary"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%}%>
+						<%})%>
 					</tr>
 				</tbody>
 			</table>
@@ -86,7 +100,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					
+					<%allUsers.forEach(function(user){%>
+						<%if(user.driversLicense.licensed == true){%>
+							<%if(user.driversLicense.dlExpDate.getTime() < (Date.now() + 31560000000)){%>
+								<tr>
+									<td><a href="/user/<%=user._id%>"><%=user.name%></a></td>
+									<td><%=user.driversLicense.dlExpDateReadable%></td>
+								</tr>
+							<%}%>
+						<%}%>
+					<%})%>
 				</tbody>
 			</table>
 		</div>
@@ -105,7 +128,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					
+					<%allUsers.forEach(function(user){%>
+						<%if(user.cprCert.certified == true){%>
+							<%if(user.cprCert.cprExpDate.getTime() < (Date.now() + 15780000000)){%>
+								<tr>
+									<td><a href="/user/<%=user._id%>"><%=user.name%></a></td>
+									<td><%=user.cprCert.cprExpDateReadable%></td>
+								</tr>
+							<%}%>
+						<%}%>
+					<%})%>
 				</tbody>
 			</table>
 		</div>
@@ -122,7 +154,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					
+					<%allUsers.forEach(function(user){%>
+						<%if(user.emtCert.certified == true){%>
+							<%if(user.emtCert.emtExpDate.getTime() < (Date.now() + 31560000000)){%>
+								<tr>
+									<td><a href="/user/<%=user._id%>"><%=user.name%></a></td>
+									<td><%=user.emtCert.emtExpDateReadable%></td>
+								</tr>
+							<%}%>
+						<%}%>
+					<%})%>
 				</tbody>
 			</table>
 		</div>
@@ -153,19 +194,19 @@
 			<!-- Content -->
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="allMembers" role="tabpanel" aria-labelledby="allMembers-tab">
-					<textarea class="form-control" rows="12"readonly></textarea>
+					<textarea class="form-control" rows="12"readonly><%allUsers.forEach(function(user){%> <%=user.email%>,<%})%></textarea>
 				</div>
 				<div class="tab-pane fade" id="eBoard" role="tabpanel" aria-labelledby="eBoard-tab">
-					<textarea class="form-control" rows="12"readonly> </textarea>
+					<textarea class="form-control" rows="12"readonly><%officers.forEach(function(user){%> <%=user.email%>,<%})%></textarea>
 				</div>
 				<div class="tab-pane fade" id="crewChiefs" role="tabpanel" aria-labelledby="crewChiefs-tab">
-					<textarea class="form-control" rows="12"readonly></textarea>
+					<textarea class="form-control" rows="12"readonly><%crewChiefs.forEach(function(user){%> <%=user.email%>,<%})%></textarea>
 				</div>
 				<div class="tab-pane fade" id="emts" role="tabpanel" aria-labelledby="emts-tab">
-					<textarea class="form-control" rows="12"readonly></textarea>
+					<textarea class="form-control" rows="12"readonly><%emts.forEach(function(user){%> <%=user.email%>,<%})%></textarea>
 				</div>
 				<div class="tab-pane fade" id="nonEmts" role="tabpanel" aria-labelledby="nonEmts-tab">
-					<textarea class="form-control" rows="12"readonly></textarea>
+					<textarea class="form-control" rows="12"readonly><%nonEmts.forEach(function(user){%> <%=user.email%>,<%})%></textarea>
 				</div>
 			</div>
 		</div>
@@ -278,7 +319,7 @@
 					Agenda
 				</h5>
 				<p>
-					If you're looking to create an agenda for a meeting, you can't do that on this website. <a href="#">Click here</a> to go to the agenda folder. Make a copy of the template. Rename the copy and add the topics that officers want to talk at the meeting on the copy of the template. Don't write on the template itself!
+					If you're looking to create an agenda for a meeting, you can't do that on this website. <a href="https://drive.google.com/drive/u/1/folders/0B1PysTq6CXxwbDFmLVZvZ2VUalE">Click here</a> to go to the agenda folder. Make a copy of the template. Rename the copy and add the topics that officers want to talk at the meeting on the copy of the template. Don't write on the template itself!
 				</p>
 				<h5>
 					Minutes

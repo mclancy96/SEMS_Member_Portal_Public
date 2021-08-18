@@ -3,6 +3,7 @@
 <h1 class="display-4 text-center">
 	Create New Shift
 </h1>
+<%- include("../partials/alert") %>
 <div class="container">
 	<div class="mr-auto p-2" >
 		<a href="/shift"><i class="fas fa-long-arrow-alt-left"></i> Go back to the schedule</a>
@@ -10,7 +11,7 @@
 	<p>
 		Please use the form below to create a new shift. Shifts include events, duty crews, tabling events, meetings, general meetings, and trainings.
 	</p>
-	<form action="#" method="POST">
+	<form action="/shift/" method="POST">
 		<h4 class="text-center">
 			<u>General Information</u>
 		</h4>

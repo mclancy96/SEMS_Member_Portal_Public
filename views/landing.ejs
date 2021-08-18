@@ -4,19 +4,20 @@
 <h1 class="text-center display-4">
 	Dashboard
 </h1>
+<%- include("./partials/alert") %>
 <div class="container">
 	<div class="row">
 		<div class="col-sm border text-center border-dark p-2 m-1">
 			<h2>
-				User's Hours
+				<%=currentUser.firstName%>'s Hours
 			</h2>
 			<small>Your current month's hours are updated everyday at midnight. Your total hours and current semester's hours are updated on the first day of every month.</small>
 			<hr>
 			<ul class="list-unstyled">
-				<li>Current Month's Hours: <span class="text-primary p-2">## hrs</span></li>
-				<li>Current Semester's Hours: <span class="text-primary p-2">## hrs</span></li>
+				<li>Current Month's Hours: <span class="text-primary p-2"><%=currentUser.hours.currentMonth%>hrs</span></li>
+				<li>Current Semester's Hours: <span class="text-primary p-2"><%=currentUser.hours.currentSem%>hrs</span></li>
 				<hr>
-				<li>Total Hours: <span class="text-primary p-2">## hrs</span></li>
+				<li>Total Hours: <span class="text-primary p-2"><%=currentUser.hours.totalHours%>hrs</span></li>
 			</ul>
 		</div>
 		<div class="col-sm border text-center border-dark p-2 m-1">
@@ -33,7 +34,15 @@
 					</tr>
 				</thead>
 				<tbody>
-					
+					<%foundShifts.forEach(function(shift){%>
+						<%if(shift.startDateMS <= (Date.now() + 604800000)){%>
+							<tr>
+								<td><a href="/shift/<%=shift._id%>"><%=shift.shiftName%></a></td>
+								<td><%=shift.shiftStart.startDateReadable%></td>
+								<td><%=shift.shiftStart.startTime%> - <%=shift.shiftEnd.endTime%></td>
+							</tr>
+						<%}%>
+					<%})%>
 				</tbody>
 			</table>
 		</div>
@@ -54,7 +63,15 @@
 					</tr>
 				</thead>
 				<tbody>
-					
+					<%foundShifts.forEach(function(shift){%>
+						<%if(shift.type == "gm" && shift.startDateMS <= (Date.now() + 2678400000)){%>
+							<tr>
+								<td><%=shift.shiftStart.startDateReadable%></td>
+								<td><%=shift.shiftStart.startTime%></td>
+								<td><%=shift.shiftLocation%></td>
+							</tr>
+						<%}%>
+					<%})%>
 				</tbody>
 			</table>
 		</div>
@@ -74,31 +91,66 @@
 				<tbody>
 					<tr>
 						<td><strong>S.U. Advisor</strong></td>
-						
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Stockton Advisor"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%}%>
+						<%})%>
 					</tr>
 					<tr>
 						<td><strong>GTAS Advisor</strong></td>
-						
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "GTAS Advisor"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%}%>
+						<%})%>
 					</tr>
 					<tr>
 						<td><strong>Captain</strong></td>
-						
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Captain"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%}%>
+						<%})%>
 					</tr>
 					<tr>
 						<td><strong>Lieutenant</strong></td>
-						
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Lieutenant"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%} %>
+						<%})%>
 					</tr>
 					<tr>
 						<td><strong>Training Sergeant</strong></td>
-						
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Training Sergeant"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%}%>
+						<%})%>
 					</tr>
 					<tr>
 						<td><strong>Supply Sergeant</strong></td>
-						
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Supply Sergeant"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%}%>
+						<%})%>
 					</tr>
 					<tr>
 						<td><strong>Secretary</strong></td>
-						
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Secretary"){%>
+								<td><%=user.name%></td>
+								<td><a href="mailto:<%=user.email%>"><%=user.email%></a></td>
+							<%}%>
+						<%})%>
 					</tr>
 				</tbody>
 			</table>

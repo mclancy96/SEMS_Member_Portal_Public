@@ -1,4 +1,5 @@
 <%- include("../partials/completeHeader") %>
+<%- include("../partials/alert") %>
 <h1 class="text-center display-4">
 		Roster
 </h1>
@@ -44,35 +45,35 @@
 				</tr>
 			</thead>
 			<tbody>
-				
+				<%user.forEach(function(user){%>
 				<tr>
-					<td scope="row"><a href="#"></a></td>
-					<td scope="row"><a href="#"></a></td>
-					<td scope="row"></td>	
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
-					<td scope="row"></td>
+					<td scope="row"><a href="/user/<%= user._id %>"><%=user.lastName%></a></td>
+					<td scope="row"><a href="/user/<%= user._id %>"><%=user.firstName%></a></td>
+					<td scope="row"><%=user.title%></td>	
+					<td scope="row"><%=user.status%></td>
+					<td scope="row"><%=user.sex%></td>
+					<td scope="row"><%=user.email%></td>
+					<td scope="row"><%=user.phoneNum%></td>
+					<td scope="row"><%=user.zNum%></td>
+					<td scope="row"><%=user.entrySem%></td>
+					<td scope="row"><%=user.currentClassStatus%></td>
+					<td scope="row"><%=user.address.street + " " + user.address.line2%></td>
+					<td scope="row"><%=user.address.city%></td>
+					<td scope="row"><%=user.address.state%></td>
+					<td scope="row"><%=user.address.zipCode%></td>
+					<td scope="row"><%=user.driversLicense.dlId%></td>
+					<td scope="row"><%=user.driversLicense.dlState%></td>
+					<td scope="row"><%=user.driversLicense.dlExpDateReadable%></td>
+					<td scope="row"><%=user.cprCert.cprProvider%></td>
+					<td scope="row"><%=user.cprCert.cprExpDateReadable%></td>
+					<td scope="row"><%=user.emtCert.njEmsId%></td>
+					<td scope="row"><%=user.emtCert.nremtId%></td>
+					<td scope="row"><%=user.emtCert.emtExpDateReadable%></td>
+					<td scope="row"><%=user.emergContact.contactName%></td>
+					<td scope="row"><%=user.emergContact.contactPhoneNum%></td>
+					<td scope="row"><%=user.emergContact.contactRelationship%></td>
 				</tr>
-				
+				<%})%>
 			</tbody>
 		</table>
 	</div>

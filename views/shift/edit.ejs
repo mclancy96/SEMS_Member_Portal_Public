@@ -1,59 +1,60 @@
 <%- include("../partials/completeHeader") %>
 
 <h1 class="display-4 text-center">
-	Edit Sample Shift
+	Edit <%=shift.shiftName%>
 </h1>
+<%- include("../partials/alert") %>
 <div class="container">
 	<div class="d-flex justify-content-between">
 		<div class="mr-auto p-2 bd-highlight" >
-			<a href="/shift/0"><i class="fas fa-long-arrow-alt-left"></i> Go back to this shift's profile</a>
+			<a href="/shift/<%=shift._id%>"><i class="fas fa-long-arrow-alt-left"></i> Go back to this shift's profile</a>
 		</div>
 	</div>
 	<p class="text-center">
 		Please use the form below to edit the shift. 
 	</p>
-	<form action="#" method="POST">
+	<form action="/shift/<%=shift.id%>?_method=PUT" method="POST">
 		<h4 class="text-center">
 			<u>General Information</u>
 		</h4>
 		<div class="form-row">
 			<div class="form-group col-md-6">
 				<label for="startDate">Start Date</label>
-				<input type="date" class="form-control" id="startDate" name="startDate" value="" required>
+				<input type="date" class="form-control" id="startDate" name="startDate" value="<%=shift.shiftStart.startDateReadable.slice(6,10)+"-"+shift.shiftStart.startDateReadable.slice(0,2)+"-"+shift.shiftStart.startDateReadable.slice(3,5)%>" required>
 			</div>
 			<div class="form-group col-md-6">
 				<label for="endDate">End Date</label>
-				<input type="date" class="form-control" id="endDate" name="endDate" value="" required>
+				<input type="date" class="form-control" id="endDate" name="endDate" value="<%=shift.shiftEnd.endDateReadable.slice(6,10)+"-"+shift.shiftEnd.endDateReadable.slice(0,2)+"-"+shift.shiftEnd.endDateReadable.slice(3,5)%>" required>
 			</div>
 		</div>
 		<div class="form-row align-items-end">
 			<div class="form-group col-md-4">
 				<label for="reportTime" aria-describedby="reportTimeHelp" class="mb-0 pb-0">Report Time</label>
 				<small id="reportTimeHelp" class="form-text text-muted pt-0 mt-0">Generally 30 Minutes Before Start Time</small>
-				<input type="time" class="form-control" id="reportTime" name="reportTime" value="" required>
+				<input type="time" class="form-control" id="reportTime" name="reportTime" value="<%=shift.shiftStart.reportTime%>" required>
 			</div>
 			<div class="form-group col-md-4">
 				<label for="startTime">Start Time</label>
-				<input type="time" class="form-control" id="startTime" name="startTime" value="" required>
+				<input type="time" class="form-control" id="startTime" name="startTime" value="<%=shift.shiftStart.startTime%>" required>
 			</div>
 			<div class="form-group col-md-4">
 				<label for="endTime">End Time</label>
-				<input type="time" class="form-control" id="endTime" name="endTime"  value="" required>
+				<input type="time" class="form-control" id="endTime" name="endTime"  value="<%=shift.shiftEnd.endTime%>" required>
 			</div>
 		</div>
 		<div class="form-row align-items-end">
 			<div class="form-group col-md-6 pb-0 mb-0">
 				<label for="location" aria-describedby="shiftLocationHelp" class="mb-0 pb-0">Shift Location</label>
 				<small id="shiftLocationHelp" class="form-text text-muted pt-0 mt-0">This is where the crew should station themselves or where the meeting/training will take place</small>
-				<input type="text" class="form-control" id="shiftLocation" placeholder="Ex: CC Event Room" name="shiftLocation" value="" required>
+				<input type="text" class="form-control" id="shiftLocation" placeholder="Ex: CC Event Room" name="shiftLocation" value="<%=shift.shiftLocation%>" required>
 			</div>
 			<div class="col-sm-6 d-inline">
 				<label for="status">Status</label>
 				<select class="form-control" id="status" name="status" required>
-					<option value="scheduled">Scheduled</option>
-					<option value="staffed" >Staffed</option>
-					<option value="cancelled" >Cancelled</option>
-					<option value="unstaffed" >Unstaffed</option>
+					<option value="scheduled" <%= (shift.status == "scheduled")?'selected':''%>>Scheduled</option>
+					<option value="staffed" <%= (shift.status == "Staffed")?'selected':''%>>Staffed</option>
+					<option value="cancelled" <%= (shift.status == "Cancelled")?'selected':''%>>Cancelled</option>
+					<option value="unstaffed" <%= (shift.status == "Unstaffed")?'selected':''%>>Unstaffed</option>
 				</select>
 			</div>
 		</div>
@@ -114,34 +115,34 @@
 			<div class="form-row align-items-end">
 				<div class="form-group col-md-5">
 					<label for="eventName">Event Name</label>
-					<input type="text" class="form-control" id="eventName" name="eventName" value="">
+					<input type="text" class="form-control" id="eventName" name="eventName" value="<%=shift.shiftName%>">
 				</div>
 				<div class="form-group col-md-4">
 					<label for="eventHost">Event Host</label>
-					<input type="text" class="form-control" id="eventHost" name="eventHost"  value="">
+					<input type="text" class="form-control" id="eventHost" name="eventHost"  value="<%=shift.shiftHost%>">
 				</div>
 				<div class="form-group col-md-3">
 					<label for="eventCrewMax" aria-describedby="eventCrewHelp" class="pb-0 mb-0">Crew Size Max:</label>
 					<small id="eventCrewHelp" class="form-text text-muted pt-0 mt-0">Does not include crew chief/O.I.C.</small>
-					<input type="number" class="form-control" id="eventCrewMax" value="" name="eventCrewMax">
+					<input type="number" class="form-control" id="eventCrewMax" value="<%=shift.crewMax%>" name="eventCrewMax">
 				</div>
 			</div>
 			<div class="form-row align-items-end">
 				<div class="form-group col-md-6">
 					<label for="eventVehicle" id="eventVehicleHelp" class="mb-0 pb-0">Vehicle</label>
 					<small id="eventVehicleHelp" class="form-text text-muted pt-0 mt-0">The lieutenant must reserve a vehicle if the Impala is not available</small>
-					<input type="text" class="form-control" id="eventVehicle"  value="" name="eventVehicle">
+					<input type="text" class="form-control" id="eventVehicle"  value="<%=shift.vehicle%>" name="eventVehicle">
 				</div>
 				<div class="form-group col-md-6">
 					<label for="eventReportLocation" aria-describedby="eventReportLocationHelp" class="mb-0 pb-0">Report Location</label>
 					<small id="eventReportLocationHelp" class="form-text text-muted pt-0 mt-0">This is where the crew should meet before the shift/meeting (if applicable)</small>
-					<input type="text" class="form-control" id="eventReportLocation"  value="" name="eventReportLocation">
+					<input type="text" class="form-control" id="eventReportLocation"  value="<%=shift.reportLocation%>" name="eventReportLocation">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="eventNotes" aria-describedby="eventNotesHelp">Notes</label>
 				<small id="eventNotesHelp" class="form-text text-muted pt-0 mt-0">Any relevant info that members should know about the event, what they should bring, what they should wear, and anything else you think you should include for the members' benefit.</small>
-				<textarea class="form-control" id="eventNotes" rows="3" name="eventNotes"></textarea>
+				<textarea class="form-control" id="eventNotes" rows="3" name="eventNotes"><%=shift.notes%></textarea>
 			</div>
 			<hr>
 		</div>
@@ -154,23 +155,23 @@
 				<div class="form-group col-md-5">
 					<label for="dcReportLocation" aria-describedby="dcReportLocationHelp" class="mb-0 pb-0">Report Location</label>
 					<small id="dcReportLocationHelp" class="form-text text-muted pt-0 mt-0">This is where the crew should meet before the shift (if applicable)</small>
-					<input type="text" class="form-control" id="dcReportLocation" value="" name="dcReportLocation">
+					<input type="text" class="form-control" id="dcReportLocation" value="<%=shift.reportLocation%>" name="dcReportLocation">
 				</div>
 				<div class="form-group col-md-3">
 					<label for="dcCrewMax" aria-describedby="dcCrewHelp" class="pb-0 mb-0">Crew Size Max:</label>
 					<small id="dcCrewHelp" class="form-text text-muted pt-0 mt-0">Does not include crew chief/O.I.C.</small>
-					<input type="number" class="form-control" id="dcCrewMax"  value="" name="dcCrewMax">
+					<input type="number" class="form-control" id="dcCrewMax"  value="<%=shift.crewMax%>" name="dcCrewMax">
 				</div>
 				<div class="form-group col-md-4">
 					<label for="dcVehicle" id="dcVehicleHelp" class="mb-0 pb-0">Vehicle</label>
 					<small id="dcVehicleHelp" class="form-text text-muted pt-0 mt-0">If no vehicle needed, just put "N/A"</small>
-					<input type="text" class="form-control" id="dcVehicle"  value="" name="dcVehicle">
+					<input type="text" class="form-control" id="dcVehicle"  value="<%=shift.vehicle%>" name="dcVehicle">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="dcNotes" aria-describedby="dcNotesHelp">Notes</label>
 				<small id="dcNotesHelp" class="form-text text-muted pt-0 mt-0">Any relevant info that members should know about the duty crew, what they should bring, what they should wear, and anything else you think you should include for the members' benefit.</small>
-				<textarea class="form-control" id="dcNotes" rows="3" name="dcNotes"></textarea>
+				<textarea class="form-control" id="dcNotes" rows="3" name="dcNotes"><%=shift.notes%></textarea>
 			</div>
 			<hr>
 		</div>
@@ -182,23 +183,23 @@
 			<div class="form-row align-items-end">
 				<div class="form-group col-md-5">
 					<label for="tablingName">Tabling Event Name</label>
-					<input type="text" class="form-control" id="tablingName" name="tablingName"  value="">
+					<input type="text" class="form-control" id="tablingName" name="tablingName"  value="<%=shift.shiftName%>">
 				</div>
 				<div class="form-group col-md-3">
 					<label for="tablingCrewMax" aria-describedby="tablingCrewHelp" class="pb-0 mb-0">Crew Size Max:</label>
 					<small id="tablingCrewHelp" class="form-text text-muted pt-0 mt-0">No crew chief required</small>
-					<input type="number" class="form-control" id="tablingCrewMax"  value="" name="tablingCrewMax">
+					<input type="number" class="form-control" id="tablingCrewMax"  value="<%=shift.crewMax%>" name="tablingCrewMax">
 				</div>
 				<div class="form-group col-md-4">
 					<label for="tablingReportLocation" aria-describedby="tablingReportLocationHelp" class="mb-0 pb-0">Report Location</label>
 					<small id="tablingReportLocationHelp" class="form-text text-muted pt-0 mt-0">This is where the crew should meet before the tabling (put a dash (-) if not applicable)</small>
-					<input type="text" class="form-control" id="tablingReportLocation"  value="" name="tablingReportLocation">
+					<input type="text" class="form-control" id="tablingReportLocation"  value="<%=shift.reportLocation%>" name="tablingReportLocation">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="tablingNotes" aria-describedby="tablingNotesHelp">Notes</label>
 				<small id="tablingNotesHelp" class="form-text text-muted pt-0 mt-0">Any relevant info that members should know about the tabling, what they should bring, what they should wear, and anything else you think you should include for the members' benefit.</small>
-				<textarea class="form-control" id="tablingNotes" rows="3" name="tablingNotes"></textarea>
+				<textarea class="form-control" id="tablingNotes" rows="3" name="tablingNotes"><%=shift.notes%></textarea>
 			</div>
 			<hr>
 		</div>
@@ -210,13 +211,13 @@
 			<div class="form-row align-items-end">
 				<div class="form-group col-md-12">
 					<label for="genMeetingName">General Meeting Name</label>
-					<input type="text" class="form-control" id="genMeetingName" name="genMeetingName"  value="">
+					<input type="text" class="form-control" id="genMeetingName" name="genMeetingName"  value="<%=shift.shiftName%>">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="genMeetingNotes" aria-describedby="genMeetingNotesHelp">Notes</label>
 				<small id="genMeetingNotesHelp" class="form-text text-muted pt-0 mt-0">Any relevant info that members should know about the meeting, what they should bring, what they should wear, and anything else you think you should include for the members' benefit.</small>
-				<textarea class="form-control" id="genMeetingNotes" rows="3" name="genMeetingNotes"></textarea>
+				<textarea class="form-control" id="genMeetingNotes" rows="3" name="genMeetingNotes"><%=shift.notes%></textarea>
 			</div>
 			<hr>
 		</div>
@@ -228,10 +229,10 @@
 			<div class="form-row align-items-end mb-3">
 				<div class="form-group col-md-12">
 					<label for="meetingName">Meeting Name</label>
-					<input type="text" class="form-control" id="meetingName" name="meetingName" value="">
+					<input type="text" class="form-control" id="meetingName" name="meetingName" value="<%=shift.shiftName%>">
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" value="true" id="mMandatoryCheck" name="mMandatoryCheck" >
+					<input class="form-check-input" type="checkbox" value="true" id="mMandatoryCheck" name="mMandatoryCheck" <%= (shift.isMandatory == true)?'checked':''%>>
 					<label class="form-check-label" for="mMandatoryCheck">
 						Check if Mandatory for All Members
 					</label>
@@ -240,7 +241,7 @@
 			<div class="form-group">
 				<label for="meetingNotes" aria-describedby="meetingNotesHelp">Notes</label>
 				<small id="meetingNotesHelp" class="form-text text-muted pt-0 mt-0">Any relevant info that attendees should know about the meeting, what they should bring, what they should wear, and anything else you think you should include for the members' benefit.</small>
-				<textarea class="form-control" id="meetingNotes" rows="3" name="meetingNotes"></textarea>
+				<textarea class="form-control" id="meetingNotes" rows="3" name="meetingNotes"><%=shift.notes%></textarea>
 			</div>
 			<hr>
 		</div>
@@ -252,10 +253,10 @@
 			<div class="form-row align-items-end mb-3">
 				<div class="form-group col-md-12">
 					<label for="trainingName">Training Name</label>
-					<input type="text" class="form-control" id="trainingName" name="trainingName"  value="">
+					<input type="text" class="form-control" id="trainingName" name="trainingName"  value="<%=shift.shiftName%>">
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" value="true" id="trMandatoryCheck" name="trMandatoryCheck" >
+					<input class="form-check-input" type="checkbox" value="true" id="trMandatoryCheck" name="trMandatoryCheck" <%= (shift.isMandatory == true)?'checked':''%>>
 					<label class="form-check-label" for="trMandatoryCheck">
 						Check if Mandatory for All Members
 					</label>
@@ -264,7 +265,7 @@
 			<div class="form-group">
 				<label for="trainingNotes" aria-describedby="trainingNotesHelp">Notes</label>
 				<small id="trainingNotesHelp" class="form-text text-muted pt-0 mt-0">Any relevant info that members should know about the training, what they should bring, what they should wear, and anything else you think you should include for the members' benefit.</small>
-				<textarea class="form-control" id="trainingNotes" rows="3"  name="trainingNotes"></textarea>
+				<textarea class="form-control" id="trainingNotes" rows="3"  name="trainingNotes"><%=shift.notes%></textarea>
 			</div>
 			<hr>
 		</div>
@@ -276,13 +277,13 @@
 			<div class="form-row align-items-end">
 				<div class="form-group col-md-12">
 					<label for="socialGatheringName">Social Event Name</label>
-					<input type="text" class="form-control" id="socialGatheringName" name="socialGatheringName" value="">
+					<input type="text" class="form-control" id="socialGatheringName" name="socialGatheringName" value="<%=shift.shiftName%>">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="socialGatheringNotes" aria-describedby="socialGatheringNotesHelp">Notes</label>
 				<small id="socialGatheringNotesHelp" class="form-text text-muted pt-0 mt-0">Any relevant info that members should know about the training, what they should bring, what they should wear, and anything else you think you should include for the members' benefit.</small>
-				<textarea class="form-control" id="socialGatheringNotes" rows="3" name="socialGatheringNotes"></textarea>
+				<textarea class="form-control" id="socialGatheringNotes" rows="3" name="socialGatheringNotes"><%=shift.notes%></textarea>
 			</div>
 			<hr>
 		</div>

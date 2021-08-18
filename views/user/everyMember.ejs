@@ -2,7 +2,7 @@
 <h4 class="display-4">
 	Every Member
 </h4>
-
+<%- include("../partials/alert") %>
 <div class="container">
 	<p>
 		The following is all of SEMS's members (that we are aware of). Hours are not available for semesters before Fall 2012, so founding members' hours are not accurate.
@@ -17,22 +17,32 @@
 						<th scope="col-sm-3">First Semester</th>
 						<th scope="col-sm-3">Held Positions</th>
 						<th scope="col-sm-3">Total Hours</th>
+						<%if(currentUser.accessLevel == "officer"){%>
 							<th scope="col-sm-3">Edit</th>
+						<%}%>
 					</tr>
 				</thead>
 				<tbody>
-					
+					<%user.forEach(function(user){%>
 					<tr>
-						<td scope="row"></td>
-						<td scope="row"></td>
-						<td scope="row"></td>
+						<td scope="row"><%=user.lastName%></td>
+						<td scope="row"><%=user.firstName%></td>
+						<td scope="row"><%=user.entrySem%></td>
 						<td scope="row text-break">
-							
+							<%if(user.heldPositions){%>
+								<%user.heldPositions.forEach(function(x){%>
+									<%=x%>,&nbsp;	
+								<%})%>
+							<%} else {%>
+								-
+							<%}%>
 						</td>
-						<td scope="row"></td>
-							<td><a href="#">Edit User Infomation</a></td>
+						<td scope="row"><%=user.hours.totalHours+user.hours.currentSem+user.hours.currentMonth%></td>
+						<%if(currentUser.accessLevel == "officer"){%>
+							<td><a href="/user/<%=user._id%>/edit">Edit User Infomation</a></td>
+						<%}%>
 					</tr>
-					
+					<%});%>
 				</tbody>
 			</table>
 		</div>

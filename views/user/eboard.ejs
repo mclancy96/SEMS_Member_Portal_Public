@@ -2,7 +2,7 @@
 	<h4 class="display-4">
 		Executive Board
 	</h4>
-	
+	<%- include("../partials/alert") %>
 	<div class="container">
 		<p class="text-center">
 			The following are the current executive board officers and their responsibilities and contact information. To contact the Stockton EMS executive board in general, send an email to
@@ -16,10 +16,11 @@
 						Advisor and Associate Director of Campus Public Safety
 					</h5>
 					<div class="pl-5">
-						
-								<li></li>
-								<li><a href="mailto:"></a></li>
-						
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Stockton Advisor"){%>
+								<li><%=user.name%></li>
+								<li><a href="mailto:<%=user.email%>"><%=user.email%></a></li>
+						<%}})%>
 						<li>Responsibilities:
 							<ul>
 								<li>Handling all logical tasks with the PD and other departments</li>
@@ -35,11 +36,11 @@
 						Advisor and Chief of GTAS
 					</h5>
 					<div class="pl-5">
-						
-							
-								<li></li>
-								<li><a href="mailto:"></a></li>
-						
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "GTAS Advisor"){%>
+								<li><%=user.name%></li>
+								<li><a href="mailto:<%=user.email%>"><%=user.email%></a></li>
+						<%}})%>
 						<li>Responsibilities:
 							<ul>
 								<li>Coordinating SEMS and GTAS joint activities</li>
@@ -55,12 +56,12 @@
 						Captain/President
 					</h5>
 					<div class="pl-5">
-						
-							
-								<li></li>
-								<li><a href="mailto:"></a></li>
-								<li></li>
-						
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Captain"){%>
+								<li><%=user.name%></li>
+								<li><a href="mailto:<%=user.email%>"><%=user.email%></a></li>
+								<li><%=user.phoneNum%></li>
+						<%}})%>
 						<li>Responsibilities:
 							<ul>
 								<li>Point of contact with Stockton PD</li>
@@ -81,12 +82,12 @@
 						Lieutenant/Vice President
 					</h5>
 					<div class="pl-5">
-						
-							
-								<li></li>
-								<li><a href="mailto:"></a></li>
-								<li></li>
-						
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Lieutenant"){%>
+								<li><%=user.name%></li>
+								<li><a href="mailto:<%=user.email%>"><%=user.email%></a></li>
+								<li><%=user.phoneNum%></li>
+						<%}})%>
 						<li>Responsibilities:
 							<ul>
 								<li>Reports to the Captain</li>
@@ -107,12 +108,12 @@
 						Training Sergeant
 					</h5>
 					<div class="pl-5">
-						
-							
-								<li></li>
-								<li><a href="mailto:"></a></li>
-								<li></li>
-						
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Training Sergeant"){%>
+								<li><%=user.name%></li>
+								<li><a href="mailto:<%=user.email%>"><%=user.email%></a></li>
+								<li><%=user.phoneNum%></li>
+						<%}})%>
 						<li>Responsibilities:
 							<ul>
 								<li>Reports to the Lieutenant</li>
@@ -131,12 +132,12 @@
 						Supply Sergeant
 					</h5>
 					<div class="pl-5">
-						
-							
-								<li></li>
-								<li><a href="mailto:"></a></li>
-								<li></li>
-						
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Supply Sergeant"){%>
+								<li><%=user.name%></li>
+								<li><a href="mailto:<%=user.email%>"><%=user.email%></a></li>
+								<li><%=user.phoneNum%></li>
+						<%}})%>
 						<li>Responsibilities:
 							<ul>
 								<li>Reports to the Lieutenant</li>
@@ -155,12 +156,12 @@
 						Secretary
 					</h5>
 					<div class="pl-5">
-						
-							
-								<li></li>
-								<li><a href="mailto:"></a></li>
-								<li></li>
-						
+						<%officers.forEach(function(user){%>
+							<%if(user.title == "Secretary"){%>
+								<li><%=user.name%></li>
+								<li><a href="mailto:<%=user.email%>"><%=user.email%></a></li>
+								<li><%=user.phoneNum%></li>
+						<%}})%>
 						<li>Responsibilities:
 							<ul>
 								<li>Monitors and sends emails</li>

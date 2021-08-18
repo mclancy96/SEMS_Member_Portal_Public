@@ -14,8 +14,8 @@
 			<div class="card border-0">
 				<div class="card-header bg-secondary">
 					<h5 class="m-0">
-						<a class="btn text-light collapsed pl-0 w-100 text-left text-decoration-none" href="#">
-							<i class="far fa-user mr-2"></i><strong>User's Profile</strong>
+						<a class="btn text-light collapsed pl-0 w-100 text-left text-decoration-none" href="/user/<%=currentUser._id%>">
+							<i class="far fa-user mr-2"></i><strong><%=currentUser.firstName%>'s Profile</strong>
 						</a>
 					</h5>
 				</div>
@@ -245,6 +245,7 @@
 				</div>
 			</div>
 <!-- End -->
+	<% if(currentUser.accessLevel === "officer"){ %>
 			<hr class="bg-light p-0 m-0">
 <!-- ///////////////////////////////////////////////////////////////////////////////////// Officer Controls Start ////////////////////////////////////////////////////////////////////////////////////// -->
 			<div class="card border-0">
@@ -358,7 +359,7 @@
 						</div> -->
 						<div class="card-header bg-secondary border-0">
 							<p class="m-0 d-inline">
-								<a class="btn text-light pl-3 py-0 w-100 text-left text-decoration-none" href="#">
+								<a class="btn text-light pl-3 py-0 w-100 text-left text-decoration-none" href="https://drive.google.com/drive/folders/12ITiHRxQeHxLoI-vS9UdGxVkjMIb1wAT?usp=sharing">
 									Google Drive Officer Files
 								</a>
 							</p>
@@ -366,6 +367,7 @@
 					</div>
 				</div>
 			</div>
+	<% } %> 
 <!-- End -->
 		</div>
 	</div>

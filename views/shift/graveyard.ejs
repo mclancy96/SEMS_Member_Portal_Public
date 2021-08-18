@@ -2,6 +2,8 @@
 <h1 class="text-center display-4 spooky">
 	Shift Graveyard
 </h1>
+<%- include("../partials/alert") %>
+
 <div class="container">
 	<div class="text-center">
 		<img src="/img/grave.gif">
@@ -33,30 +35,58 @@
 				</tr>
 			</thead>
 			<tbody>
+			<% allShifts.forEach(function(shift){ %>
+					<%if(shift.status == "cancelled"){%>
+					<tr class="table-warning">
+					<%} else if (shift.status == "unstaffed"){%>
+					<tr class="table-danger">
+					<%} else if (shift.status == "staffed"){%>
+					<tr class="table-success">
+					<%} else{%>
 					<tr>
-					
-						<td scope="row"><a href="#"></a></td>
-						<td scope="row" class="capitalize"></td>
-						<td scope="row"></td>
-						<td scope="row"></td>
-						<td scope="row"></td>
-						<td scope="row"></td>
-						<td scope="row"></td>
-						<td scope="row"></td>
-						<td scope="row"></td>
+					<%}%>
+						<td scope="row"><a href="/shift/<%=shift._id%>"><%=shift.shiftName%></a></td>
+						<td scope="row" class="capitalize"><%=shift.status%></td>
+						<td scope="row"><%=shift.shiftStart.startDateReadable%></td>
+						<td scope="row"><%=shift.shiftEnd.endDateReadable%></td>
+						<td scope="row"><%=shift.shiftStart.reportTime%></td>
+						<td scope="row"><%=shift.shiftStart.startTime%></td>
+						<td scope="row"><%=shift.shiftEnd.endTime%></td>
+						<td scope="row"><%=shift.durationReadable%></td>
+						<td scope="row"><%=shift.shiftLocation%></td>
 						<td scope="row">
+							<%if(shift.isMandatory == true){%>
+							<span class="text-danger">Yes</span>
+							<%} else{%>
+							<span>No</span>
+							<%}%>
 						</td>
 						<td scope="row">
-							
+							<%if(shift.officerInCharge.name){%>
+							<span><%=shift.officerInCharge.name%>, <%=shift.officerInCharge.title%></span>
+							<%} else {%>
+							<span>-</span>
+							<%}%>
 						</td>
 						<td scope="row">
-							
+							<%if(shift.crewChief.name){%>
+							<span><%=shift.crewChief.name%>, <%=shift.crewChief.title%></span>
+							<%} else {%>
+							<span>-</span>
+							<%}%>
 						</td>
 						<td scope="row">
-							
+							<%if(shift.type == "ta" || shift.type == "es" || shift.type == "dc"){%>
+								<% if(shift.crewArray == null || shift.crewArray == undefined || shift.crewArray.length == 0){%>
+									-
+								<%} else {%>
+									<%= shift.crewArray.length%>/<%=shift.crewMax%>
+							<%}}else {%>
+							-
+							<%}%>
 						</td>
 					</tr>
-				
+				<%})%>
 			</tbody>
 		</table>
 	</div>

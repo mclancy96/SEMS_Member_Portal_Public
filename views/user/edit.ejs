@@ -1,21 +1,26 @@
 <%- include("../partials/completeHeader") %>
 
 <h1 class="display-4 text-center">
-	Edit 
+	Edit <%=user.name%>
 </h1>
-
+<%- include("../partials/alert") %>
 <div class="container">
 	<div class="d-flex justify-content-between border-bottom">
 		<div class="mr-auto p-2 bd-highlight" >
-			<a href="#"><i class="fas fa-long-arrow-alt-left"></i> Go back to profile page</a>
+			<a href="/user/<%=user._id%>"><i class="fas fa-long-arrow-alt-left"></i> Go back to profile page</a>
 		</div>
 	</div>
+	<%if(user.isAdmin == false || user.name == currentUser.name){%>
 		<p class="text-center">
 			Please use this form to edit 
-				user.firstName's information
+			<% if(currentUser.accessLevel === "officer"){ %>
+				<%= user.firstName%>'s information
+			<% } else { %>
+				your information	
+			<% }%> 
 		</p>
-		
-		<form action="#" method="POST">
+		<%if(user.status == "Active" || user.status == "Training" || user.status == "Probation"){%>
+		<form action="/user/<%=user._id%>?_method=PUT" method="POST">
 			<input type="hidden" name="_method" value="PUT">
 			<h4 class="text-center">
 				<u>General Information</u>
@@ -23,119 +28,120 @@
 			<div class="row form-group">
 				<div class="col">
 					<label for="firstName">First Name</label>
-					<input type="text" class="form-control" value="" name="firstName" id="firstName" required>
+					<input type="text" class="form-control" value="<%=user.firstName%>" name="firstName" id="firstName" required>
 				</div>
 				<div class="col">
 					<label for="lastName">Last Name</label>
-					<input type="text" class="form-control" value="" name="lastName" id="lastName" required>
+					<input type="text" class="form-control" value="<%=user.lastName%>" name="lastName" id="lastName" required>
 				</div>
 			</div>
 			<div class="row form-group">
 				<div class="col">
 					<label for="email" aria-describedby="emailHelp">Email Address</label>
-					<input type="text" class="form-control-plaintext font-italic" id="email" value="" name="email" readonly>
+					<input type="text" class="form-control-plaintext font-italic" id="email" value="<%=user.email%>" name="email" readonly>
 				</div>
 				<div class="col">
 					<label aria-describedby="pwdHelp">Password</label>
-					<small id="pwdHelp" class="form-text text-muted">Your password can only be reset through your email for security purposes. Please <a href="#">click here</a> to reset your password</small>
+					<small id="pwdHelp" class="form-text text-muted">Your password can only be reset through your email for security purposes. Please <a href="/forgotPassword">click here</a> to reset your password</small>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="inputAddress">Address</label>
-				<input type="text" class="form-control" id="inputAddress" value="" name="address1" required>
+				<input type="text" class="form-control" id="inputAddress" value="<%=user.address.street%>" name="address1" required>
 			</div>
 			<div class="form-group">
 				<label for="inputAddress2">Address 2</label>
-				<input type="text" class="form-control" id="inputAddress2" value="" name="address2">
+				<input type="text" class="form-control" id="inputAddress2" value="<%=user.address.line2%>" name="address2">
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="inputCity">City</label>
-					<input type="text" class="form-control" id="inputCity" name="city" required value="">
+					<input type="text" class="form-control" id="inputCity" name="city" required value="<%=user.address.city%>">
 				</div>
 				<div class="form-group col-md-4">
 					<label for="inputState">State</label>
 					<select id="inputState" class="form-control" name="state" required>
-						<option value=""></option>
-						<option value="AL" >AL</option>
-						<option value="AK" >AK</option>
-						<option value="AR" >AR</option>	
-						<option value="AZ" >AZ</option>
-						<option value="CA" >CA</option>
-						<option value="CO" >CO</option>
-						<option value="CT" >CT</option>
-						<option value="DC" >DC</option>
-						<option value="DE" >DE</option>
-						<option value="FL" >FL</option>
-						<option value="GA" >GA</option>
-						<option value="HI" >HI</option>
-						<option value="IA" >IA</option>	
-						<option value="ID" >ID</option>
-						<option value="IL" >IL</option>
-						<option value="IN" >IN</option>
-						<option value="KS" >KS</option>
-						<option value="KY" >KY</option>
-						<option value="LA" >LA</option>
-						<option value="MA" >MA</option>
-						<option value="MD" >MD</option>
-						<option value="ME" >ME</option>
-						<option value="MI" >MI</option>
-						<option value="MN" >MN</option>
-						<option value="MO" >MO</option>	
-						<option value="MS" >MS</option>
-						<option value="MT" >MT</option>
-						<option value="NC" >NC</option>	
-						<option value="NE" >NE</option>
-						<option value="NH" >NH</option>
-						<option value="NJ" >NJ</option>
-						<option value="NM" >NM</option>
-						<option value="NV" >NV</option>
-						<option value="NY" >NY</option>
-						<option value="ND" >ND</option>
-						<option value="OH" >OH</option>
-						<option value="OK" >OK</option>
-						<option value="OR" >OR</option>
-						<option value="PA" >PA</option>
-						<option value="RI" >RI</option>
-						<option value="SC" >SC</option>
-						<option value="SD" >SD</option>
-						<option value="TN" >TN</option>
-						<option value="TX" >TX</option>
-						<option value="UT" >UT</option>
-						<option value="VT" >VT</option>
-						<option value="VA" >VA</option>
-						<option value="WA" >WA</option>
-						<option value="WI" >WI</option>	
-						<option value="WV" >WV</option>
-						<option value="WY" >WY</option>
+						<option value="" <%= (user.address.state == "")?'selected':''%>></option>
+						<option value="AL" <%= (user.address.state == "AL")?'selected':''%>>AL</option>
+						<option value="AK" <%= (user.address.state == "AK")?'selected':''%>>AK</option>
+						<option value="AR" <%= (user.address.state == "AR")?'selected':''%>>AR</option>	
+						<option value="AZ" <%= (user.address.state == "AZ")?'selected':''%>>AZ</option>
+						<option value="CA" <%= (user.address.state == "CA")?'selected':''%>>CA</option>
+						<option value="CO" <%= (user.address.state == "CO")?'selected':''%>>CO</option>
+						<option value="CT" <%= (user.address.state == "CT")?'selected':''%>>CT</option>
+						<option value="DC" <%= (user.address.state == "DC")?'selected':''%>>DC</option>
+						<option value="DE" <%= (user.address.state == "DE")?'selected':''%>>DE</option>
+						<option value="FL" <%= (user.address.state == "FL")?'selected':''%>>FL</option>
+						<option value="GA" <%= (user.address.state == "GA")?'selected':''%>>GA</option>
+						<option value="HI" <%= (user.address.state == "HI")?'selected':''%>>HI</option>
+						<option value="IA" <%= (user.address.state == "IA")?'selected':''%>>IA</option>	
+						<option value="ID" <%= (user.address.state == "ID")?'selected':''%>>ID</option>
+						<option value="IL" <%= (user.address.state == "IL")?'selected':''%>>IL</option>
+						<option value="IN" <%= (user.address.state == "IN")?'selected':''%>>IN</option>
+						<option value="KS" <%= (user.address.state == "KS")?'selected':''%>>KS</option>
+						<option value="KY" <%= (user.address.state == "KY")?'selected':''%>>KY</option>
+						<option value="LA" <%= (user.address.state == "LA")?'selected':''%>>LA</option>
+						<option value="MA" <%= (user.address.state == "MA")?'selected':''%>>MA</option>
+						<option value="MD" <%= (user.address.state == "MD")?'selected':''%>>MD</option>
+						<option value="ME" <%= (user.address.state == "ME")?'selected':''%>>ME</option>
+						<option value="MI" <%= (user.address.state == "MI")?'selected':''%>>MI</option>
+						<option value="MN" <%= (user.address.state == "MN")?'selected':''%>>MN</option>
+						<option value="MO" <%= (user.address.state == "MO")?'selected':''%>>MO</option>	
+						<option value="MS" <%= (user.address.state == "MS")?'selected':''%>>MS</option>
+						<option value="MT" <%= (user.address.state == "MT")?'selected':''%>>MT</option>
+						<option value="NC" <%= (user.address.state == "NC")?'selected':''%>>NC</option>	
+						<option value="NE" <%= (user.address.state == "NE")?'selected':''%>>NE</option>
+						<option value="NH" <%= (user.address.state == "NH")?'selected':''%>>NH</option>
+						<option value="NJ" <%= (user.address.state == "NJ")?'selected':''%>>NJ</option>
+						<option value="NM" <%= (user.address.state == "NM")?'selected':''%>>NM</option>
+						<option value="NV" <%= (user.address.state == "NV")?'selected':''%>>NV</option>
+						<option value="NY" <%= (user.address.state == "NY")?'selected':''%>>NY</option>
+						<option value="ND" <%= (user.address.state == "ND")?'selected':''%>>ND</option>
+						<option value="OH" <%= (user.address.state == "OH")?'selected':''%>>OH</option>
+						<option value="OK" <%= (user.address.state == "OK")?'selected':''%>>OK</option>
+						<option value="OR" <%= (user.address.state == "OR")?'selected':''%>>OR</option>
+						<option value="PA" <%= (user.address.state == "PA")?'selected':''%>>PA</option>
+						<option value="RI" <%= (user.address.state == "RI")?'selected':''%>>RI</option>
+						<option value="SC" <%= (user.address.state == "SC")?'selected':''%>>SC</option>
+						<option value="SD" <%= (user.address.state == "SD")?'selected':''%>>SD</option>
+						<option value="TN" <%= (user.address.state == "TN")?'selected':''%>>TN</option>
+						<option value="TX" <%= (user.address.state == "TX")?'selected':''%>>TX</option>
+						<option value="UT" <%= (user.address.state == "UT")?'selected':''%>>UT</option>
+						<option value="VT" <%= (user.address.state == "VT")?'selected':''%>>VT</option>
+						<option value="VA" <%= (user.address.state == "VA")?'selected':''%>>VA</option>
+						<option value="WA" <%= (user.address.state == "WA")?'selected':''%>>WA</option>
+						<option value="WI" <%= (user.address.state == "WI")?'selected':''%>>WI</option>	
+						<option value="WV" <%= (user.address.state == "WV")?'selected':''%>>WV</option>
+						<option value="WY" <%= (user.address.state == "WY")?'selected':''%>>WY</option>
 					</select>
 				</div>
 				<div class="form-group col-md-2">
 				  <label for="zipCode">Zip</label>
-				  <input type="text" class="form-control" id="zipCode" name="zipCode" value=""required>
+				  <input type="text" class="form-control" id="zipCode" name="zipCode" value="<%=user.address.zipCode%>"required>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-sm-4">
 					<label for="zNumber" aria-describedby="zHelp">Z Number</label>
 					<small id="zHelp" class="form-text text-muted">Must be in the Z00###### format</small>
-					<input type="text" class="form-control" id="zNumber" value="#" name="zNum" pattern="Z00[0-9]{6}" required>
+					<input type="text" class="form-control" id="zNumber" value="<%=user.zNum%>" name="zNum" pattern="Z00[0-9]{6}" required>
 				</div>
 				<div class="form-group col-sm-4">
 					<label for="phoneNum" aria-describedby="phoneHelp">Phone Number</label>
 					<small id="phoneHelp" class="form-text text-muted">Must be in the ###-###-#### format</small>
-					<input type="text" class="form-control" id="phoneNum" name="phoneNum" value="#" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+					<input type="text" class="form-control" id="phoneNum" name="phoneNum" value="<%=user.phoneNum%>" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
 				</div>
 				<div class="col-sm-4 form-group">
 					<label for="currentClassStatus" aria-describedby="classHelp">Class Status</label>
 					<small id="classHelp" class="form-text text-muted">As of the current semester</small>
 					<select class="form-control" id="currentClassStatus" name="currentClassStatus"required>
-					  <option value="Freshman" >Sophomore</option>
-					  <option value="Junior" >Junior</option>
-					  <option value="Senior" >Senior</option>
-					  <option value="Super Senior" >Super Senior</option>
-					  <option value="Graduate Student" >Graduate Student</option>
+					  <option value="Freshman" <%= (user.currentClassStatus == "Freshman")?'selected':''%>>Freshman</option>
+					  <option value="Sophomore" <%= (user.currentClassStatus == "Sophomore")?'selected':''%>>Sophomore</option>
+					  <option value="Junior" <%= (user.currentClassStatus == "Junior")?'selected':''%>>Junior</option>
+					  <option value="Senior" <%= (user.currentClassStatus == "Senior")?'selected':''%>>Senior</option>
+					  <option value="Super Senior" <%= (user.currentClassStatus == "Super Senior")?'selected':''%>>Super Senior</option>
+					  <option value="Graduate Student" <%= (user.currentClassStatus == "Graduate Student")?'selected':''%>>Graduate Student</option>
 					</select>
 				</div>
 			</div>
@@ -148,13 +154,13 @@
 					<legend class="col-form-label pt-0">Do you have a driver's license?</legend>
 				  <div class="col" required>
 					<div class="form-check">
-					  <input class="form-check-input" type="radio" name="dlRadios" id="dlRadios1" value="yes" required  >
+					  <input class="form-check-input" type="radio" name="dlRadios" id="dlRadios1" value="yes" required  <%= (user.driversLicense.licensed == true)?'checked':''%>>
 					  <label class="form-check-label" for="dlRadios1">
 						Yes
 					  </label>
 					</div>
 					<div class="form-check">
-					  <input class="form-check-input" type="radio" name="dlRadios" id="dlRadios2" value="no"  >
+					  <input class="form-check-input" type="radio" name="dlRadios" id="dlRadios2" value="no" <%= (user.driversLicense.licensed == false)?'checked':''%> >
 					  <label class="form-check-label" for="dlRadios2">
 						No
 					  </label>
@@ -166,67 +172,67 @@
 				<div class="col-sm-2 mr-0 d-inline">
 					<label for="dlState" class="d-inline">DL State:</label>
 					<select class="form-control d-inline col-sm-6 p-0" id="dlState" name="dlState">
-						<option value=""></option>
-						<option value="AL" >AL</option>
-						<option value="AK" >AK</option>
-						<option value="AR" >AR</option>	
-						<option value="AZ" >AZ</option>
-						<option value="CA" >CA</option>
-						<option value="CO" >CO</option>
-						<option value="CT" >CT</option>
-						<option value="DC" >DC</option>
-						<option value="DE" >DE</option>
-						<option value="FL" >FL</option>
-						<option value="GA" >GA</option>
-						<option value="HI" >HI</option>
-						<option value="IA" >IA</option>	
-						<option value="ID" >ID</option>
-						<option value="IL" >IL</option>
-						<option value="IN" >IN</option>
-						<option value="KS" >KS</option>
-						<option value="KY" >KY</option>
-						<option value="LA" >LA</option>
-						<option value="MA" >MA</option>
-						<option value="MD" >MD</option>
-						<option value="ME" >ME</option>
-						<option value="MI" >MI</option>
-						<option value="MN" >MN</option>
-						<option value="MO" >MO</option>	
-						<option value="MS" >MS</option>
-						<option value="MT" >MT</option>
-						<option value="NC" >NC</option>	
-						<option value="NE" >NE</option>
-						<option value="NH" >NH</option>
-						<option value="NJ" >NJ</option>
-						<option value="NM" >NM</option>
-						<option value="NV" >NV</option>
-						<option value="NY" >NY</option>
-						<option value="ND" >ND</option>
-						<option value="OH" >OH</option>
-						<option value="OK" >OK</option>
-						<option value="OR" >OR</option>
-						<option value="PA" >PA</option>
-						<option value="RI" >RI</option>
-						<option value="SC" >SC</option>
-						<option value="SD" >SD</option>
-						<option value="TN" >TN</option>
-						<option value="TX" >TX</option>
-						<option value="UT" >UT</option>
-						<option value="VT" >VT</option>
-						<option value="VA" >VA</option>
-						<option value="WA" >WA</option>
-						<option value="WI" >WI</option>	
-						<option value="WV" >WV</option>
-						<option value="WY" >WY</option>
+						<option value="" <%= (user.driversLicense.dlState == "")?'selected':''%>></option>
+						<option value="AL" <%= (user.driversLicense.dlState == "AL")?'selected':''%>>AL</option>
+						<option value="AK" <%= (user.driversLicense.dlState == "AK")?'selected':''%>>AK</option>
+						<option value="AR" <%= (user.driversLicense.dlState == "AR")?'selected':''%>>AR</option>	
+						<option value="AZ" <%= (user.driversLicense.dlState == "AZ")?'selected':''%>>AZ</option>
+						<option value="CA" <%= (user.driversLicense.dlState == "CA")?'selected':''%>>CA</option>
+						<option value="CO" <%= (user.driversLicense.dlState == "CO")?'selected':''%>>CO</option>
+						<option value="CT" <%= (user.driversLicense.dlState == "CT")?'selected':''%>>CT</option>
+						<option value="DC" <%= (user.driversLicense.dlState == "DC")?'selected':''%>>DC</option>
+						<option value="DE" <%= (user.driversLicense.dlState == "DE")?'selected':''%>>DE</option>
+						<option value="FL" <%= (user.driversLicense.dlState == "FL")?'selected':''%>>FL</option>
+						<option value="GA" <%= (user.driversLicense.dlState == "GA")?'selected':''%>>GA</option>
+						<option value="HI" <%= (user.driversLicense.dlState == "HI")?'selected':''%>>HI</option>
+						<option value="IA" <%= (user.driversLicense.dlState == "IA")?'selected':''%>>IA</option>	
+						<option value="ID" <%= (user.driversLicense.dlState == "ID")?'selected':''%>>ID</option>
+						<option value="IL" <%= (user.driversLicense.dlState == "IL")?'selected':''%>>IL</option>
+						<option value="IN" <%= (user.driversLicense.dlState == "IN")?'selected':''%>>IN</option>
+						<option value="KS" <%= (user.driversLicense.dlState == "KS")?'selected':''%>>KS</option>
+						<option value="KY" <%= (user.driversLicense.dlState == "KY")?'selected':''%>>KY</option>
+						<option value="LA" <%= (user.driversLicense.dlState == "LA")?'selected':''%>>LA</option>
+						<option value="MA" <%= (user.driversLicense.dlState == "MA")?'selected':''%>>MA</option>
+						<option value="MD" <%= (user.driversLicense.dlState == "MD")?'selected':''%>>MD</option>
+						<option value="ME" <%= (user.driversLicense.dlState == "ME")?'selected':''%>>ME</option>
+						<option value="MI" <%= (user.driversLicense.dlState == "MI")?'selected':''%>>MI</option>
+						<option value="MN" <%= (user.driversLicense.dlState == "MN")?'selected':''%>>MN</option>
+						<option value="MO" <%= (user.driversLicense.dlState == "MO")?'selected':''%>>MO</option>	
+						<option value="MS" <%= (user.driversLicense.dlState == "MS")?'selected':''%>>MS</option>
+						<option value="MT" <%= (user.driversLicense.dlState == "MT")?'selected':''%>>MT</option>
+						<option value="NC" <%= (user.driversLicense.dlState == "NC")?'selected':''%>>NC</option>	
+						<option value="NE" <%= (user.driversLicense.dlState == "NE")?'selected':''%>>NE</option>
+						<option value="NH" <%= (user.driversLicense.dlState == "NH")?'selected':''%>>NH</option>
+						<option value="NJ" <%= (user.driversLicense.dlState == "NJ")?'selected':''%>>NJ</option>
+						<option value="NM" <%= (user.driversLicense.dlState == "NM")?'selected':''%>>NM</option>
+						<option value="NV" <%= (user.driversLicense.dlState == "NV")?'selected':''%>>NV</option>
+						<option value="NY" <%= (user.driversLicense.dlState == "NY")?'selected':''%>>NY</option>
+						<option value="ND" <%= (user.driversLicense.dlState == "ND")?'selected':''%>>ND</option>
+						<option value="OH" <%= (user.driversLicense.dlState == "OH")?'selected':''%>>OH</option>
+						<option value="OK" <%= (user.driversLicense.dlState == "OK")?'selected':''%>>OK</option>
+						<option value="OR" <%= (user.driversLicense.dlState == "OR")?'selected':''%>>OR</option>
+						<option value="PA" <%= (user.driversLicense.dlState == "PA")?'selected':''%>>PA</option>
+						<option value="RI" <%= (user.driversLicense.dlState == "RI")?'selected':''%>>RI</option>
+						<option value="SC" <%= (user.driversLicense.dlState == "SC")?'selected':''%>>SC</option>
+						<option value="SD" <%= (user.driversLicense.dlState == "SD")?'selected':''%>>SD</option>
+						<option value="TN" <%= (user.driversLicense.dlState == "TN")?'selected':''%>>TN</option>
+						<option value="TX" <%= (user.driversLicense.dlState == "TX")?'selected':''%>>TX</option>
+						<option value="UT" <%= (user.driversLicense.dlState == "UT")?'selected':''%>>UT</option>
+						<option value="VT" <%= (user.driversLicense.dlState == "VT")?'selected':''%>>VT</option>
+						<option value="VA" <%= (user.driversLicense.dlState == "VA")?'selected':''%>>VA</option>
+						<option value="WA" <%= (user.driversLicense.dlState == "WA")?'selected':''%>>WA</option>
+						<option value="WI" <%= (user.driversLicense.dlState == "WI")?'selected':''%>>WI</option>	
+						<option value="WV" <%= (user.driversLicense.dlState == "WV")?'selected':''%>>WV</option>
+						<option value="WY" <%= (user.driversLicense.dlState == "WY")?'selected':''%>>WY</option>
 					</select>
 				</div>
 				<div class="col-sm-5">
 					<label for="dlID" class="d-inline">DL ID:</label>
-					<input type="text"  class="pl-0 d-inline col-sm-8" name="dlID" id="dlID" value="">
+					<input type="text"  class="pl-0 d-inline col-sm-8" name="dlID" id="dlID" value="<%=user.driversLicense.dlID%>">
 				</div>
 				<div class="col-sm-5">
 					<label for="dlExpDate">DL Expiration Date:</label>
-					<input type="date" id="dlExpDate" name="dlExpDate" class="col-sm-7 p-0" pattern="\d{4}-\d{2}-\d{2}" value="">
+					<input type="date" id="dlExpDate" name="dlExpDate" class="col-sm-7 p-0" pattern="\d{4}-\d{2}-\d{2}" value="<%=dlExpDateSet%>">
 					<!-- <small id="dlDateHelp" class="form-text text-muted">Please enter in the "YYYY-MM-DD" format</small> -->
 				</div>
 
@@ -241,13 +247,13 @@
 					<small id="cprHelp" class="form-text text-muted">If you have a basic level certification, don't click yes. Learn more about the levels <a href="https://startcpr1st.com/blog/bls-vs-cpr-whats-the-difference/">here</a></small>
 				  <div class="col" required>
 					<div class="form-check">
-					  <input class="form-check-input" type="radio" name="cprRadios" id="cprRadios1" value="yes" required >
+					  <input class="form-check-input" type="radio" name="cprRadios" id="cprRadios1" value="yes" required <%= (user.cprCert.certified == true)?'checked':''%>>
 					  <label class="form-check-label" for="cprRadios1" >
 						Yes
 					  </label>
 					</div>
 					<div class="form-check">
-					  <input class="form-check-input" type="radio" name="cprRadios" id="cprRadios2" value="no" >
+					  <input class="form-check-input" type="radio" name="cprRadios" id="cprRadios2" value="no" <%= (user.cprCert.certified == false)?'checked':''%>>
 					  <label class="form-check-label" for="cprRadios2" >
 						No
 					  </label>
@@ -259,15 +265,15 @@
 				<div class="col">
 					<label for="cprProviderFormControlSelect">CPR Provider</label>
 					<select class="form-control d-inline col-sm-8" id="cprProvider" name="cprProvider">
-						<option value="" ></option>
-						<option value="AHA" >American Heart Association</option>
-						<option value="Red Cross" >American Red Cross</option>
-						<option value="Other" >Other</option>
+						<option value="" <%= (user.cprCert.cprProvider == "")?'selected':''%>></option>
+						<option value="AHA" <%= (user.cprCert.cprProvider == "AHA")?'selected':''%>>American Heart Association (AHA)</option>
+						<option value="Red Cross" <%= (user.cprCert.cprProvider == "Red Cross")?'selected':''%>>American Red Cross</option>
+						<option value="Other" <%= (user.cprCert.cprProvider == "Other")?'selected':''%>>Other</option>
 					</select>
 				</div>
 				<div class="col">
 					<label for="cprExpDate">CPR Expiration Date:</label>
-					<input type="date" id="cprExpDate" name="cprExpDate" pattern="\d{4}-\d{2}-\d{2}" value="">
+					<input type="date" id="cprExpDate" name="cprExpDate" pattern="\d{4}-\d{2}-\d{2}" value="<%=cprExpDateSet%>">
 					<!-- <small id="cprDateHelp" class="form-text text-muted">Please enter in the "YYYY-MM-DD" format</small> -->
 				</div>
 			</div>
@@ -280,13 +286,13 @@
 					<legend class="col-form-label pt-0">Do you have an EMT certification?</legend>
 					<div class="col" required>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" name="emtRadios" id="emtRadios1" value="yes" required >
+							<input class="form-check-input" type="radio" name="emtRadios" id="emtRadios1" value="yes" required <%= (user.emtCert.certified == true)?'checked':''%>>
 							<label class="form-check-label" for="emtRadios1">
 								Yes
 							</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" name="emtRadios" id="emtRadios2" value="no" >
+							<input class="form-check-input" type="radio" name="emtRadios" id="emtRadios2" value="no" <%= (user.emtCert.certified == false)?'checked':''%>>
 							<label class="form-check-label" for="emtRadios2">
 								No
 							</label>
@@ -297,15 +303,15 @@
 			<div class="row form-group" id="emtCertInfoEdit">
 				<div class="col-sm-3">
 					<label for="nremtID">NREMT ID:</label>
-					<input type="text"  class="col-sm-5 pl-0" value="" name="nremtID" id="nremtID">
+					<input type="text"  class="col-sm-5 pl-0" value="<%=user.emtCert.nremtId%>" name="nremtID" id="nremtID">
 				</div>
 				<div class="col-sm-3">
 					<label for="njEmtID">NJ EMS ID:</label>
-					<input type="text"  class="col-sm-5 pl-0" value="" name="njEmtID" id="njEmtID">
+					<input type="text"  class="col-sm-5 pl-0" value="<%=user.emtCert.njEmsId%>" name="njEmtID" id="njEmtID">
 				</div>
 				<div class="col-sm-6">
 					<label for="emtExpDate">EMT Expiration Date:</label>
-					<input type="date" id="emtExpDate" name="emtExpDate" class="col-sm-4 p-0" pattern="\d{4}-\d{2}-\d{2}" value="">
+					<input type="date" id="emtExpDate" name="emtExpDate" class="col-sm-4 p-0" pattern="\d{4}-\d{2}-\d{2}" value="<%=emtExpDateSet%>">
 					<!-- <small id="emtDateHelp" class="form-text text-muted">Please enter in the "YYYY-MM-DD" format</small> -->
 				</div>
 			</div>
@@ -317,26 +323,26 @@
 			<div class="row form-group">
 				<div class="col-auto">
 					<label for="contactName">Full Name</label>
-					<input type="text" class="" value="" name="contactName" id="contactName" required>
+					<input type="text" class="" value="<%=user.emergContact.contactName%>" name="contactName" id="contactName" required>
 				</div>
 				<div class="col-auto">
 					<label for="contactPhoneNum">Phone Number</label>
-					<input type="text" class="" value="" name="contactPhoneNum" id="contactPhoneNum" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+					<input type="text" class="" value="<%=user.emergContact.contactPhoneNum%>" name="contactPhoneNum" id="contactPhoneNum" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
 				</div>
 				<div class="col-auto">
 					<label for="contactRelationship">Relationship</label>
 					<select class="form-control d-inline col-sm-6" id="contactRelationship" name="contactRelationship" required>
-					  <option value="Mother" >Mother</option>
-					  <option value="Father">Father</option> 
-					  <option value="Brother">Brother</option> 
-					  <option value="Sister" >Sister</option>
-					  <option value="Roommate">Roommate</option> 
-					  <option value="Significant Other" >Significant Other</option>
-					  <option value="Grandparent" >Grandparent</option>
-					  <option value="Aunt" >Aunt</option>
-					  <option value="Uncle" >Uncle</option>
-					  <option value="Neighbor" >Neighbor</option>
-					  <option value="Other" >Other</option>
+					  <option value="Mother" <%= (user.emergContact.contactRelationship == "Mother")?'selected':''%>>Mother</option>
+					  <option value="Father" <%= (user.emergContact.contactRelationship == "Father")?'selected':''%>>Father</option>
+					  <option value="Brother" <%= (user.emergContact.contactRelationship == "Brother")?'selected':''%>>Brother</option>
+					  <option value="Sister" <%= (user.emergContact.contactRelationship == "Sister")?'selected':''%>>Sister</option>
+					  <option value="Roommate" <%= (user.emergContact.contactRelationship == "Roommate")?'selected':''%>>Roommate</option>
+					  <option value="Significant Other" <%= (user.emergContact.contactRelationship == "Significant Other")?'selected':''%>>Significant Other</option>
+					  <option value="Grandparent" <%= (user.emergContact.contactRelationship == "Grandparent")?'selected':''%>>Grandparent</option>
+					  <option value="Aunt" <%= (user.emergContact.contactRelationship == "Aunt")?'selected':''%>>Aunt</option>
+					  <option value="Uncle" <%= (user.emergContact.contactRelationship == "Uncle")?'selected':''%>>Uncle</option>
+					  <option value="Neighbor" <%= (user.emergContact.contactRelationship == "Neighbor")?'selected':''%>>Neighbor</option>
+					  <option value="Other" <%= (user.emergContact.contactRelationship == "Other")?'selected':''%>>Other</option>
 					</select>
 				</div>
 			</div>
@@ -350,13 +356,13 @@
 						<legend class="col-form-label pt-0">Uniform </legend>
 						<div class="d-inline">
 							<div class="form-check">
-								<input class="form-check-input" type="radio" name="uniformRadios" id="uniformRadios1" value="men" >
+								<input class="form-check-input" type="radio" name="uniformRadios" id="uniformRadios1" value="men" <%= (user.uniform.sex == "Men's")?'checked':''%>>
 								<label class="form-check-label" for="uniformRadios1">
 									Men's
 								</label>
 							</div>
 							<div class="form-check">
-								<input class="form-check-input" type="radio" name="uniformRadios" id="uniformRadios2" value="women" >
+								<input class="form-check-input" type="radio" name="uniformRadios" id="uniformRadios2" value="women" <%= (user.uniform.sex == "Women's")?'checked':''%>>
 								<label class="form-check-label" for="uniformRadios2">
 									Women's
 								</label>
@@ -367,30 +373,31 @@
 				<div class="col-sm-4 d-inline">
 					<label for="shirtSize">T-Shirt Size</label>
 					<select class="form-control col-sm-6" id="shirtSize" name="shirtSize" required>
-					  <option value="XS" >XS</option>
-					  <option value="S" >S</option>
-					  <option value="M" >M</option>
-					  <option value="L" >L</option>
-					  <option value="XL" >XL</option>
-					  <option value="2XL" >2XL</option>
-					  <option value="3XL" >3XL</option>
-					  <option value="4XL" >4XL</option>
+					  <option value="XS" <%= (user.uniform.shirtSize == "XS")?'selected':''%>>XS</option>
+					  <option value="S" <%= (user.uniform.shirtSize == "S")?'selected':''%>>S</option>
+					  <option value="M" <%= (user.uniform.shirtSize == "M")?'selected':''%>>M</option>
+					  <option value="L" <%= (user.uniform.shirtSize == "L")?'selected':''%>>L</option>
+					  <option value="XL" <%= (user.uniform.shirtSize == "XL")?'selected':''%>>XL</option>
+					  <option value="2XL" <%= (user.uniform.shirtSize == "2XL")?'selected':''%>>2XL</option>
+					  <option value="3XL" <%= (user.uniform.shirtSize == "3XL")?'selected':''%>>3XL</option>
+					  <option value="4XL" <%= (user.uniform.shirtSize == "4XL")?'selected':''%>>4XL</option>
 					</select>
 				</div>
 				<div class="col-sm-4 d-inline">
 					<label for="jacketSize">Jacket Size</label>
 					<select class="form-control col-sm-6" id="jacketSize" name="jacketSize" required>
-						<option value="XS"  >XS</option>
-						<option value="S"  >S</option>
-						<option value="M"  >M</option>
-						<option value="L"  >L</option>
-						<option value="XL"  >XL</option>
-						<option value="2XL"  >2XL</option>
-						<option value="3XL"  >3XL</option>
-						<option value="4XL"  >4XL</option>
+						<option value="XS" <%= (user.uniform.jacketSize == "XS")?'selected':''%>>XS</option>
+						<option value="S" <%= (user.uniform.jacketSize == "S")?'selected':''%>>S</option>
+						<option value="M" <%= (user.uniform.jacketSize == "M")?'selected':''%>>M</option>
+						<option value="L" <%= (user.uniform.jacketSize == "L")?'selected':''%>>L</option>
+						<option value="XL" <%= (user.uniform.jacketSize == "XL")?'selected':''%>>XL</option>
+						<option value="2XL" <%= (user.uniform.jacketSize == "2XL")?'selected':''%>>2XL</option>
+						<option value="3XL" <%= (user.uniform.jacketSize == "3XL")?'selected':''%>>3XL</option>
+						<option value="4XL" <%= (user.uniform.jacketSize == "4XL")?'selected':''%>>4XL</option>
 					</select>
 				</div>
 			</div>
+			<% if(currentUser.accessLevel == "officer"){%>
 			<hr class="bg-dark m-0">
 			<h5 class="bg-dark text-light py-4 text-center m-0">
 				<i class="fas fa-lock"></i> Officer Use Only:
@@ -415,14 +422,14 @@
 							<div class="col-sm-6 d-inline pl-5">
 								<label for="status">Status*</label>
 								<select class="form-control" id="status" name="status" required>
-									<option value="Active" >Active</option>
-									<option value="Training" >Training</option>
-									<option value="Probation" >Probation</option>
-									<option value="Terminated">Terminated</option>
-									<option value="Graduated" >Graduated</option>
-									<option value="Resigned" >Resigned</option>
-									<option value="Alumni" >Alumni**</option>
-									<option value="Delete" class="text-danger">Delete</option>
+									<option value="Active" <%= (user.status == "Active")?'selected':''%>>Active</option>
+									<option value="Training" <%= (user.status == "Training")?'selected':''%>>Training</option>
+									<option value="Probation" <%= (user.status == "Probation")?'selected':''%>>Probation</option>
+									<option value="Terminated" <%= (user.status == "Terminated")?'selected':''%>>Terminated</option>
+									<option value="Graduated" <%= (user.status == "Graduated")?'selected':''%>>Graduated</option>
+									<option value="Resigned" <%= (user.status == "Resigned")?'selected':''%>>Resigned</option>
+									<option value="Alumni" <%= (user.status == "Alumni")?'selected':''%>>Alumni**</option>
+									<option value="Delete" class="text-danger"<%= (user.status == "Delete")?'selected':''%>>Delete</option>
 								</select>
 								<p>
 									*Once you change a member's status to terminated, graduated, resigned, or alumni, the member can no longer be edited. Make sure you know that you will not need to make any more edits before you change their status!
@@ -434,29 +441,35 @@
 							<div class="col-sm-6 d-inline pr-5">
 								<label for="title">Title</label>
 								<select class="form-control" id="title" name="title" required>
-									<option value="Non-EMT" >Non-EMT</option>
-									<option value="EMT"  >EMT</option>
-									<option value="Crew Chief"  >Crew Chief</option>
-									<option value="Secretary"  >Secretary</option>
-									<option value="FTO"  >FTO</option>
-									<option value="Supply Sergeant" >Supply Sergeant</option>
-									<option value="Training Sergeant" >Training Sergeant</option>
-									<option value="Lieutenant" >Lieutenant</option>
-									<option value="Captain"  >Captain</option>
-									<option value="Stockton Advisor" >Stockton Advisor</option>
-									<option value="GTAS Advisor" >GTAS Chief Advisor</option>
+									<option value="Non-EMT" <%= (user.title == "Non-EMT")?'selected':''%>>Non-EMT</option>
+									<option value="EMT" <%= (user.title == "EMT")?'selected':''%>>EMT</option>
+									<option value="Crew Chief" <%= (user.title == "Crew Chief")?'selected':''%>>Crew Chief</option>
+									<option value="Secretary" <%= (user.title == "Secretary")?'selected':''%>>Secretary</option>
+									<option value="FTO" <%= (user.title == "FTO")?'selected':''%>>FTO</option>
+									<option value="Supply Sergeant" <%= (user.title == "Supply Sergeant")?'selected':''%>>Supply Sergeant</option>
+									<option value="Training Sergeant" <%= (user.title == "Training Sergeant")?'selected':''%>>Training Sergeant</option>
+									<option value="Lieutenant" <%= (user.title == "Lieutenant")?'selected':''%>>Lieutenant</option>
+									<option value="Captain" <%= (user.title == "Captain")?'selected':''%>>Captain</option>
+									<option value="Stockton Advisor" <%= (user.title == "Stockton Advisor")?'selected':''%>>Stockton Advisor</option>
+									<option value="GTAS Advisor" <%= (user.title == "GTAS Advisor")?'selected':''%>>GTAS Chief Advisor</option>
 								</select>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>	
+			<%}%>
 			<button type="submit" class="btn btn-success btn-lg btn-block mt-3">Submit Edits</button>
 		</form>
-		
+		<%} else {%>
 			<p>
 				This user can no longer be edited because he or she is inactive.
 			</p>
-		
+		<%}%>
+	<%} else if(user.isAdmin == true){%>
+		<p>
+			This user can not be edited because he or she is an admin.
+		</p>
+	<%}%>
 </div>
 <%- include("../partials/footer") %>

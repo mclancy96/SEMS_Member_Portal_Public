@@ -1,7 +1,7 @@
 <%- include("../partials/completeHeader") %>
 
 <h4 class="display-4">Alumni</h4>
-
+<%- include("../partials/alert") %>
 <div class="container">
 	<p>
 		The members listed below were recommended by their fellow members to be recognized for their dedication to the organization and willingness to go above and beyond the call of duty to serve the Stockton community and help in the success of the organization. Holding a position on the Executive Board is not necessary to become an Alumni member.
@@ -12,7 +12,16 @@
 	<p>
 		If you would like to recommend someone for recognition or to add information regarding a certain alumni member, please notify the executive board at&nbsp;<a href="mailto:stocktonems-club@go.stockton.edu">stocktonems-club@go.stockton.edu</a>.
 	</p>
-	
+	<%alumni.forEach(function(user){%>
+		<div>
+			<ul>
+				<strong><%=user.name%></strong>
+				<%user.heldPositions.forEach(function(x){%>
+					<li class="ml-5"><%=x%></li>
+				<%})%>
+			</ul>
+		</div>
+	<%})%>
 </div>
 	
 
